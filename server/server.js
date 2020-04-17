@@ -13,18 +13,18 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
        institution = quarantine.collection('institution');
 
         
-        //Route to read all Institutions
+    //Route to read all Institutions
     app.get("/admin/institution",function(req,res){
-        institution.find().toArray(function(err,institutions){
+        institution.find().sort({'_id':-1}).toArray(function(err,institutions){
             if(err)
                 res.send(err);
             else
                 res.send(institutions);    
             })
     });    
+          
     
-
-       //Route to Add new Institution
+    //Route to Add new Institution
     app.post("/admin/institution",function(req,res){
         institution.findOne({name:req.body.name},function(err,exists){
             if(exists == null){
@@ -38,19 +38,13 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
     });       
 
 
-       //Route for Login Form
-    app.post("/login",function(req,res){
-        user.findOne({username:req.body.username, password:req.body.password},function(err,currUser){
-            if(currUser == null)
-                res.send("null"); 
-            else if(currUser.admin ==='y')
-                res.send({admin:"y",name:currUser.username});
-            else
-                res.send({admin:"n", name:currUser.username});             
+    //Route to Delete Institution
+    app.get("/admin/institution/delete/:id" ,function(req,res){
+        institution.deleteOne({"_id":ObjectId(req.params.id)});
         })
-    });
 
-        //Route to add new user 
+
+    //Route to add new user 
     app.post("/admin/useradd",function(req,res){
         user.findOne({username:req.body.username},function(err,exists){
             if(exists == null){
@@ -62,6 +56,19 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
                 res.send("User Already Exists")    
         })
     })
+
+
+    //Route for Login Form
+    app.post("/login",function(req,res){
+        user.findOne({username:req.body.username, password:req.body.password},function(err,currUser){
+            if(currUser == null)
+                res.send("null"); 
+            else if(currUser.admin ==='y')
+                res.send({admin:"y",name:currUser.username});
+            else
+                res.send({admin:"n", name:currUser.username});             
+        })
+    });
 
 
 
