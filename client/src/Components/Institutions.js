@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-class Hotels extends Component {
+class Institutions extends Component {
     
     
     constructor(){
@@ -56,7 +56,6 @@ class Hotels extends Component {
         this.componentDidMount();
     }
 
-
     componentDidMount(){
         axios.get("http://localhost:9000/admin/institution")
         .then(res => {
@@ -65,7 +64,8 @@ class Hotels extends Component {
                     <div className='Institution'>
                         <p>Name  :{u.name}</p>
                     </div>
-                    <div onClick={this.removeInstitution.bind(this,u._id)} className="DeleteInstitution">Delete</div>
+                    <button onClick={this.removeInstitution.bind(this,u._id)} className="DeleteInstitution">Delete</button>    
+                    <button className="RoomsRedirect">Rooms</button>    
                 </div>
                 );
             this.setState({"Institutions":institutions});
@@ -91,4 +91,4 @@ class Hotels extends Component {
     }
 }
 
-export default Hotels;
+export default Institutions;
