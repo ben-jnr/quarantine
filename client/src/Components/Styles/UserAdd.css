@@ -1,0 +1,14 @@
+#UserAddTab{
+    width:30vw;
+    text-align: center;
+    margin-left: 27.5vw;
+    margin-top:15vh;
+    display:none;
+}
+
+.NewUserLabel{
+    line-height:5vh;
+}
+input{
+    width:100%;
+}
