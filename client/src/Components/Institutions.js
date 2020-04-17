@@ -32,7 +32,10 @@ class Hotels extends Component {
             axios
             .post("http://localhost:9000/admin/institution", data, config)
             .then(function(res){
-                window.location.reload();
+                if(res.data === "Institution Succesfully Added")
+                    window.location.reload();
+                else 
+                    document.getElementById("InstitutionAddMssg").innerHTML = res.data;      
             })
             .catch(err =>console.log(err));
         }                
