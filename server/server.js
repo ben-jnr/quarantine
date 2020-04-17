@@ -41,7 +41,7 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
        //Route for Login Form
     app.post("/login",function(req,res){
         user.findOne({username:req.body.username, password:req.body.password},function(err,currUser){
-            if(currUser === null)
+            if(currUser == null)
                 res.send("null"); 
             else if(currUser.admin ==='y')
                 res.send({admin:"y",name:currUser.username});

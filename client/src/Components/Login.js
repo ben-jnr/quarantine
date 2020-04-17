@@ -41,7 +41,11 @@ class Login extends Component {
                     window.location.assign("./home");
                     return;    
                 }
-                if(res.data.admin === 'y'){
+                console.log(res.data);
+                if(res.data ==null) {
+                    document.getElementById("Message").innerHTML = "Invalid Credentials";
+                }
+                else if(res.data.admin === 'y'){
                     window.localStorage.setItem("isAdminLogged", "true");
                     window.localStorage.setItem("Name", res.data.name);
                     window.location.assign("./admin");    
@@ -50,9 +54,6 @@ class Login extends Component {
                     window.localStorage.setItem("isUserLogged", "true");
                     window.localStorage.setItem("Name", res.data.name);
                     window.location.assign("./home");
-                }
-                else{
-                    document.getElementById("Message").innerHTML = "Invalid Credentials";
                 }
             })
         .catch(err => console.log(err))

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Institutions from "./Institutions";
 import UserAdd from "./UserAdd";
-import "./Styles/Admin.css"
+import "./Styles/Admin.css";
 
 class Admin extends Component {
     
