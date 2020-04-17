@@ -16,6 +16,7 @@ class UserAdd extends Component {
     }    
 
 
+    
     handleSubmit = (event) =>{
         event.preventDefault();
         document.getElementById("PasswordMismatch").innerHTML = "";    
@@ -23,28 +24,36 @@ class UserAdd extends Component {
             headers: {'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Credentials': true}
         };
-        if(this.state.password === this.state.confirmpassword)
+        if(this.state.username !== "" && this.state.password !== ""
+                    && this.state.confirmpassword !== "" && this.state.admin !== "")
         {
-            const data ={   username:this.state.username,
-                            password:this.state.password,
-                            admin: this.state.admin
-                        };
-            axios
-            .post("http://localhost:9000/admin/useradd", data, config)
-            .then(function(res){
-                document.getElementById("PasswordMismatch").innerHTML = res.data;
-            })
-            .catch(err =>console.log(err));            
+            if(this.state.password === this.state.confirmpassword)
+            {
+                const data ={   username:this.state.username,
+                                password:this.state.password,
+                                admin: this.state.admin
+                            };
+                axios
+                .post("http://localhost:9000/admin/useradd", data, config)
+                .then(function(res){
+                    document.getElementById("PasswordMismatch").innerHTML = res.data;
+                })
+                .catch(err =>console.log(err));            
+            }
+            else{
+                document.getElementById("PasswordMismatch").innerHTML = "Password Mismatch";
+            }
         }
         else{
-            document.getElementById("PasswordMismatch").innerHTML = "Password Mismatch";
-        }
+            document.getElementById("PasswordMismatch").innerHTML = "Empty Field Present";
+        }    
         this.setState({username :"", password:"", admin:"n", confirmpassword:""}); 
         document.getElementById("newUsername").value = "";
         document.getElementById("newPassword").value = "";
         document.getElementById("confirmPassword").value = "";        
     }
     
+
 
     render() {
         return (
