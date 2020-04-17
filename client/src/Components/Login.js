@@ -64,14 +64,22 @@ class Login extends Component {
     render() {
         return (
             <div id="Login">
-                <div id="LoginForm">
-                    <div className="LoginLabel">Username</div>
-                    <input onChange={this.handleChange} name="username" id="username" type="text"></input>
-                    <div className="LoginLabel">Password</div>
-                    <input onChange={this.handleChange} name="password" id="password" type="password"></input>
-                    <input type="submit" onClick={this.handleSubmit} value="Login" id="LoginButton"></input>
+            <div className="container col-md-4" id="Login">
+                <h1 className="text-center loginH1">LOGIN</h1>
+            <form id="LoginForm">
+                <div className="form-group">
+                    <label htmlFor="username">Username</label>
+                    <input type="text" onChange={this.handleChange} name="username" id="username" className="form-control"  placeholder="Enter username"/>
                 </div>
-                <div id="Message"></div>
+            <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input type="password" onChange={this.handleChange} name="password" id="password" className="form-control" placeholder="Password" />
+            </div>
+
+                <button type="submit" onClick={this.handleSubmit} value="Login" id="LoginButton" className="btn btn-primary">Login</button>
+            </form>
+            </div>
+            <div id="Message"></div>
             </div>
         );
     }
