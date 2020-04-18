@@ -7,15 +7,22 @@ class Institutions extends Component {
     constructor(props){
         super(props);
         this.state={newInstitution:"",
+                    District:"",
                     Institutions :[]};
     }
         
 
-    handleChange =(event)=>{
+    handleChange =(event)=>{    
         this.setState({
             [event.target.name]: event.target.value
           });
     }  
+
+    handleDropdown = event =>{
+        this.setState({
+            ["District"]: event.target.options[event.target.options.selectedIndex].value
+          });
+    }
 
     handleSubmit = (event) =>{
         event.preventDefault();
@@ -24,9 +31,12 @@ class Institutions extends Component {
             headers: {'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Credentials': true}
         };
-        if(this.state.newInstitution !== "")
+        if(this.state.newInstitution !== "" && this.state.District != "")
         {
-            const data ={name:this.state.newInstitution};
+            const data ={
+                        name:this.state.newInstitution,
+                        district:this.state.District
+                        };
             var tempThis = this;
             axios
             .post("http://localhost:9000/admin/institution", data, config)
@@ -39,7 +49,7 @@ class Institutions extends Component {
                             <div class="card mb-2">
                                 <div class="card-body">
                                 <h5 className="card-title">{u.name}</h5>
-                                <h6 className="card-subtitle mb-2 text-muted">Place</h6>
+                                <h6 className="card-subtitle mb-2 text-muted">{u.district}</h6>
                                 <button type="button" class="btn btn-primary mr-3">
                                         Total Rooms <span class="badge badge-light">9</span>
                                 </button>
@@ -59,17 +69,17 @@ class Institutions extends Component {
                     tempThis.setState({"Institutions":institutions});
                 }
                 else 
-                    document.getElementById("InstitutionAddMssg").innerHTML = res.data.mssg;      
+                    document.getElementById("InstitutionAddMssg").innerHTML = "Institution Already Exists";      
             })
             .catch(err =>console.log(err));
         }                
         else{
             document.getElementById("InstitutionAddMssg").innerHTML = "Empty Field";
         }    
-        this.setState({newInstitution:""}); 
-        document.getElementById("NewInstitution").value = "";  
+        this.setState({newInstitution:"",District:""}); 
+        document.getElementById("instName").value = "";
+        document.getElementById("dist").options.selectedIndex = 0;
     }
-
 
 
     removeInstitution = (id) =>{
@@ -97,7 +107,7 @@ class Institutions extends Component {
                     <div class="card mb-2">
                         <div class="card-body">
                         <h5 className="card-title">{u.name}</h5>
-                        <h6 className="card-subtitle mb-2 text-muted">Place</h6>
+                        <h6 className="card-subtitle mb-2 text-muted">{u.district}</h6>
                         <button type="button" class="btn btn-primary mr-3 mb-2">
                                 Total Rooms <span class="badge badge-light">9</span>
                         </button>
@@ -123,38 +133,32 @@ class Institutions extends Component {
     render() {
         return (
             <div id="InstitutionTab p-2">
-                {/* <div id="NewInstituteForm" className="input-group mb-3 col-md-6">
-                    <input type="text" className="form-control" name="newInstitution" id="NewInstitution" onChange={this.handleChange}></input>
-                    <div className="input-group-append">
-                    <button type="submit" id="NewInsititutionButton" className="input-group-text btn btn-sm" onClick={this.handleSubmit}>Add</button>  
-                    </div>
-                </div>  */}
                 <div className="form-row">
                 <div class="form-group col-md-6">
                     <label for="instName">Name</label>
-                    <input type="email" class="form-control" id="instName" placeholder="Name of institution"/>
+                    <input type="text" name="newInstitution" class="form-control" id="instName" placeholder="Name of institution" onChange={this.handleChange}/>
                 </div>
                 
                 <div class="input-group mb-2">
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="dist">District</label>
                             </div>
-                            <select class="custom-select" id="dist" size="1">
+                            <select class="custom-select" name="District" id="dist" size="1" onChange={this.handleDropdown}>
                                 <option selected>Choose...</option>
-                                <option value="1">Kasaragod</option>
-                                <option value="2">Kannur</option>
-                                <option value="3">Kozhikode</option>
-                                <option value="4">Wayanad</option>
-                                <option value="5">Malapuram</option>
-                                <option value="6">Palakad</option>
-                                <option value="7">Thrissur</option>
-                                <option value="8">Ernakulam</option>
-                                <option value="9">Idukki</option>
-                                <option value="10">Kottayam</option>
-                                <option value="11">Alapuzha</option>
-                                <option value="12">Pathanamthitta</option>
-                                <option value="13">Kollam</option>
-                                <option value="14">Thiruvananthapuram</option>
+                                <option value="Alappuzha">Alappuzha</option>
+                                <option value="Ernakulam">Ernakulam</option>
+                                <option value="Idukki">Idukki</option>
+                                <option value="Kannur">Kannur</option>
+                                <option value="Kasaragod">Kasaragod</option>
+                                <option value="Kollam">Kollam</option>
+                                <option value="Kottayam">Kottayam</option>
+                                <option value="Kozhikode">Kozhikode</option>
+                                <option value="Malappuram">Malappuram</option>
+                                <option value="Palakkad">Palakkad</option>
+                                <option value="Pathanamthitta">Pathanamthitta</option>
+                                <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                                <option value="Thrissur">Thrissur</option>
+                                <option value="Wayanad">Wayanad</option>
                             </select>
                         </div>
                 
