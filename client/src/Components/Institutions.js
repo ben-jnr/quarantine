@@ -76,9 +76,9 @@ class Institutions extends Component {
                         </button><br/>
                         <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={this.removeInstitution.bind(this,u._id)}>Delete</button>
                     </div>
+                    <button onClick={this.removeInstitution.bind(this,u._id)} className="DeleteInstitution">Delete</button>    
+                    <button className="RoomsRedirect">Rooms</button>    
                 </div>
-
-                    
                 </div>
                 );
             this.setState({"Institutions":institutions});
