@@ -4,21 +4,18 @@ import axios from 'axios';
 class Institutions extends Component {
     
     
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state={newInstitution:"",
                     Institutions :[]};
-        window.localStorage.setItem('currPage','Instructions');
     }
         
 
-    handleChange = (event)=>{
+    handleChange =(event)=>{
         this.setState({
             [event.target.name]: event.target.value
           });
     }  
-
-
 
     handleSubmit = (event) =>{
         event.preventDefault();
@@ -52,6 +49,7 @@ class Institutions extends Component {
                                 <button type="button" class="btn btn-danger mr-3">
                                         Non deconataminated <span class="badge badge-light">9</span>
                                 </button><br/>
+                                <button className="btn btn-primary  mt-2 float-right" onClick={tempThis.roomsRedirect.bind(tempThis,u.name)}>Check Rooms</button>
                                 <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={tempThis.removeInstitution.bind(tempThis,u._id)}>Delete</button>
                             </div>  
                         </div>
@@ -73,6 +71,7 @@ class Institutions extends Component {
     }
 
 
+
     removeInstitution = (id) =>{
         if(window.confirm("Are you sure?"))
         {
@@ -81,6 +80,14 @@ class Institutions extends Component {
         }  
         this.componentDidMount();
     }
+
+
+    roomsRedirect = (name) =>{
+        var url = "/admin/"+ name ;
+        window.location.assign(url);
+    }
+
+
 
     componentDidMount(){
         axios.get("http://localhost:9000/admin/institution")
@@ -100,6 +107,7 @@ class Institutions extends Component {
                         <button type="button" class="btn btn-danger mr-3">
                                 Non deconataminated <span class="badge badge-light">9</span>
                         </button><br/>
+                        <button className="btn btn-primary  mt-2 float-right" onClick={this.roomsRedirect.bind(this,u.name)}>Check Rooms</button>
                         <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={this.removeInstitution.bind(this,u._id)}>Delete</button>
                     </div>  
                 </div>

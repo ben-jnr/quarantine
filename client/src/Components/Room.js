@@ -1,9 +1,30 @@
 import React, { Component } from 'react'
 
 class Room extends Component {
+
+    constructor(props){
+        super(props);
+        this.state={newInstitution:"",
+                    Institutions :[]};              
+    }
+
+    componentDidMount(){
+        document.getElementById('v-pills-home-tab').classList.remove('active');
+        document.getElementById('v-pills-institution-tab').classList.add('active');
+        document.getElementById('v-pills-home').classList.remove('active');
+        document.getElementById('v-pills-institution').classList.add('active');
+        document.getElementById('v-pills-home').classList.remove('show');
+        document.getElementById('v-pills-institution').classList.add('show');
+    }
+
+
+
     render() {
         return (
             <div className="input-group">
+                <div>
+                    <a href="/admin"><button className="btn btn-primary">Back</button></a>
+                </div>
                     <form>
                         <div className="form-group">
                             <label for="exampleInputEmail1">Room No</label>
