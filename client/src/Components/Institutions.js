@@ -8,6 +8,7 @@ class Institutions extends Component {
         super();
         this.state={newInstitution:"",
                     Institutions :[]};
+        window.localStorage.setItem('currPage','Instructions');
     }
         
 
@@ -29,13 +30,38 @@ class Institutions extends Component {
         if(this.state.newInstitution !== "")
         {
             const data ={name:this.state.newInstitution};
+            var tempThis = this;
             axios
             .post("http://localhost:9000/admin/institution", data, config)
             .then(function(res){
-                if(res.data === "Institution Succesfully Added")
-                    window.location.reload();
+                if(res.data.mssg === "Institution Succesfully Added")
+                  {  
+                    var institutions = tempThis.state["Institutions"];
+                    const newInstitution = res.data.current.ops.map( u =>
+                        <div  key={u._id} className="InstitutionsContainer">
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                <h5 className="card-title">{u.name}</h5>
+                                <h6 className="card-subtitle mb-2 text-muted">Place</h6>
+                                <button type="button" class="btn btn-primary mr-3">
+                                        Total Rooms <span class="badge badge-light">9</span>
+                                </button>
+                                <button type="button" class="btn btn-success mr-3">
+                                        Decontaminated <span class="badge badge-light">9</span>
+                                </button>
+                                <button type="button" class="btn btn-danger mr-3">
+                                        Non deconataminated <span class="badge badge-light">9</span>
+                                </button><br/>
+                                <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={tempThis.removeInstitution.bind(tempThis,u._id)}>Delete</button>
+                            </div>  
+                        </div>
+                        </div>
+                        );
+                    institutions.unshift(newInstitution);
+                    tempThis.setState({"Institutions":institutions});
+                }
                 else 
-                    document.getElementById("InstitutionAddMssg").innerHTML = res.data;      
+                    document.getElementById("InstitutionAddMssg").innerHTML = res.data.mssg;      
             })
             .catch(err =>console.log(err));
         }                
