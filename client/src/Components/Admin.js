@@ -40,7 +40,6 @@ class Admin extends Component {
 
 
       <div class="tab-pane fade" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-        New User
         <UserAdd />
       </div>
         

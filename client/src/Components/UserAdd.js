@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import "./Styles/UserAdd.css";
 
-class UserAdd extends Component {
+class UserAdd extends Component 
+{
     constructor(){
         super()
         this.state = {username :"", password:"", admin:"n", confirmpassword:""};
@@ -13,7 +14,7 @@ class UserAdd extends Component {
         this.setState({
             [event.target.name]: event.target.value
           });
-    }    
+}    
 
 
     
@@ -42,6 +43,8 @@ class UserAdd extends Component {
             }
             else{
                 document.getElementById("PasswordMismatch").innerHTML = "Password Mismatch";
+                
+            
             }
         }
         else{
@@ -57,23 +60,41 @@ class UserAdd extends Component {
 
     render() {
         return (
-            <div id="UserAddTab">
-                <div id="NewUserForm">
-                    <div className = "NewUserLabel">Username:</div>
-                    <input onChange={this.handleChange} name="username" id="newUsername" type="text"></input>
-                    <div className = "NewUserLabel">Password:</div>
-                    <input onChange={this.handleChange} name="password" id="newPassword" type="password"></input>
-                    <div className = "NewUserLabel">Re-enter Password:</div>
-                    <input onChange={this.handleChange} name="confirmpassword" id="confirmPassword" type="password"></input> 
-                    <div className = "NewUserLabel">Admin Privileges:</div>
-                    Yes<input name="admin" onChange={this.handleChange} value="y" type="radio"></input>
-                    No<input name="admin" onChange={this.handleChange} value="n" type="radio" checked id="Admin"></input>
-                    <input type="submit" value="Create" id="UserCreateButton" onClick={this.handleSubmit}></input>
-                </div>
-                <div id="PasswordMismatch">
 
-                </div>
+            <div>
+                <form className="col-7">
+                    <h2 className="text-center">Add User</h2><hr/>
+                    <div className="form-group">
+                        <label for="username">Email address</label>
+                        <input type="email" className="form-control" id="newUsername" onChange={this.handleChange} name="username" placeholder="Enter email" required/>
+                    </div>
+                    <div className="form-group">
+                        <label for="newPassword">Password</label>
+                        <input type="password" onChange={this.handleChange} name="password" className="form-control" id="newPassword" placeholder="Password" required/>
+                    </div>
+                    <div className="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" onChange={this.handleChange} name="confirmpassword" className="form-control" id="confirmPassword" placeholder="Confirm Password" required/>
+                    </div>
+                    <h4>Grant admin privilages ?</h4>
+                    <div className="row mb-3 ml-2">
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="rBtn1" name="admin" value="y" class="custom-control-input"/>
+                        <label class="custom-control-label" for="rBtn1">Yes</label>
+                    </div>
+                    <div class="custom-control custom-radio ml-4">
+                        <input type="radio" id="rBtn2" name="admin" value="n" class="custom-control-input"/>
+                        <label class="custom-control-label" for="rBtn2">No</label>
+                    </div>
+                    </div>
+                    <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Add User</button>
+                    </form>
+                    <div id="PasswordMismatch">
+                        
+                    </div>
+                    
             </div>
+            
         );
     }
 }
