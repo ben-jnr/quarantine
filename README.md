@@ -2,11 +2,11 @@
 <strong>quarantine management web app using MERN stack</strong>
 
 <p>have node and mongodb installed on your local machine</p>
-<p>install all the required npm packages</p>
 
 <p>to run this app :</p>
 <ul>
   <li>clone it to your local machine</li>
+  <li>install all the required npm packages</li>
   <li>open your mongo terminal using mongo/mongod command and type in the following commands</li>
   <ol>
     <li>use quarantine</li>
