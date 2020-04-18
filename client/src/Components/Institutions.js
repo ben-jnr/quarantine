@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-class Hotels extends Component {
+class Institutions extends Component {
     
     
     constructor(){
@@ -32,7 +32,10 @@ class Hotels extends Component {
             axios
             .post("http://localhost:9000/admin/institution", data, config)
             .then(function(res){
-                window.location.reload();
+                if(res.data === "Institution Succesfully Added")
+                    window.location.reload();
+                else 
+                    document.getElementById("InstitutionAddMssg").innerHTML = res.data;      
             })
             .catch(err =>console.log(err));
         }                
@@ -53,22 +56,15 @@ class Hotels extends Component {
         this.componentDidMount();
     }
 
-
     componentDidMount(){
         axios.get("http://localhost:9000/admin/institution")
         .then(res => {
             const institutions = res.data.map( u =>
                 <div  key={u._id} className="InstitutionsContainer">
-                    {/* <div className='Institution'>
-                        <p>Name  :{u.name}</p>
-                    </div>
-                    <div onClick={this.removeInstitution.bind(this,u._id)} className="DeleteInstitution">Delete</div> */}
                     <div class="card mb-2">
                         <div class="card-body">
                         <h5 className="card-title">{u.name}</h5>
                         <h6 className="card-subtitle mb-2 text-muted">Place</h6>
-                        {/* <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
-                        Some info about that....</p> */}
                         <button type="button" class="btn btn-primary mr-3">
                                 Total Rooms <span class="badge badge-light">9</span>
                         </button>
@@ -81,6 +77,8 @@ class Hotels extends Component {
                         <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={this.removeInstitution.bind(this,u._id)}>Delete</button>
                     </div>
                 </div>
+
+                    
                 </div>
                 );
             this.setState({"Institutions":institutions});
@@ -108,4 +106,4 @@ class Hotels extends Component {
     }
 }
 
-export default Hotels;
+export default Institutions;

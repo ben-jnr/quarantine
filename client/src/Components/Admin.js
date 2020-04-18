@@ -16,21 +16,6 @@ class Admin extends Component {
     render() {
         return (
             <div className="container p-3">
-                {/* <div id="AdminNav">    
-                    <div id="AdminName">Hi, {window.localStorage.getItem("Name")}</div>
-                    <button onClick ={this.logout} id="AdminLogoutButton">Logout</button>
-                </div>
-
-                <div id="Tabbar">
-                    <div className="active" className="TabButton">Institutions</div>
-                    <div className="TabButton">New User</div> 
-                    <div className="TabButton">Room</div>
-                </div>
-
-                <div id="TabWindow">
-                    <Institutions id="Institutions"/>
-                    <UserAdd id="UserAdd"/>
-                </div> */}
 
 <div class="row">
   <div class="col-3 p-2">
