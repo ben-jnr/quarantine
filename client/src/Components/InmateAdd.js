@@ -1,0 +1,55 @@
+import React, { Component } from 'react'
+
+class InmateAdd extends Component {
+    render() {
+        return (
+            <div className="input-group">
+                    <form>
+                        <div className="form-group">
+                            <label for="inmateName">Name</label>
+                            <input type="text" className="form-control" id="inmateName" placeholder="Enter name"/>
+                        </div>
+                        <div className="form-group">
+                            <label for="exampleInputPassword1">Age</label>
+                            <input type="text" min="1" className="form-control" id="inmateAge" placeholder="Age"/>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inmateSex">Sex</label>
+                            </div>
+                            <select class="custom-select" id="inmateSex">
+                                <option selected>Choose...</option>
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                                <option value="3">Other</option>
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <label for="inmatePhone">Contact No</label>
+                            <input type="text"  className="form-control" id="inmatePhone" placeholder="Phone number"/>
+                        </div>
+                        <h4>Current health status</h4> 
+                        <div className="form-group mb-3" id="stat">   
+                            <buton className="btn btn-danger mr-3"><span className="mt-2">I'm feeling sick <i className="fa fa-meh-o fa-1x"></i></span></buton>
+                            <buton className="btn btn-success"><span>I'm fine <i className="fa fa-smile-o fa-1x"></i></span></buton>
+                        </div><hr/>
+                        
+                        <div className="form-group">
+                            <h4>Previous medical history <button className="btn btn-warning">Submit incase of illness</button></h4>
+                            <span>Please upload an image stating previous medical history</span>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="customFile"/>
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
+                        </div>
+                            <hr/>
+
+                        <button type="submit" className="btn btn-primary btn-lg mt-3">Add inmate</button>
+                    </form>
+            </div>
+
+        )
+    }
+}
+
+export default InmateAdd

@@ -59,10 +59,28 @@ class Hotels extends Component {
         .then(res => {
             const institutions = res.data.map( u =>
                 <div  key={u._id} className="InstitutionsContainer">
-                    <div className='Institution'>
+                    {/* <div className='Institution'>
                         <p>Name  :{u.name}</p>
                     </div>
-                    <div onClick={this.removeInstitution.bind(this,u._id)} className="DeleteInstitution">Delete</div>
+                    <div onClick={this.removeInstitution.bind(this,u._id)} className="DeleteInstitution">Delete</div> */}
+                    <div class="card mb-2">
+                        <div class="card-body">
+                        <h5 className="card-title">{u.name}</h5>
+                        <h6 className="card-subtitle mb-2 text-muted">Place</h6>
+                        {/* <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+                        Some info about that....</p> */}
+                        <button type="button" class="btn btn-primary mr-3">
+                                Total Rooms <span class="badge badge-light">9</span>
+                        </button>
+                        <button type="button" class="btn btn-success mr-3">
+                                Decontaminated <span class="badge badge-light">9</span>
+                        </button>
+                        <button type="button" class="btn btn-danger mr-3">
+                                Non deconataminated <span class="badge badge-light">9</span>
+                        </button><br/>
+                        <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={this.removeInstitution.bind(this,u._id)}>Delete</button>
+                    </div>
+                </div>
                 </div>
                 );
             this.setState({"Institutions":institutions});
@@ -74,16 +92,18 @@ class Hotels extends Component {
        
     render() {
         return (
-            <div id="InstitutionTab">
-                <div id="NewInstituteForm">
-                    <input type="text" name="newInstitution" id="NewInstitution" onChange={this.handleChange}></input>
-                    <input type="submit" id="NewInsititutionButton" onClick={this.handleSubmit} value="Add Institution"></input>  
+            <div id="InstitutionTab p-2">
+                <div id="NewInstituteForm" className="input-group mb-3">
+                    <input type="text" className="form-control" name="newInstitution" id="NewInstitution" onChange={this.handleChange}></input>
+                    <div className="input-group-append">
+                    <button type="submit" id="NewInsititutionButton" className="input-group-text btn btn-sm" onClick={this.handleSubmit}>Add</button>  
+                    </div>
                 </div> 
                 <div id="InstitutionAddMssg"></div>
                 <div>
                     { this.state.Institutions } 
                 </div>               
-            </div>
+            </div>  
         );
     }
 }
