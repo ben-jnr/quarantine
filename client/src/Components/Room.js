@@ -23,21 +23,21 @@ class Room extends Component {
         return (
             <div className="input-group">
                 <div>
-                    <a href="/admin"><button className="btn btn-primary">Back</button></a>
+                    <a href="/admin"><button className="btn btn-primary mr-2">Back</button></a>
                 </div>
                     <form>
                         <div className="form-group">
                             <label for="exampleInputEmail1">Room No</label>
-                            <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"/>
+                            <input type="text" className="form-control" id="roomNo" placeholder="Room No"/>
                         </div>
-                        <div className="form-group">
+                        {/* <div className="form-group">
                             <label for="exampleInputPassword1">No of inmate</label>
                             <input type="number" min="1" className="form-control" id="exampleInputPassword1" placeholder="No of inmate"/>
                         </div>
                         <div className="form-group">
                             <label for="exampleInputPassword1">Date of check-in</label>
                             <input type="date" className="form-control" id="exampleInputPassword1" placeholder="No of inmate"/>
-                        </div>
+                        </div> */}
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="inputGroupSelect01">Status</label>

@@ -23,7 +23,7 @@ class InmateAdd extends Component {
                         </div>
                         <h4>Current health status</h4> 
                         <div className="form-group mb-3" id="stat">   
-                            <buton className="btn btn-danger mr-3"><span className="mt-2">I'm feeling sick <i className="fa fa-meh-o fa-1x"></i></span></buton>
+                            <buton className="btn btn-danger mr-3 mb-2"><span className="mt-2">I'm feeling sick <i className="fa fa-meh-o fa-1x"></i></span></buton>
                             <buton className="btn btn-success"><span>I'm fine <i className="fa fa-smile-o fa-1x"></i></span></buton>
                         </div><hr/>
                         

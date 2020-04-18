@@ -98,16 +98,16 @@ class Institutions extends Component {
                         <div class="card-body">
                         <h5 className="card-title">{u.name}</h5>
                         <h6 className="card-subtitle mb-2 text-muted">Place</h6>
-                        <button type="button" class="btn btn-primary mr-3">
+                        <button type="button" class="btn btn-primary mr-3 mb-2">
                                 Total Rooms <span class="badge badge-light">9</span>
                         </button>
-                        <button type="button" class="btn btn-success mr-3">
+                        <button type="button" class="btn btn-success mr-3 mb-2">
                                 Decontaminated <span class="badge badge-light">9</span>
                         </button>
-                        <button type="button" class="btn btn-danger mr-3">
+                        <button type="button" class="btn btn-danger mr-3 mb-2">
                                 Non deconataminated <span class="badge badge-light">9</span>
                         </button><br/>
-                        <button className="btn btn-primary  mt-2 float-right" onClick={this.roomsRedirect.bind(this,u.name)}>Check Rooms</button>
+                        <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={this.roomsRedirect.bind(this,u.name)}>Check Rooms</button>
                         <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={this.removeInstitution.bind(this,u._id)}>Delete</button>
                     </div>  
                 </div>
@@ -123,12 +123,44 @@ class Institutions extends Component {
     render() {
         return (
             <div id="InstitutionTab p-2">
-                <div id="NewInstituteForm" className="input-group mb-3">
+                {/* <div id="NewInstituteForm" className="input-group mb-3 col-md-6">
                     <input type="text" className="form-control" name="newInstitution" id="NewInstitution" onChange={this.handleChange}></input>
                     <div className="input-group-append">
                     <button type="submit" id="NewInsititutionButton" className="input-group-text btn btn-sm" onClick={this.handleSubmit}>Add</button>  
                     </div>
-                </div> 
+                </div>  */}
+                <div className="form-row">
+                <div class="form-group col-md-6">
+                    <label for="instName">Name</label>
+                    <input type="email" class="form-control" id="instName" placeholder="Name of institution"/>
+                </div>
+                
+                <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="dist">District</label>
+                            </div>
+                            <select class="custom-select" id="dist" size="1">
+                                <option selected>Choose...</option>
+                                <option value="1">Kasaragod</option>
+                                <option value="2">Kannur</option>
+                                <option value="3">Kozhikode</option>
+                                <option value="4">Wayanad</option>
+                                <option value="5">Malapuram</option>
+                                <option value="6">Palakad</option>
+                                <option value="7">Thrissur</option>
+                                <option value="8">Ernakulam</option>
+                                <option value="9">Idukki</option>
+                                <option value="10">Kottayam</option>
+                                <option value="11">Alapuzha</option>
+                                <option value="12">Pathanamthitta</option>
+                                <option value="13">Kollam</option>
+                                <option value="14">Thiruvananthapuram</option>
+                            </select>
+                        </div>
+                
+                <button type="submit" id="NewInsititutionButton" className="btn btn-primary btn-lg btn-block mb-4" onClick={this.handleSubmit}>Add Institution</button>  
+                    
+                </div>
                 <div id="InstitutionAddMssg"></div>
                 <div>
                     { this.state.Institutions } 

@@ -62,7 +62,7 @@ class UserAdd extends Component
         return (
 
             <div>
-                <form className="col-7">
+                <form className="col-md-7">
                     <h2 className="text-center">Add User</h2><hr/>
                     <div className="form-group">
                         <label for="username">Email address</label>
