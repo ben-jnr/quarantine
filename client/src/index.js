@@ -20,14 +20,14 @@ ReactDOM.render((
             
             {
                 window.localStorage.getItem("isAdminLogged")? 
-                    <Route exact path = "/admin" component = {Admin} />
-                    :<Route exact path = "/admin" component = {Login} />
+                    <Route path = "/admin" component = {Admin} />
+                    :<Route path = "/admin" component = {Login} />
             }    
             
             {
                 window.localStorage.getItem("isUserLogged")?
-                <Route exact path = "/home" component = {Home} />
-                :<Route exact path = "/home" component = {Login} />
+                <Route  path = "/home" component = {Home} />
+                :<Route path = "/home" component = {Login} />
             }    
             
         </div>

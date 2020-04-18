@@ -10,9 +10,10 @@ app.use(express.json());
 mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true }, function(err, database) {
    var quarantine = database.db('quarantine'),
        user  = quarantine.collection('user');
-       institution = quarantine.collection('institution');
+       institution = quarantine.collection('institution');  
 
         
+
     //Route to read all Institutions
     app.get("/admin/institution",function(req,res){
         institution.find().sort({'_id':-1}).toArray(function(err,institutions){
@@ -23,12 +24,13 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
             })
     });    
           
+
     
     //Route to Add new Institution
     app.post("/admin/institution",function(req,res){
         institution.findOne({name:req.body.name},function(err,exists){
             if(exists == null){
-                institution.insertOne({name:req.body.name},function(err, currHotel){
+                institution.insertOne({name:req.body.name, rooms:[]},function(err, currInstitution){
                     res.send("Institution Succesfully Added");
                 })
             }
@@ -38,10 +40,13 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
     });       
 
 
+
     //Route to Delete Institution
     app.get("/admin/institution/delete/:id" ,function(req,res){
         institution.deleteOne({"_id":ObjectId(req.params.id)});
         })
+
+    
 
 
     //Route to add new user 
@@ -57,6 +62,7 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
         })
     })
 
+    
 
     //Route for Login Form
     app.post("/login",function(req,res){
@@ -69,9 +75,6 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
                 res.send({admin:"n", name:currUser.username});             
         })
     });
-
-
-
 
     app.listen(port, function(req,res){
         console.log("Server is Running");
