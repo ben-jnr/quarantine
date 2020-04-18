@@ -9,8 +9,9 @@ app.use(express.json());
 
 mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true }, function(err, database) {
    var quarantine = database.db('quarantine'),
-       user  = quarantine.collection('user');
-       institution = quarantine.collection('institution');  
+       user  = quarantine.collection('user'),
+       institution = quarantine.collection('institution'),
+       room = quarantine.collection('room');  
 
         
 
@@ -28,9 +29,10 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
     
     //Route to Add new Institution
     app.post("/admin/institution",function(req,res){
-        institution.findOne({name:req.body.name},function(err,exists){
+        institution.findOne({name:req.body.name, district:req.body.district},function(err,exists){
             if(exists == null){
-                institution.insertOne({name:req.body.name, rooms:[]},function(err, currInstitution){
+                institution.insertOne({name:req.body.name,
+                                        district:req.body.district},function(err, currInstitution){
                     res.send({mssg:"Institution Succesfully Added",
                             current:currInstitution
                     });
