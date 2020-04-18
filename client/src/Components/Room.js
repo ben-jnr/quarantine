@@ -28,7 +28,7 @@ class Room extends Component {
                             </select>
                         </div>
 
-                        <button type="submit" className="btn btn-primary">Submit</button>
+                        <button type="submit" className="btn btn-primary">Add room</button>
                     </form>
             </div>
             
