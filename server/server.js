@@ -31,12 +31,15 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
         institution.findOne({name:req.body.name},function(err,exists){
             if(exists == null){
                 institution.insertOne({name:req.body.name, rooms:[]},function(err, currInstitution){
-                    res.send("Institution Succesfully Added");
+                    res.send({mssg:"Institution Succesfully Added",
+                            current:currInstitution
+                    });
                 })
             }
             else
                 res.send("Institution Already Exist");
         })
+        institution.findOne({name:req.body.name},function(err,exists){});
     });       
 
 
@@ -54,7 +57,7 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
         user.findOne({username:req.body.username},function(err,exists){
             if(exists == null){
                 user.insertOne(req.body,function(err,newUser){
-                    res.send("User sucessfully added")
+                    res.send("User sucessfully added");
                 })
             }
             else
