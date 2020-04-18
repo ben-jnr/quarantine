@@ -2,6 +2,7 @@
 <strong>quarantine management web app using MERN stack</strong>
 
 <p>have node and mongodb installed on your local machine</p>
+<p>install all the required npm packages</p>
 
 <p>to run this app :</p>
 <ul>
