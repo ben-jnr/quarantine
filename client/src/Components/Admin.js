@@ -39,8 +39,11 @@ class Admin extends Component {
      </div>
 
 
-      <div class="tab-pane fade" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-messages-tab">User</div>
-      
+      <div class="tab-pane fade" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+        New User
+        <UserAdd />
+      </div>
+        
 
       <div class="tab-pane fade" id="v-pills-room" role="tabpanel" aria-labelledby="v-pills-settings-tab">
         <h2>Room</h2>
