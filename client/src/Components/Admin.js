@@ -4,6 +4,7 @@ import UserAdd from "./UserAdd";
 import Room from "./Room";
 import "./Styles/Admin.css";
 import InmateAdd from './InmateAdd';
+import RoomInfo from './RoomInfo';
 
 class Admin extends Component {
     
@@ -55,7 +56,7 @@ class Admin extends Component {
       </div>
 
       <div class="tab-pane fade" id="v-pills-roomInfo" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-        <h2>Hi</h2>
+        <RoomInfo/>
       </div>
 
     </div>
