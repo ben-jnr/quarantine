@@ -13,16 +13,9 @@ class InmateAdd extends Component {
                             <label for="exampleInputPassword1">Age</label>
                             <input type="text" min="1" className="form-control" id="inmateAge" placeholder="Age"/>
                         </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" for="inmateSex">Sex</label>
-                            </div>
-                            <select class="custom-select" id="inmateSex">
-                                <option selected>Choose...</option>
-                                <option value="1">Male</option>
-                                <option value="2">Female</option>
-                                <option value="3">Other</option>
-                            </select>
+                        <div class="form-group">
+                            <label for="inmateAddr">Address</label>
+                            <textarea class="form-control" id="inmateAddr" rows="3"></textarea>
                         </div>
                         <div className="form-group">
                             <label for="inmatePhone">Contact No</label>
