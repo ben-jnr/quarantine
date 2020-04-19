@@ -109,7 +109,7 @@ class Institutions extends Component {
                         <h5 className="card-title">{u.name}</h5>
                         <h6 className="card-subtitle mb-2 text-muted">{u.district}</h6>
                         <button type="button" class="btn btn-primary mr-3 mb-2">
-                                Total Rooms <span class="badge badge-light">9</span>
+                                Total Rooms <span class="badge badge-light">{u.rooms.length}</span>
                         </button>
                         <button type="button" class="btn btn-success mr-3 mb-2">
                                 Decontaminated <span class="badge badge-light">9</span>

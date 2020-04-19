@@ -44,7 +44,8 @@ class Room extends Component {
             const data ={
                         no:this.state.no,
                         floor:this.state.floor,
-                        status:this.state.status
+                        status:this.state.status,
+                        inmate:{}
                         };
             var tempThis = this;
             var url = "http://localhost:9000/admin/"+this.name+'/'+this.district;
@@ -53,7 +54,6 @@ class Room extends Component {
             .then(function(res){
                 if(res.data.mssg === "Room Successfully Added")
                 {
-                    console.log(res.data.rooms);
                     const Rooms = res.data.rooms.map( u => 
                         <div className="InstitutionsContainer">
                             <div class="card mb-2">
@@ -62,7 +62,7 @@ class Room extends Component {
                                     <h6 className="card-subtitle mb-2 text-muted">Floor: {u.floor}</h6>
                                     <h6 className="card-subtitle mb-2 text-muted">Contaminated: {u.status}</h6>
                                     <button className="btn btn-primary  mt-2 ml-2 float-right">Info</button>
-                                    <button className="btn btn-danger DeleteInstitution mt-2 float-right">Delete</button>
+                                    <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={tempThis.removeInstitution.bind(tempThis,u.no+'/'+u.floor)}>Delete</button>
                                 </div>  
                             </div>
                         </div>
@@ -99,7 +99,7 @@ class Room extends Component {
                             <h6 className="card-subtitle mb-2 text-muted">Floor: {u.floor}</h6>
                             <h6 className="card-subtitle mb-2 text-muted">Contaminated: {u.status}</h6>
                             <button className="btn btn-primary  mt-2 ml-2 float-right">Info</button>
-                            <button className="btn btn-danger DeleteInstitution mt-2 float-right">Delete</button>
+                            <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={this.removeInstitution.bind(this,u.no+'/'+u.floor)}>Delete</button>
                         </div>  
                     </div>
                 </div>
@@ -110,6 +110,32 @@ class Room extends Component {
     }
 
 
+    removeInstitution = (roomUrl) =>{
+        if(window.confirm("Are you sure?"))
+        {
+            var url = "http://localhost:9000/admin/"+ this.name+'/'+this.district+'/'+roomUrl+'/delete/';
+            axios.get(url)
+            .then(res =>{
+                if(res.data.mssg==="Room Successfully Deleted"){
+                    const Rooms = res.data.rooms.map( u => 
+                        <div className="InstitutionsContainer">
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <h5 className="card-title">Room No: {u.no}</h5>
+                                    <h6 className="card-subtitle mb-2 text-muted">Floor: {u.floor}</h6>
+                                    <h6 className="card-subtitle mb-2 text-muted">Contaminated: {u.status}</h6>
+                                    <button className="btn btn-primary  mt-2 ml-2 float-right">Info</button>
+                                    <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={this.removeInstitution.bind(this,u.no+'/'+u.floor)}>Delete</button>
+                                </div>  
+                            </div>
+                        </div>
+                    );
+                    this.setState({"Rooms": Rooms});
+                }
+            })
+            .catch(err => console.log(err));
+        }  
+    }
 
     render() {
         return (

@@ -49,7 +49,7 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
     //Route to Delete Institution
     app.get("/admin/institution/delete/:id" ,function(req,res){
         institution.deleteOne({"_id":ObjectId(req.params.id)});
-        })
+    })
 
     
 
@@ -78,7 +78,7 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
                                     district:req.params.district
                                     },
                                     {$set: {
-                                        rooms:rooms
+                                        rooms:rooms,
                                     }},function(err,newRoom){
                                         if(err)
                                             console.log(err);
@@ -96,6 +96,7 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
     });          
 
 
+
     //Route to read all rooms
     app.get("/admin/:name/:district",function(req,res){
         institution.findOne({name:req.params.name, district:req.params.district},function(err,exists){
@@ -108,6 +109,38 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
             }    
         })    
     })
+
+
+
+
+    //Route to delete room
+    app.get("/admin/:name/:district/:no/:floor/delete/" ,function(req,res){
+        institution.findOne({name:req.params.name, district:req.params.district},function(err,exists)
+        {
+            if(exists !== null){
+                var rooms = exists.rooms;
+                var newRooms = [];
+                for(var i=0;i<rooms.length;i++){
+                    if(rooms[i].no !== req.params.no && rooms[i].floor !== req.params.district)
+                        newRooms.push(rooms[i]);
+                }
+                institution.updateOne({
+                    name:req.params.name,
+                    district:req.params.district
+                    },
+                    {$set: {
+                        rooms:newRooms,
+                    }},function(err,current){
+                        if(err)
+                            console.log(err);
+                        else    
+                            res.send({mssg:"Room Successfully Deleted",
+                                    rooms:newRooms});
+                    })
+            }
+        })
+    })
+
 
 
     //Route to add new user 
