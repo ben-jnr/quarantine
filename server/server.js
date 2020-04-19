@@ -10,8 +10,7 @@ app.use(express.json());
 mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true }, function(err, database) {
    var quarantine = database.db('quarantine'),
        user  = quarantine.collection('user'),
-       institution = quarantine.collection('institution'),
-       room = quarantine.collection('room');  
+       institution = quarantine.collection('institution'); 
 
         
 
@@ -32,16 +31,17 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
         institution.findOne({name:req.body.name, district:req.body.district},function(err,exists){
             if(exists == null){
                 institution.insertOne({name:req.body.name,
-                                        district:req.body.district},function(err, currInstitution){
+                                        district:req.body.district,
+                                        rooms:[]
+                                    },function(err, currInstitution){
                     res.send({mssg:"Institution Succesfully Added",
                             current:currInstitution
                     });
                 })
             }
             else
-                res.send("Institution Already Exist");
+                res.send("Institution Already Exist");    
         })
-        institution.findOne({name:req.body.name},function(err,exists){});
     });       
 
 
@@ -52,6 +52,63 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
         })
 
     
+
+    //route to add new Room
+    app.post("/admin/:name/:district",function(req,res){
+        institution.findOne({name:req.params.name, district:req.params.district},function(err,exists){
+            if(exists == null){
+                res.send({mssg:"Hotel does not Exist"}); 
+            }
+            else{
+                var rooms = exists.rooms;
+                console.log(rooms);
+                var flag=0;
+                for(var i=0;i<rooms.length;i++){
+                    if(rooms[i].no === req.body.no && rooms[i].floor == req.body.floor)
+                    {
+                        flag=1;
+                        break;
+                    }   
+                }
+                if(flag===0)
+                {
+                    rooms.push(req.body);
+                    rooms.sort((a, b) => (a.floor > b.floor) ? 1 : (a.floor === b.floor) ? ((a.no > b.no) ? 1 : -1) : -1 );
+                    institution.updateOne({
+                                    name:req.params.name,
+                                    district:req.params.district
+                                    },
+                                    {$set: {
+                                        rooms:rooms
+                                    }},function(err,newRoom){
+                                        if(err)
+                                            console.log(err);
+                                        else    
+                                            res.send({mssg:"Room Successfully Added",
+                                                    rooms:rooms});
+                                    })
+                }
+                else
+                {
+                    res.send({mssg:"Room Already Exists"});
+                }    
+            }
+        })           
+    });          
+
+
+    //Route to read all rooms
+    app.get("/admin/:name/:district",function(req,res){
+        institution.findOne({name:req.params.name, district:req.params.district},function(err,exists){
+            if(exists == null){
+                res.send({mssg:"failed"});
+            }
+            else{
+                exists.rooms.sort((a, b) => (a.floor > b.floor) ? 1 : (a.floor === b.floor) ? ((a.no > b.no) ? 1 : -1) : -1 );
+                res.send({mssg:"success", rooms:(exists.rooms)});
+            }    
+        })    
+    })
 
 
     //Route to add new user 
