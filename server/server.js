@@ -121,8 +121,8 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
                 var rooms = exists.rooms;
                 var newRooms = [];
                 for(var i=0;i<rooms.length;i++){
-                    if(rooms[i].no !== req.params.no && rooms[i].floor !== req.params.district)
-                        newRooms.push(rooms[i]);
+                    if(rooms[i].no !== req.params.no || rooms[i].floor !== req.params.floor)
+                            newRooms.push(rooms[i]);
                 }
                 institution.updateOne({
                     name:req.params.name,

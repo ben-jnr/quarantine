@@ -23,6 +23,8 @@ class Admin extends Component {
         return(<Institutions />)
       else if(this.props.currTab === "Rooms")
         return(<Rooms />)
+      else if(this.props.currTab === "Inmate")
+        return(<RoomInfo />)  
     }
 
     componentDidMount(){
@@ -73,10 +75,6 @@ class Admin extends Component {
                       <div class="tab-pane fade" id="v-pills-inmate" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                         <h2>Inmate</h2>
                         <InmateAdd/>
-                      </div>
-
-                      <div class="tab-pane fade" id="v-pills-roomInfo" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                        <RoomInfo/>
                       </div>
 
                     </div>
