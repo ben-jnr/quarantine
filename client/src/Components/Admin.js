@@ -5,6 +5,7 @@ import Rooms from "./Room"
 import "./Styles/Admin.css";
 import InmateAdd from './InmateAdd';
 import RoomInfo from './RoomInfo';
+import Home from './Home';
 
 class Admin extends Component {
     constructor(props){
@@ -43,7 +44,7 @@ class Admin extends Component {
 
     render() {
         return (
-            <div className="container p-3">
+            <div className="p-3">
               <div class="row">
                 <div class="col-3 p-2">
                   <div className="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -57,7 +58,7 @@ class Admin extends Component {
                 </div>
                 <div className="col-9">
                   <div className="tab-content ml-4" id="v-pills-tabContent">
-                    <div className="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">Home</div>
+                    <div className="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"><Home/></div>
                       <div className="tab-pane fade p-2" id="v-pills-institution" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                         <h2>{this.props.currTab}</h2> 
                         {this.selectTab()}

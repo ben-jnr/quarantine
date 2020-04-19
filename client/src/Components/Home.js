@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import DistrictInfo from './DistrictInfo';
 class Home extends Component {
     
     logout = () => {
@@ -11,9 +11,10 @@ class Home extends Component {
     render() {
         return (
             <div>
-                Home Page
+                {/* Home Page
                 <div id="UserName">Hi, {window.localStorage.getItem("Name")}</div>
-                <button onClick ={this.logout} id="UserLogoutButton">Logout</button>
+                <button onClick ={this.logout} id="UserLogoutButton">Logout</button> */}
+                <DistrictInfo/>
             </div>
         );
     }
