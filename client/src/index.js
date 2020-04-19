@@ -30,6 +30,12 @@ ReactDOM.render((
                     :<Route exact path = "/admin/:name" component = {Login} />
             }
             
+            {
+                window.localStorage.getItem("isAdminLogged")? 
+                    <Route exact path = "/admin/:name/:room" render={() => <Admin currTab="Inmate"/>} />
+                    :<Route exact path = "/admin/:name/:room" component = {Login} />
+            }
+            
             
             {
                 window.localStorage.getItem("isUserLogged")?
