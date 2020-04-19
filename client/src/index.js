@@ -12,7 +12,7 @@ ReactDOM.render((
         <div>
             {
                 window.localStorage.getItem("isAdminLogged")? 
-                    <Route exact path = "/" component = {Admin}/>
+                    <Route exact path = "/" render={() => <Admin currTab="Institutions"/>}/>
                     :window.localStorage.getItem("isUserLogged")? 
                         <Route exact path = "/" component = {Home}/>
                         :<Route exact path = "/" component = {Login}/>

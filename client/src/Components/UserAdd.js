@@ -76,7 +76,7 @@ class UserAdd extends Component
                         <label for="confirmPassword">Confirm Password</label>
                         <input type="password" onChange={this.handleChange} name="confirmpassword" className="form-control" id="confirmPassword" placeholder="Confirm Password" required/>
                     </div>
-                    <h4>Grant admin privilages ?</h4>
+                    <h4>Grant admin privileges ?</h4>
                     <div className="row mb-3 ml-2">
                     <div class="custom-control custom-radio">
                         <input type="radio" id="rBtn1" name="admin" value="y" class="custom-control-input"/>
