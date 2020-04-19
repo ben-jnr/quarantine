@@ -61,7 +61,6 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
             }
             else{
                 var rooms = exists.rooms;
-                console.log(rooms);
                 var flag=0;
                 for(var i=0;i<rooms.length;i++){
                     if(rooms[i].no === req.body.no && rooms[i].floor == req.body.floor)

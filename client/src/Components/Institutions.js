@@ -99,6 +99,7 @@ class Institutions extends Component {
 
 
     componentDidMount(){
+        window.localStorage.setItem('currTab',"Institutions");
         axios.get("http://localhost:9000/admin/institution")
         .then(res => {
             const institutions = res.data.map( u =>

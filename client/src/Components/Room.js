@@ -79,20 +79,15 @@ class Room extends Component {
         }    
         this.setState({no:"",status:""}); 
         document.getElementById("roomNo").value = "";
+        document.getElementById("floorNo").value = "";
+        document.getElementById("roomStatus").options.selectedIndex = 0;
     }
 
 
     
 
     componentDidMount(){
-        document.getElementById('v-pills-home-tab').classList.remove('active');
-        document.getElementById('v-pills-institution-tab').classList.add('active');
-        document.getElementById('v-pills-home').classList.remove('active');
-        document.getElementById('v-pills-institution').classList.add('active');
-        document.getElementById('v-pills-home').classList.remove('show');
-        document.getElementById('v-pills-institution').classList.add('show');
-        console.log(document.getElementById('v-pills-home-tab'));
-        console.log(document.getElementById('v-pills-institution-tab'));
+        window.localStorage.setItem('currTab',"Institutions");
         var url = "http://localhost:9000/admin/"+this.name+'/'+this.district;
         axios.get(url)
         .then(res => {
@@ -115,6 +110,7 @@ class Room extends Component {
     }
 
 
+
     render() {
         return (
         <div>
@@ -135,7 +131,7 @@ class Room extends Component {
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="inputGroupSelect01">Status</label>
                             </div>
-                            <select class="custom-select" id="roomStatus" name='status' id="inputGroupSelect01" onChange={this.handleDropdown}>
+                            <select class="custom-select" id="roomStatus" name='status' onChange={this.handleDropdown}>
                                 <option selected>Choose...</option>
                                 <option value="no">Decontaminated</option>
                                 <option value="yes">Contaminated</option>
