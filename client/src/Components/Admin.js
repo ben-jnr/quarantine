@@ -3,7 +3,6 @@ import Institutions from "./Institutions";
 import UserAdd from "./UserAdd";
 import Rooms from "./Room"
 import "./Styles/Admin.css";
-import InmateAdd from './InmateAdd';
 import RoomInfo from './RoomInfo';
 import Home from './Home';
 
@@ -52,8 +51,7 @@ class Admin extends Component {
                   <div className="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a className="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
                     <a className="nav-link" id="v-pills-institution-tab" data-toggle="pill" href="#v-pills-institution" role="tab" aria-controls="v-pills-profile" aria-selected="false">{this.props.currTab}</a>
-                    <a className="nav-link" id="v-pills-user-tab" data-toggle="pill" href="#v-pills-user" role="tab" aria-controls="v-pills-messages" aria-selected="false">User</a>
-                    <a className="nav-link" id="v-pills-addInmate-tab" data-toggle="pill" href="#v-pills-inmate" role="tab"aria-selected="false">Add Inmate</a>
+                    <a className="nav-link" id="v-pills-user-tab" data-toggle="pill" href="#v-pills-user" role="tab" aria-controls="v-pills-messages" aria-selected="false">Add User</a>
                     <a className="nav-link" id="v-pills-logout" onClick ={this.logout} data-toggle="pill" href="#v-pills-settings" role="tab"aria-selected="false">Logout</a>
                   </div>
                 </div>
@@ -70,11 +68,6 @@ class Admin extends Component {
                         <UserAdd />
                       </div>
                         
-
-                      <div class="tab-pane fade" id="v-pills-inmate" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                        <h2>Inmate</h2>
-                        <InmateAdd/>
-                      </div>
 
                     </div>
                   </div>

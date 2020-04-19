@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import InmateTab from './InmateTab'
+import InmateAdd from './InmateAdd';
+
 
 class RoomInfo extends Component {
     constructor(props){
@@ -42,6 +44,9 @@ class RoomInfo extends Component {
                     </div>
                     <div className="col peopleInfo">
                         <InmateTab/>
+                    </div>
+                    <div>
+                        <InmateAdd/>
                     </div>
                 </div>
             </div>

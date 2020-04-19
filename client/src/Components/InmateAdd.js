@@ -28,12 +28,8 @@ class InmateAdd extends Component {
                         </div><hr/>
                         
                         <div className="form-group">
-                            <h4>Previous medical history <button className="btn btn-warning">Submit incase of illness</button></h4>
-                            <span>Please upload an image stating previous medical history</span>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="customFile"/>
-                                <label class="custom-file-label" for="customFile">Choose file</label>
-                            </div>
+                            <h4>Previous medical history</h4>
+                            <textarea class="form-control" id="inmateHistory" rows='3'></textarea>
                         </div>
                             <hr/>
 
