@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class InmateAdd extends Component {
+class InmateAdd extends Component {  
     render() {
         return (
             <div className="input-group">
