@@ -7,6 +7,7 @@ class Login extends Component {
     constructor(){
         super();
         this.state = {username:"" , password:""};
+        window.localStorage.setItem('currTab',"Home");
     }
 
 
