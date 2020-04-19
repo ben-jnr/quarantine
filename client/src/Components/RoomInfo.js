@@ -2,22 +2,43 @@ import React, { Component } from 'react'
 import InmateTab from './InmateTab'
 
 class RoomInfo extends Component {
+    constructor(props){
+        super(props)
+        var url = window.location.pathname;
+        this.name=url.split("/")[2].split("-")[0];
+        this.district=url.split("/")[2].split("-")[1];
+        this.no=url.split("/")[3].split("-")[0];
+        this.floor=url.split("/")[3].split("-")[1];
+        this.state = {
+            status:"",
+            Inmate:""
+        };
+
+    }
+    
+    
+
+    RoomsRedirect = () =>{
+        var url = "/admin/"+this.name+'-'+this.district + '/';
+        window.location.assign(url);
+    }
+
+
     render() {
         return (
             <div>
-                <h2>Room no : room number here</h2>
+                <div>
+                    <button onClick={this.RoomsRedirect} class='btn btn-primary'>Back</button>
+                </div>
                 <div className="row">
                     <div className="col roomInfo container">
                         <button type="button" class="btn btn-primary mb-2">
-                            Room no <span class="badge badge-light">4</span>
+                            Room no <span class="badge badge-light">{this.no}</span>
                         </button><br/>
-                        <button type="button" class="btn btn-info mb-2">
-                            Double Bed room <span class="badge badge-light"></span>
-                        </button><br/>
-                        <button type="button" class="btn btn-secondary mb-2">
-                            No of inmates <span class="badge badge-light">4</span>
-                        </button><br/>
-                        <button className="btn btn-danger">Room status : Contaminated</button>
+                        <button type="button" class="btn btn-primary mb-2">
+                            Floor no <span class="badge badge-light">{this.floor}</span>
+                        </button>
+                        <button className="btn btn-danger">Room status : {this.status}</button>
                     </div>
                     <div className="col peopleInfo">
                         <InmateTab/>

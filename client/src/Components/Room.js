@@ -55,14 +55,14 @@ class Room extends Component {
                 if(res.data.mssg === "Room Successfully Added")
                 {
                     const Rooms = res.data.rooms.map( u => 
-                        <div className="InstitutionsContainer">
+                        <div className="RoomsContainer">
                             <div class="card mb-2">
                                 <div class="card-body">
                                     <h5 className="card-title">Room No: {u.no}</h5>
                                     <h6 className="card-subtitle mb-2 text-muted">Floor: {u.floor}</h6>
                                     <h6 className="card-subtitle mb-2 text-muted">Contaminated: {u.status}</h6>
-                                    <button className="btn btn-primary  mt-2 ml-2 float-right">Info</button>
-                                    <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={tempThis.removeInstitution.bind(tempThis,u.no+'/'+u.floor)}>Delete</button>
+                                    <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={tempThis.inmateRedirect.bind(tempThis,'/admin/'+tempThis.name+'-'+tempThis.district+'/'+u.no+'-'+u.floor+'/')}>Info</button>
+                                    <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={tempThis.removeRoom.bind(tempThis,u.no+'/'+u.floor)}>Delete</button>
                                 </div>  
                             </div>
                         </div>
@@ -92,14 +92,14 @@ class Room extends Component {
         axios.get(url)
         .then(res => {
             const Rooms = res.data.rooms.map( u => 
-                <div className="InstitutionsContainer">
+                <div className="RoomsContainer">
                     <div class="card mb-2">
                         <div class="card-body">
                             <h5 className="card-title">Room No: {u.no}</h5>
                             <h6 className="card-subtitle mb-2 text-muted">Floor: {u.floor}</h6>
                             <h6 className="card-subtitle mb-2 text-muted">Contaminated: {u.status}</h6>
-                            <button className="btn btn-primary  mt-2 ml-2 float-right">Info</button>
-                            <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={this.removeInstitution.bind(this,u.no+'/'+u.floor)}>Delete</button>
+                            <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={this.inmateRedirect.bind(this,'/admin/'+this.name+'-'+this.district+'/'+u.no+'-'+u.floor+'/')}>Info</button>
+                            <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={this.removeRoom.bind(this,u.no+'/'+u.floor)}>Delete</button>
                         </div>  
                     </div>
                 </div>
@@ -110,7 +110,7 @@ class Room extends Component {
     }
 
 
-    removeInstitution = (roomUrl) =>{
+    removeRoom = (roomUrl) =>{
         if(window.confirm("Are you sure?"))
         {
             var url = "http://localhost:9000/admin/"+ this.name+'/'+this.district+'/'+roomUrl+'/delete/';
@@ -118,14 +118,14 @@ class Room extends Component {
             .then(res =>{
                 if(res.data.mssg==="Room Successfully Deleted"){
                     const Rooms = res.data.rooms.map( u => 
-                        <div className="InstitutionsContainer">
+                        <div className="RoomsContainer">
                             <div class="card mb-2">
                                 <div class="card-body">
                                     <h5 className="card-title">Room No: {u.no}</h5>
                                     <h6 className="card-subtitle mb-2 text-muted">Floor: {u.floor}</h6>
                                     <h6 className="card-subtitle mb-2 text-muted">Contaminated: {u.status}</h6>
-                                    <button className="btn btn-primary  mt-2 ml-2 float-right">Info</button>
-                                    <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={this.removeInstitution.bind(this,u.no+'/'+u.floor)}>Delete</button>
+                                    <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={this.inmateRedirect.bind(this,'/admin/'+this.name+'-'+this.district+'/'+u.no+'-'+u.floor+'/')}>Info</button>
+                                    <button className="btn btn-danger DeleteRoom mt-2 float-right" onClick={this.removeRoom.bind(this,u.no+'/'+u.floor)}>Delete</button>
                                 </div>  
                             </div>
                         </div>
@@ -136,6 +136,10 @@ class Room extends Component {
             .catch(err => console.log(err));
         }  
     }
+
+    inmateRedirect = (url) =>{
+        window.location.assign(url);
+   }
 
     render() {
         return (

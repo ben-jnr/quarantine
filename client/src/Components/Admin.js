@@ -54,7 +54,6 @@ class Admin extends Component {
                     <a className="nav-link" id="v-pills-institution-tab" data-toggle="pill" href="#v-pills-institution" role="tab" aria-controls="v-pills-profile" aria-selected="false">{this.props.currTab}</a>
                     <a className="nav-link" id="v-pills-user-tab" data-toggle="pill" href="#v-pills-user" role="tab" aria-controls="v-pills-messages" aria-selected="false">User</a>
                     <a className="nav-link" id="v-pills-addInmate-tab" data-toggle="pill" href="#v-pills-inmate" role="tab"aria-selected="false">Add Inmate</a>
-                    <a className="nav-link" id="v-pills-roonInfo-tab" data-toggle="pill" href="#v-pills-roomInfo" role="ta b"aria-selected="false">Room info</a>
                     <a className="nav-link" id="v-pills-logout" onClick ={this.logout} data-toggle="pill" href="#v-pills-settings" role="tab"aria-selected="false">Logout</a>
                   </div>
                 </div>
