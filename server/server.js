@@ -12,7 +12,6 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
        user  = quarantine.collection('user'),
        institution = quarantine.collection('institution'); 
 
-        
 
     //Route to read all Institutions
     app.get("/admin/institution",function(req,res){
@@ -143,7 +142,7 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
 
 
 
-    //Route to read patient and returns the particular room
+    //Route to read Inmate and returns the particular room
     app.get("/admin/:name/:district/:no/:floor/patient",function(req,res){
         institution.findOne({name:req.params.name, district:req.params.district} , function(err,exists){
             if(exists != null)
@@ -179,6 +178,7 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
     //Route to add new inmate
     app.post("/admin/:name/:district/:no/:floor/",function(req,res){
         institution.findOne({name:req.params.name , district:req.params.district},function(err,exists){
+            console.log(req.body);
             if(exists !== null){
                 var flag = 0;
                 rooms=exists.rooms;
@@ -193,6 +193,7 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
                         rooms[i].address = req.body.address;
                         rooms[i].curr = req.body.curr;
                         rooms[i].prev = req.body.prev;
+                        rooms[i].status = req.body.status
                         break;        
                     }
                 }

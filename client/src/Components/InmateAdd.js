@@ -34,13 +34,14 @@ class InmateAdd extends Component {
             && this.state.address !== "" && this.state.curr !== ""){
                 
                 var url = "http://localhost:9000/admin/"+ this.name+'/'+this.district+'/'+this.no+'/'+this.floor+'/';
-                const data = {
+                var data = {
                             name:this.state.name,
                             age:this.state.age,
                             phn:this.state.phn,
                             address:this.state.address,
                             curr:this.state.curr,
-                            prev:this.state.prev
+                            prev:this.state.prev,
+                            status:"yes"
                         }
                 var config = {
                     headers: {'Access-Control-Allow-Origin': '*',
@@ -50,7 +51,7 @@ class InmateAdd extends Component {
                 axios.post(url,data,config)
                 .then(function(res){
                     console.log(res.data);
-                    tempThis.props.parentRender();
+                    tempThis.props.parentRender(data);
                 })
                 .catch(err => {console.log(err)});            
                 
