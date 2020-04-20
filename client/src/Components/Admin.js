@@ -13,7 +13,6 @@ class Admin extends Component {
 
     logout = () => {
         window.localStorage.removeItem("isAdminLogged");
-        window.localStorage.removeItem("Name");
         window.location.replace("/");
     }
 
@@ -29,8 +28,11 @@ class Admin extends Component {
     componentDidMount(){
       if(window.localStorage.getItem('currTab')==="Home"){
         document.getElementById('v-pills-home-tab').classList.add('active');
+        document.getElementById('v-pills-institution-tab').classList.remove('active');
         document.getElementById('v-pills-home').classList.add('active');
+        document.getElementById('v-pills-institution').classList.remove('active');
         document.getElementById('v-pills-home').classList.add('show');
+        document.getElementById('v-pills-institution').classList.remove('show');
       }
       if(window.localStorage.getItem('currTab')==="Institutions")
       {
