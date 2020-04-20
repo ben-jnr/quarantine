@@ -7,7 +7,10 @@ class Login extends Component {
     constructor(){
         super();
         this.state = {username:"" , password:""};
-        window.localStorage.setItem('currTab',"Home");
+        window.localStorage.removeItem('currTab');
+        window.localStorage.removeItem('location');
+        window.localStorage.removeItem('isAdminLogged');
+        window.localStorage.removeItem('isUserLogged');
     }
 
 
@@ -56,7 +59,8 @@ class Login extends Component {
                 }
             })
         .catch(err => console.log(err))
-        
+        window.localStorage.setItem('currTab',"Home");
+        window.localStorage.setItem('location',"Alappuzha");
     }
 
 

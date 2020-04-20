@@ -13,6 +13,8 @@ class Admin extends Component {
 
     logout = () => {
         window.localStorage.removeItem("isAdminLogged");
+        window.localStorage.removeItem("currTab");
+        window.localStorage.removeItem("location");
         window.location.replace("/");
     }
 
