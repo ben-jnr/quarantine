@@ -143,6 +143,84 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
 
 
 
+    //Route to read patient and returns the particular room
+    app.get("/admin/:name/:district/:no/:floor/patient",function(req,res){
+        institution.findOne({name:req.params.name, district:req.params.district} , function(err,exists){
+            if(exists != null)
+            {
+                var room ={};
+                var flag = 0;
+                rooms = exists.rooms;
+                for(var i=0;i<rooms.length;i++)
+                {                    
+                    if((rooms[i].no === req.params.no) && (rooms[i].floor === req.params.floor))
+                    {
+                        flag=1;
+                        room = rooms[i];
+                        break;
+                    }
+                }   
+                if(flag === 1)
+                {
+                    res.send({mssg:"Room Found" , room:room});
+                }
+                else{
+                    res.send({mssg:"Room Not Found"});    
+                }    
+            }
+            else
+            {
+                res.send({mssg:"Institution Doesnt Exist"})
+            }
+        })
+    })
+
+
+    //Route to add new inmate
+    app.post("/admin/:name/:district/:no/:floor/",function(req,res){
+        institution.findOne({name:req.params.name , district:req.params.district},function(err,exists){
+            if(exists !== null){
+                var flag = 0;
+                rooms=exists.rooms;
+                for(var i=0;i<rooms.length;i++)
+                {
+                    if(rooms[i].no === req.params.no && rooms[i].floor === req.params.floor )
+                    {
+                        flag=1;
+                        rooms[i].name = req.body.name;
+                        rooms[i].age = req.body.age;
+                        rooms[i].phn = req.body.phn;
+                        rooms[i].address = req.body.address;
+                        rooms[i].curr = req.body.curr;
+                        rooms[i].prev = req.body.prev;
+                        break;        
+                    }
+                }
+                if(flag === 1){
+                    institution.updateOne({name:req.params.name , district:req.params.district},
+                                            {
+                                                $set :{
+                                                    rooms : rooms
+                                                }
+                                            },function(err,current){
+                                                if(err)
+                                                    console.log(err);
+                                                else
+                                                    res.send('Inmate Added');   
+                                            });
+                }
+                else if(flag === 0){
+                    res.send("Room Not Found")
+                }
+                
+            }
+            else{
+                res.send("Institution doesnt exist");
+            }
+        })
+    })
+
+
     //Route to add new user 
     app.post("/admin/useradd",function(req,res){
         user.findOne({username:req.body.username},function(err,exists){

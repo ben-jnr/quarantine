@@ -27,16 +27,16 @@ class Institutions extends Component {
     handleSubmit = (event) =>{
         event.preventDefault();
         document.getElementById("InstitutionAddMssg").innerHTML = "";    
-        var config = {
-            headers: {'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Credentials': true}
-        };
         if(this.state.newInstitution !== "" && this.state.District !== "")
         {
             const data ={
                         name:this.state.newInstitution,
                         district:this.state.District
                         };
+            var config = {
+                        headers: {'Access-Control-Allow-Origin': '*',
+                                'Access-Control-Allow-Credentials': true}
+            };            
             var tempThis = this;
             axios
             .post("http://localhost:9000/admin/institution", data, config)
@@ -59,7 +59,7 @@ class Institutions extends Component {
                                 <button type="button" class="btn btn-danger mr-3">
                                         Non deconataminated <span class="badge badge-light">9</span>
                                 </button><br/>
-                                <button className="btn btn-primary  mt-2 float-right" onClick={tempThis.roomsRedirect.bind(tempThis, "/admin/"+u.name+'-'+u.district)}>Check Rooms</button>
+                                <button className="btn btn-primary  mt-2 float-right" onClick={tempThis.roomsRedirect.bind(tempThis, "/admin/"+u.name+'/'+u.district)}>Check Rooms</button>
                                 <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={tempThis.removeInstitution.bind(tempThis,u._id)}>Delete</button>
                             </div>  
                         </div>
@@ -117,7 +117,7 @@ class Institutions extends Component {
                         <button type="button" class="btn btn-danger mr-3 mb-2">
                                 Non deconataminated <span class="badge badge-light">9</span>
                         </button><br/>
-                        <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={this.roomsRedirect.bind(this,"/admin/"+u.name+'-'+u.district)}>Check Rooms</button>
+                        <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={this.roomsRedirect.bind(this,"/admin/"+u.name+'/'+u.district)}>Check Rooms</button>
                         <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={this.removeInstitution.bind(this,u._id)}>Delete</button>
                     </div>  
                 </div>
