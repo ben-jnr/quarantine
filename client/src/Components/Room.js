@@ -10,8 +10,8 @@ class Room extends Component {
                     status:"",
                     Rooms :[]};
         var url = window.location.pathname;
-        this.name=url.split('/')[2].split('-')[0];
-        this.district=url.split('/')[2].split('-')[1];                           
+        this.name=url.split('/')[2];
+        this.district=url.split('/')[3];                           
     }
 
 
@@ -45,7 +45,12 @@ class Room extends Component {
                         no:this.state.no,
                         floor:this.state.floor,
                         status:this.state.status,
-                        inmate:{}
+                        name:"",
+                        age:"",
+                        phn:"",
+                        address:"",
+                        curr:"",
+                        prev:""
                         };
             var tempThis = this;
             var url = "http://localhost:9000/admin/"+this.name+'/'+this.district;
@@ -61,7 +66,7 @@ class Room extends Component {
                                     <h5 className="card-title">Room No: {u.no}</h5>
                                     <h6 className="card-subtitle mb-2 text-muted">Floor: {u.floor}</h6>
                                     <h6 className="card-subtitle mb-2 text-muted">Contaminated: {u.status}</h6>
-                                    <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={tempThis.inmateRedirect.bind(tempThis,'/admin/'+tempThis.name+'-'+tempThis.district+'/'+u.no+'-'+u.floor+'/')}>Info</button>
+                                    <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={tempThis.inmateRedirect.bind(tempThis,'/admin/'+tempThis.name+'/'+tempThis.district+'/'+u.no+'/'+u.floor+'/')}>Info</button>
                                     <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={tempThis.removeRoom.bind(tempThis,u.no+'/'+u.floor)}>Delete</button>
                                 </div>  
                             </div>
@@ -98,7 +103,7 @@ class Room extends Component {
                             <h5 className="card-title">Room No: {u.no}</h5>
                             <h6 className="card-subtitle mb-2 text-muted">Floor: {u.floor}</h6>
                             <h6 className="card-subtitle mb-2 text-muted">Contaminated: {u.status}</h6>
-                            <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={this.inmateRedirect.bind(this,'/admin/'+this.name+'-'+this.district+'/'+u.no+'-'+u.floor+'/')}>Info</button>
+                            <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={this.inmateRedirect.bind(this,'/admin/'+this.name+'/'+this.district+'/'+u.no+'/'+u.floor+'/')}>Info</button>
                             <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={this.removeRoom.bind(this,u.no+'/'+u.floor)}>Delete</button>
                         </div>  
                     </div>
@@ -124,7 +129,7 @@ class Room extends Component {
                                     <h5 className="card-title">Room No: {u.no}</h5>
                                     <h6 className="card-subtitle mb-2 text-muted">Floor: {u.floor}</h6>
                                     <h6 className="card-subtitle mb-2 text-muted">Contaminated: {u.status}</h6>
-                                    <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={this.inmateRedirect.bind(this,'/admin/'+this.name+'-'+this.district+'/'+u.no+'-'+u.floor+'/')}>Info</button>
+                                    <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={this.inmateRedirect.bind(this,'/admin/'+this.name+'/'+this.district+'/'+u.no+'/'+u.floor+'/')}>Info</button>
                                     <button className="btn btn-danger DeleteRoom mt-2 float-right" onClick={this.removeRoom.bind(this,u.no+'/'+u.floor)}>Delete</button>
                                 </div>  
                             </div>

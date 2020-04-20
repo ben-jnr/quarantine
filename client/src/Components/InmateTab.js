@@ -2,12 +2,17 @@ import React, { Component } from 'react'
 import AccordionData from './AccordionData';
 
 class InmateTab extends Component {
+    constructor(props){
+        super(props);
+    }
+
+
     render() {
         return (
             <div>
                 <h2>Inmates</h2>
                 <div id="accordion">
-                  <AccordionData/>
+                  <AccordionData />
                 </div>
             
             </div>

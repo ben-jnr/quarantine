@@ -26,14 +26,14 @@ ReactDOM.render((
 
             {
                 window.localStorage.getItem("isAdminLogged")? 
-                    <Route exact path = "/admin/:name" render={() => <Admin currTab="Rooms"/>} />
-                    :<Route exact path = "/admin/:name" component = {Login} />
+                    <Route exact path = "/admin/:name/:district" render={() => <Admin currTab="Rooms"/>} />
+                    :<Route exact path = "/admin/:name/:district" component = {Login} />
             }
             
             {
                 window.localStorage.getItem("isAdminLogged")? 
-                    <Route exact path = "/admin/:name/:room" render={() => <Admin currTab="Inmate"/>} />
-                    :<Route exact path = "/admin/:name/:room" component = {Login} />
+                    <Route exact path = "/admin/:name/:district/:room/:floor" render={() => <Admin currTab="Inmate"/>} />
+                    :<Route exact path = "/admin/:name/:district/:room/:floor" component = {Login} />
             }
             
             
