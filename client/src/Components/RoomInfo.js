@@ -3,7 +3,7 @@ import InmateTab from './InmateTab'
 import InmateAdd from './InmateAdd';
 import axios from 'axios';
 
-
+var flag=0;
 class RoomInfo extends Component {
     constructor(props){
         super(props);
@@ -12,10 +12,10 @@ class RoomInfo extends Component {
         this.district=url.split("/")[3];
         this.no=url.split("/")[4];
         this.floor=url.split("/")[5];
-        this.state = {status:"",
-                        room:{}};
+        this.state = {room:{}};
     }
     
+
 
     RoomsRedirect = () =>{
         var url = "/admin/"+this.name+'/'+this.district + '/';
@@ -23,7 +23,9 @@ class RoomInfo extends Component {
     }
 
 
+
     componentDidMount=() =>{
+        flag=1;
         var patientUrl = 'http://localhost:9000/admin/'+this.name+'/'+this.district+'/'+this.no+'/'+this.floor+'/patient/';
         axios.get(patientUrl)
         .then(res => {
@@ -31,25 +33,59 @@ class RoomInfo extends Component {
                 window.location.replace('/admin/'+this.name+'/'+this.district+'/');
             else    
             {
-                this.setState({status:res.data.room.status,
-                                room:res.data.room});
+                this.setState({room:res.data.room});
             }  
         })
         .catch(err =>console.log(err));
     }          
 
 
-    parentRender=()=>{
-        this.componentDidMount();
+
+
+    decontaminate = () =>{
+        if(window.confirm("Are you sure?"))
+        {
+            var room = this.state.room;
+            room.status = "no";
+            var url = "http://localhost:9000"+window.location.pathname;
+            var config = {
+                headers: {'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': true}
+            };
+            axios.post(url,room,config)
+            .catch(err=>console.log(err));
+            this.setState({status:'no'});   
+        }
+    }
+
+
+
+    parentRender=(data)=>{
+        this.setState({room:data})
     }
 
 
     render() {
         var comp;
-        if(this.state.room.name === ""){
-            comp=<InmateAdd parentRender={this.parentRender}/>;}
-        else
-            comp=<InmateTab data={this.state.room}/>;
+        if(this.state.room.name === "" && flag===1){
+            {
+                if(this.state.room.status === 'yes'){
+                    document.getElementById("RoomStatusBtn").classList.remove('btn-success');
+                    document.getElementById("RoomStatusBtn").classList.add('btn-danger');
+                    comp=(<p>DeContaminate the room !! <button onClick={this.decontaminate} class='btn btn-danger'>Decontaminated!!</button></p>);
+                }
+                else{
+                    document.getElementById("RoomStatusBtn").classList.add('btn-success');
+                    document.getElementById("RoomStatusBtn").classList.remove('btn-danger');
+                    comp=<InmateAdd parentRender={this.parentRender} />}
+                }
+            }
+        else if(flag===1)
+        {
+            comp=<InmateTab parentRender={this.parentRender} />;
+            document.getElementById("RoomStatusBtn").classList.remove('btn-success');
+            document.getElementById("RoomStatusBtn").classList.add('btn-danger');
+        }
 
         return (
             <div>
@@ -58,15 +94,17 @@ class RoomInfo extends Component {
                 </div>
                 <div className="row">
                     <div className="col roomInfo container">
-                        <button type="button" class="btn btn-primary mb-2">
+                        <button type="button" class="btn mb-2">
                             Room no : <span class="badge badge-light">{this.no}</span>
                         </button><br/>
-                        <button type="button" class="btn btn-primary mb-2">
+                        <button type="button" class="btn mb-2">
                             Floor no :   <span class="badge badge-light">{this.floor}</span>
                         </button>
-                        <button type="button" className="btn btn-danger mb-2">
-                            Contaminated : <span class="badge badge-light">{this.state.status}</span>
+                        <div>
+                        <button type="button" className="btn mb-2" id="RoomStatusBtn">
+                            Contaminated : <span class="badge badge-light">{this.state.room.status}</span>
                         </button>
+                        </div>
                     </div>
                     {comp}
                 </div>

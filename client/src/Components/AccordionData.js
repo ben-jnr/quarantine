@@ -11,8 +11,7 @@ class AccordionData extends Component {
       this.district=url.split("/")[3];
       this.no=url.split("/")[4];
       this.floor=url.split("/")[5];
-      this.state = {status:"",
-                      room:{}};
+      this.state = {room:{}};
   }
   
 
@@ -20,12 +19,13 @@ class AccordionData extends Component {
     var patientUrl = 'http://localhost:9000/admin/'+this.name+'/'+this.district+'/'+this.no+'/'+this.floor+'/patient/';
     axios.get(patientUrl)
     .then(res => {
-        if(res.data.mssg !== "Room Found")
+        if(res.data.mssg !== "Room Found"){
             window.location.replace('/admin/'+this.name+'/'+this.district+'/');
+        }    
         else    
         {
-            this.setState({status:res.data.room.status,
-                            room:res.data.room});
+          this.setState({room:res.data.room},function(){
+          });
         }  
     })
     .catch(err =>console.log(err));
