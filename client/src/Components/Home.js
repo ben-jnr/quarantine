@@ -11,9 +11,6 @@ class Home extends Component {
     render() {
         return (
             <div>
-                {/*<h1>Home Page</h1>    
-                <div id="UserName">Hi, {window.localStorage.getItem("Name")}</div>
-                <button onClick ={this.logout} id="UserLogoutButton">Logout</button>*/}
                 <DistrictInfo/>
             </div>
         );

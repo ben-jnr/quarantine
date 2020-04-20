@@ -1,6 +1,23 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+
+const vacantCount = function(rooms){
+    var count = 0;
+    for(var i=0;i<rooms.length;i++){
+        if(rooms[i].name=="")
+            count++;
+    }
+    return(count);
+}
+const decontaminatedCount = function(rooms){
+    var count = 0;
+    for(var i=0;i<rooms.length;i++){
+        if(rooms[i].status=="no")
+            count++;
+    }
+    return(count);
+}
 class Institutions extends Component {
     
     
@@ -10,7 +27,7 @@ class Institutions extends Component {
                     District:"",
                     Institutions :[]};
     }
-        
+    
 
     handleChange =(event)=>{    
         this.setState({
@@ -51,13 +68,13 @@ class Institutions extends Component {
                                 <h5 className="card-title">{u.name}</h5>
                                 <h6 className="card-subtitle mb-2 text-muted">{u.district}</h6>
                                 <button type="button" class="btn btn-primary mr-3">
-                                        Total Rooms <span class="badge badge-light">9</span>
+                                        Total Rooms <span class="badge badge-light">{u.rooms.length}</span>
                                 </button>
                                 <button type="button" class="btn btn-success mr-3">
-                                        Decontaminated <span class="badge badge-light">9</span>
+                                        Vacant <span class="badge badge-light">{vacantCount(u.rooms)}</span>
                                 </button>
                                 <button type="button" class="btn btn-danger mr-3">
-                                        Non deconataminated <span class="badge badge-light">9</span>
+                                        Decontaminated <span class="badge badge-light">{decontaminatedCount(u.rooms)}</span>
                                 </button><br/>
                                 <button className="btn btn-primary  mt-2 float-right" onClick={tempThis.roomsRedirect.bind(tempThis, "/admin/"+u.name+'/'+u.district)}>Check Rooms</button>
                                 <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={tempThis.removeInstitution.bind(tempThis,u._id)}>Delete</button>
@@ -99,7 +116,6 @@ class Institutions extends Component {
 
 
     componentDidMount(){
-        window.localStorage.setItem('currTab',"Institutions");
         axios.get("http://localhost:9000/admin/institution")
         .then(res => {
             const institutions = res.data.map( u =>
@@ -112,10 +128,10 @@ class Institutions extends Component {
                                 Total Rooms <span class="badge badge-light">{u.rooms.length}</span>
                         </button>
                         <button type="button" class="btn btn-success mr-3 mb-2">
-                                Decontaminated <span class="badge badge-light">9</span>
+                                Vacant <span class="badge badge-light">{vacantCount(u.rooms)}</span>
                         </button>
                         <button type="button" class="btn btn-danger mr-3 mb-2">
-                                Non deconataminated <span class="badge badge-light">9</span>
+                                Decontaminated <span class="badge badge-light">{decontaminatedCount(u.rooms)}</span>
                         </button><br/>
                         <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={this.roomsRedirect.bind(this,"/admin/"+u.name+'/'+u.district)}>Check Rooms</button>
                         <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={this.removeInstitution.bind(this,u._id)}>Delete</button>

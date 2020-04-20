@@ -48,12 +48,10 @@ class Login extends Component {
                 }
                 else if(res.data.admin === 'y'){
                     window.localStorage.setItem("isAdminLogged", "true");
-                    window.localStorage.setItem("Name", res.data.name);
                     window.location.assign("./admin");    
                 }
                 else if(res.data.admin === 'n'){
                     window.localStorage.setItem("isUserLogged", "true");
-                    window.localStorage.setItem("Name", res.data.name);
                     window.location.assign("./home");
                 }
             })
