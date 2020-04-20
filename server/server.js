@@ -15,7 +15,7 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
 
     //Route to read all Institutions
     app.get("/admin/institution",function(req,res){
-        institution.find().sort({'_id':-1}).toArray(function(err,institutions){
+        institution.find({district:req.query.location}).sort({'_id':-1}).toArray(function(err,institutions){
             if(err)
                 res.send(err);
             else

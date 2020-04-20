@@ -25,9 +25,40 @@ class Institutions extends Component {
         super(props);
         this.state={newInstitution:"",
                     District:"",
-                    Institutions :[]};
+                    Location:window.localStorage.getItem('location'),
+                    Institutions :[]};            
     }
     
+
+    InstitutionsListGenerate = () => {
+        axios.get("http://localhost:9000/admin/institution?location="+this.state.Location)
+        .then(res => {
+            const institutions = res.data.map( u =>
+                <div  key={u._id} className="InstitutionsContainer">
+                    <div class="card mb-2">
+                        <div class="card-body">
+                        <h5 className="card-title">{u.name}</h5>
+                        <h6 className="card-subtitle mb-2 text-muted">{u.district}</h6>
+                        <button type="button" class="btn btn-primary mr-3 mb-2">
+                                Total Rooms <span class="badge badge-light">{u.rooms.length}</span>
+                        </button>
+                        <button type="button" class="btn btn-success mr-3 mb-2">
+                                Vacant <span class="badge badge-light">{vacantCount(u.rooms)}</span>
+                        </button>
+                        <button type="button" class="btn btn-danger mr-3 mb-2">
+                                Decontaminated <span class="badge badge-light">{decontaminatedCount(u.rooms)}</span>
+                        </button><br/>
+                        <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={this.roomsRedirect.bind(this,"/admin/"+u.name+'/'+u.district)}>Check Rooms</button>
+                        <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={this.removeInstitution.bind(this,u._id)}>Delete</button>
+                    </div>  
+                </div>
+                </div>
+                );
+            this.setState({"Institutions":institutions});
+        })
+        .catch(err => console.log(err));
+    }
+
 
     handleChange =(event)=>{    
         this.setState({
@@ -39,6 +70,16 @@ class Institutions extends Component {
         this.setState({
             ["District"]: event.target.options[event.target.options.selectedIndex].value
           });
+    }
+
+    handleLocation = event =>{
+        this.setState({
+            ["Location"]: event.target.options[event.target.options.selectedIndex].value
+          },function(){
+            window.localStorage.setItem('location',this.state.Location);
+            {this.InstitutionsListGenerate()}  
+          });
+        
     }
 
     handleSubmit = (event) =>{
@@ -59,31 +100,38 @@ class Institutions extends Component {
             .post("http://localhost:9000/admin/institution", data, config)
             .then(function(res){
                 if(res.data.mssg === "Institution Succesfully Added")
-                  {  
-                    var institutions = tempThis.state["Institutions"];
-                    const newInstitution = res.data.current.ops.map( u =>
-                        <div  key={u._id} className="InstitutionsContainer">
-                            <div class="card mb-2">
-                                <div class="card-body">
-                                <h5 className="card-title">{u.name}</h5>
-                                <h6 className="card-subtitle mb-2 text-muted">{u.district}</h6>
-                                <button type="button" class="btn btn-primary mr-3">
-                                        Total Rooms <span class="badge badge-light">{u.rooms.length}</span>
-                                </button>
-                                <button type="button" class="btn btn-success mr-3">
-                                        Vacant <span class="badge badge-light">{vacantCount(u.rooms)}</span>
-                                </button>
-                                <button type="button" class="btn btn-danger mr-3">
-                                        Decontaminated <span class="badge badge-light">{decontaminatedCount(u.rooms)}</span>
-                                </button><br/>
-                                <button className="btn btn-primary  mt-2 float-right" onClick={tempThis.roomsRedirect.bind(tempThis, "/admin/"+u.name+'/'+u.district)}>Check Rooms</button>
-                                <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={tempThis.removeInstitution.bind(tempThis,u._id)}>Delete</button>
-                            </div>  
-                        </div>
-                        </div>
-                        );
-                    institutions.unshift(newInstitution);
-                    tempThis.setState({"Institutions":institutions});
+                { 
+                    if(data.district=== tempThis.state.Location)
+                    {  
+                        var institutions = tempThis.state["Institutions"];
+                        const newInstitution = res.data.current.ops.map( u =>
+                            <div  key={u._id} className="InstitutionsContainer">
+                                <div class="card mb-2">
+                                    <div class="card-body">
+                                    <h5 className="card-title">{u.name}</h5>
+                                    <h6 className="card-subtitle mb-2 text-muted">{u.district}</h6>
+                                    <button type="button" class="btn btn-primary mr-3">
+                                            Total Rooms <span class="badge badge-light">{u.rooms.length}</span>
+                                    </button>
+                                    <button type="button" class="btn btn-success mr-3">
+                                            Vacant <span class="badge badge-light">{vacantCount(u.rooms)}</span>
+                                    </button>
+                                    <button type="button" class="btn btn-danger mr-3">
+                                            Decontaminated <span class="badge badge-light">{decontaminatedCount(u.rooms)}</span>
+                                    </button><br/>
+                                    <button className="btn btn-primary  mt-2 float-right" onClick={tempThis.roomsRedirect.bind(tempThis, "/admin/"+u.name+'/'+u.district)}>Check Rooms</button>
+                                    <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={tempThis.removeInstitution.bind(tempThis,u._id)}>Delete</button>
+                                </div>  
+                            </div>
+                            </div>
+                            );
+                        institutions.unshift(newInstitution);
+                        tempThis.setState({"Institutions":institutions});
+                        document.getElementById("InstitutionAddMssg").innerHTML = "Institution Added to "+data.district;
+                    }
+                    else{
+                        document.getElementById("InstitutionAddMssg").innerHTML = "Institution Added to "+data.district; 
+                    }       
                 }
                 else 
                     document.getElementById("InstitutionAddMssg").innerHTML = "Institution Already Exists";      
@@ -114,37 +162,28 @@ class Institutions extends Component {
     }
 
 
+    onUnload =() =>{
+        window.localStorage.setItem('currTab','Home');
+        window.localStorage.setItem('location','Alappuzha');
+    }
 
     componentDidMount(){
-        axios.get("http://localhost:9000/admin/institution")
-        .then(res => {
-            const institutions = res.data.map( u =>
-                <div  key={u._id} className="InstitutionsContainer">
-                    <div class="card mb-2">
-                        <div class="card-body">
-                        <h5 className="card-title">{u.name}</h5>
-                        <h6 className="card-subtitle mb-2 text-muted">{u.district}</h6>
-                        <button type="button" class="btn btn-primary mr-3 mb-2">
-                                Total Rooms <span class="badge badge-light">{u.rooms.length}</span>
-                        </button>
-                        <button type="button" class="btn btn-success mr-3 mb-2">
-                                Vacant <span class="badge badge-light">{vacantCount(u.rooms)}</span>
-                        </button>
-                        <button type="button" class="btn btn-danger mr-3 mb-2">
-                                Decontaminated <span class="badge badge-light">{decontaminatedCount(u.rooms)}</span>
-                        </button><br/>
-                        <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={this.roomsRedirect.bind(this,"/admin/"+u.name+'/'+u.district)}>Check Rooms</button>
-                        <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={this.removeInstitution.bind(this,u._id)}>Delete</button>
-                    </div>  
-                </div>
-                </div>
-                );
-            this.setState({"Institutions":institutions});
-        })
-        .catch(err => console.log(err));
+        window.addEventListener("beforeunload", this.onUnload);
+        for(var i=0;i<document.getElementById('loc').options.length;i++)
+        {
+            if(document.getElementById('loc').options[i].value === window.localStorage.getItem('location'))
+            {
+                document.getElementById('loc').options.selectedIndex = i;
+                break;
+            }
+        }
+        {this.InstitutionsListGenerate()}
     }
-    
-        
+     
+     componentWillUnmount() {
+         window.removeEventListener("beforeunload", this.onUnload);
+     }
+
        
     render() {
         return (
@@ -182,6 +221,33 @@ class Institutions extends Component {
                     
                 </div>
                 <div id="InstitutionAddMssg"></div>
+                
+                
+                {/*Location Dropdown*/}
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="loc">Location</label>
+                    </div>
+                    <select class="custom-select" name="location" id="loc" size="1" onChange={this.handleLocation}>
+                        <option selected value="Alappuzha">Alappuzha</option>
+                        <option value="Ernakulam">Ernakulam</option>
+                        <option value="Idukki">Idukki</option>
+                        <option value="Kannur">Kannur</option>
+                        <option value="Kasaragod">Kasaragod</option>
+                        <option value="Kollam">Kollam</option>
+                        <option value="Kottayam">Kottayam</option>
+                        <option value="Kozhikode">Kozhikode</option>
+                        <option value="Malappuram">Malappuram</option>
+                        <option value="Palakkad">Palakkad</option>
+                        <option value="Pathanamthitta">Pathanamthitta</option>
+                        <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                        <option value="Thrissur">Thrissur</option>
+                        <option value="Wayanad">Wayanad</option>
+                    </select>
+                </div>    
+
+
+                {/*List of Institutions*/}                    
                 <div>
                     { this.state.Institutions } 
                 </div>               
