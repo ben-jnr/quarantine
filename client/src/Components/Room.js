@@ -162,8 +162,8 @@ class Room extends Component {
 
     render() {
         return (
-        <div>
-            <div className="input-group">
+        <div className="row">
+            <div className="input-group col-6">
                 <div>
                     <button className="btn btn-primary mr-2" onClick={this.institutionsRedirect}>Back</button>
                 </div>
@@ -191,8 +191,11 @@ class Room extends Component {
                     </form>
             </div>
             <div id="RoomAddMssg"></div>
-            <div>
+            <div className="col">
+            <div className="row-6">
                 {this.state.Rooms}
+
+            </div>
             </div>
         </div>
  
