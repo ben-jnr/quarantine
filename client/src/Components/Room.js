@@ -60,7 +60,7 @@ class Room extends Component {
                         prev:""
                         };
             var tempThis = this;
-            var url = "http://localhost:9000/admin/"+this.name+'/'+this.district;
+            var url = "http://localhost:9000/api/"+this.name+'/'+this.district;
             axios
             .post(url, data, config)
             .then(function(res){
@@ -100,8 +100,8 @@ class Room extends Component {
     
 
     componentDidMount(){
-        window.localStorage.setItem('currTab',"Institutions");
-        var url = "http://localhost:9000/admin/"+this.name+'/'+this.district;
+        window.sessionStorage.setItem('currTab',"Institutions");
+        var url = "http://localhost:9000/api/"+this.name+'/'+this.district;
         axios.get(url)
         .then(res => {
             const Rooms = res.data.rooms.map( u => 
@@ -127,7 +127,7 @@ class Room extends Component {
     removeRoom = (roomUrl) =>{
         if(window.confirm("Are you sure?"))
         {
-            var url = "http://localhost:9000/admin/"+ this.name+'/'+this.district+'/'+roomUrl+'/delete/';
+            var url = "http://localhost:9000/api/"+ this.name+'/'+this.district+'/'+roomUrl+'/delete/';
             axios.get(url)
             .then(res =>{
                 if(res.data.mssg==="Room Successfully Deleted"){
