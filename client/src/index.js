@@ -11,34 +11,34 @@ ReactDOM.render((
     <BrowserRouter>
         <div>
             {
-                window.localStorage.getItem("isAdminLogged")? 
+                window.sessionStorage.getItem("isAdminLogged")? 
                     <Route exact path = "/" render={() => <Admin currTab="Institutions"/>}/>
-                    :window.localStorage.getItem("isUserLogged")? 
+                    :window.sessionStorage.getItem("isUserLogged")? 
                         <Route exact path = "/" component = {Home}/>
                         :<Route exact path = "/" component = {Login}/>
             }
             
             {
-                window.localStorage.getItem("isAdminLogged")? 
+                window.sessionStorage.getItem("isAdminLogged")? 
                     <Route exact path = "/admin" render={() => <Admin currTab="Institutions"/>} />
                     :<Route exact path = "/admin" component = {Login} />
             }
 
             {
-                window.localStorage.getItem("isAdminLogged")? 
+                window.sessionStorage.getItem("isAdminLogged")? 
                     <Route exact path = "/admin/:name/:district" render={() => <Admin currTab="Rooms"/>} />
                     :<Route exact path = "/admin/:name/:district" component = {Login} />
             }
             
             {
-                window.localStorage.getItem("isAdminLogged")? 
+                window.sessionStorage.getItem("isAdminLogged")? 
                     <Route exact path = "/admin/:name/:district/:room/:floor" render={() => <Admin currTab="Inmate"/>} />
                     :<Route exact path = "/admin/:name/:district/:room/:floor" component = {Login} />
             }
             
             
             {
-                window.localStorage.getItem("isUserLogged")?
+                window.sessionStorage.getItem("isUserLogged")?
                 <Route exact path = "/home" component = {Home} />
                 :<Route exact path = "/home" component = {Login} />
             }           

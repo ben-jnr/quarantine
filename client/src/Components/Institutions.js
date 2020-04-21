@@ -25,13 +25,13 @@ class Institutions extends Component {
         super(props);
         this.state={newInstitution:"",
                     District:"",
-                    Location:window.localStorage.getItem('location'),
+                    Location:window.sessionStorage.getItem('location'),
                     Institutions :[]};            
     }
     
 
     InstitutionsListGenerate = () => {
-        axios.get("http://localhost:9000/admin/institution?location="+this.state.Location)
+        axios.get("http://localhost:9000/api/institution?location="+this.state.Location)
         .then(res => {
             const institutions = res.data.map( u =>
                 <div  key={u._id} className="InstitutionsContainer">
@@ -76,7 +76,7 @@ class Institutions extends Component {
         this.setState({
             ["Location"]: event.target.options[event.target.options.selectedIndex].value
           },function(){
-            window.localStorage.setItem('location',this.state.Location);
+            window.sessionStorage.setItem('location',this.state.Location);
             {this.InstitutionsListGenerate()}  
           });
         
@@ -97,7 +97,7 @@ class Institutions extends Component {
             };            
             var tempThis = this;
             axios
-            .post("http://localhost:9000/admin/institution", data, config)
+            .post("http://localhost:9000/api/institution", data, config)
             .then(function(res){
                 if(res.data.mssg === "Institution Succesfully Added")
                 { 
@@ -150,9 +150,10 @@ class Institutions extends Component {
     removeInstitution = (id) =>{
         if(window.confirm("Are you sure?"))
         {
-            axios.get("http://localhost:9000/admin/institution/delete/"+id)
+            axios.get("http://localhost:9000/api/institution/delete/"+id)
                 .catch(err => console.log(err));
         }  
+        window.sessionStorage.setItem('location',this.state.Location);
         this.componentDidMount();
     }
 
@@ -163,11 +164,12 @@ class Institutions extends Component {
 
 
     onUnload =() =>{
-        window.localStorage.setItem('currTab','Home');
-        window.localStorage.setItem('location','Alappuzha');
+        window.sessionStorage.setItem('currTab','Home');
+        window.sessionStorage.setItem('location','Alappuzha');
     }
 
     componentDidMount(){
+        window.sessionStorage.setItem('location',this.state.Location);
         window.addEventListener("beforeunload", this.onUnload);
         for(var i=0;i<document.getElementById('loc').options.length;i++)
         {

@@ -11,6 +11,7 @@ class UserAdd extends Component
     
 
     handleChange = (event)=>{
+        console.log(event.target.value);
         this.setState({
             [event.target.name]: event.target.value
           });
@@ -35,7 +36,7 @@ class UserAdd extends Component
                                 admin: this.state.admin
                             };
                 axios
-                .post("http://localhost:9000/admin/useradd", data, config)
+                .post("http://localhost:9000/api/useradd", data, config)
                 .then(function(res){
                     document.getElementById("PasswordMismatch").innerHTML = res.data;
                 })
@@ -79,11 +80,11 @@ class UserAdd extends Component
                     <h4>Grant admin privileges ?</h4>
                     <div className="row mb-3 ml-2">
                     <div class="custom-control custom-radio">
-                        <input type="radio" id="rBtn1" name="admin" value="y" class="custom-control-input"/>
+                        <input type="radio" id="rBtn1" name="admin" value="y" onChange={this.handleChange} class="custom-control-input"/>
                         <label class="custom-control-label" for="rBtn1">Yes</label>
                     </div>
                     <div class="custom-control custom-radio ml-4">
-                        <input type="radio" id="rBtn2" name="admin" value="n" class="custom-control-input"/>
+                        <input type="radio" id="rBtn2" name="admin" value="n" onChange={this.handleChange} class="custom-control-input"/>
                         <label class="custom-control-label" for="rBtn2">No</label>
                     </div>
                     </div>

@@ -14,7 +14,7 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
 
 
     //Route to read all Institutions
-    app.get("/admin/institution",function(req,res){
+    app.get("/api/institution",function(req,res){
         institution.find({district:req.query.location}).sort({'_id':-1}).toArray(function(err,institutions){
             if(err)
                 res.send(err);
@@ -26,7 +26,7 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
 
     
     //Route to Add new Institution
-    app.post("/admin/institution",function(req,res){
+    app.post("/api/institution",function(req,res){
         institution.findOne({name:req.body.name, district:req.body.district},function(err,exists){
             if(exists == null){
                 institution.insertOne({name:req.body.name,
@@ -46,14 +46,14 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
 
 
     //Route to Delete Institution
-    app.get("/admin/institution/delete/:id" ,function(req,res){
+    app.get("/api/institution/delete/:id" ,function(req,res){
         institution.deleteOne({"_id":ObjectId(req.params.id)});
     })
 
     
 
     //route to add new Room
-    app.post("/admin/:name/:district",function(req,res){
+    app.post("/api/:name/:district",function(req,res){
         institution.findOne({name:req.params.name, district:req.params.district},function(err,exists){
             if(exists == null){
                 res.send({mssg:"Hotel does not Exist"}); 
@@ -97,7 +97,7 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
 
 
     //Route to read all rooms
-    app.get("/admin/:name/:district",function(req,res){
+    app.get("/api/:name/:district",function(req,res){
         institution.findOne({name:req.params.name, district:req.params.district},function(err,exists){
             if(exists == null){
                 res.send({mssg:"failed"});
@@ -113,7 +113,7 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
 
 
     //Route to delete room
-    app.get("/admin/:name/:district/:no/:floor/delete/" ,function(req,res){
+    app.get("/api/:name/:district/:no/:floor/delete/" ,function(req,res){
         institution.findOne({name:req.params.name, district:req.params.district},function(err,exists)
         {
             if(exists !== null){
@@ -143,7 +143,7 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
 
 
     //Route to read Inmate and returns the particular room
-    app.get("/admin/:name/:district/:no/:floor/patient",function(req,res){
+    app.get("/api/:name/:district/:no/:floor/patient",function(req,res){
         institution.findOne({name:req.params.name, district:req.params.district} , function(err,exists){
             if(exists != null)
             {
@@ -176,7 +176,7 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
 
 
     //Route to add new inmate
-    app.post("/admin/:name/:district/:no/:floor/",function(req,res){
+    app.post("/api/:name/:district/:no/:floor/",function(req,res){
         institution.findOne({name:req.params.name , district:req.params.district},function(err,exists){
             console.log(req.body);
             if(exists !== null){
@@ -223,7 +223,7 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
 
 
     //Route to add new user 
-    app.post("/admin/useradd",function(req,res){
+    app.post("/api/useradd",function(req,res){
         user.findOne({username:req.body.username},function(err,exists){
             if(exists == null){
                 user.insertOne(req.body,function(err,newUser){
@@ -238,7 +238,7 @@ mongoDbClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true },
     
 
     //Route for Login Form
-    app.post("/login",function(req,res){
+    app.post("/api/login",function(req,res){
         user.findOne({username:req.body.username, password:req.body.password},function(err,currUser){
             if(currUser == null)
                 res.send("null"); 

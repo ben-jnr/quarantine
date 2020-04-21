@@ -3,8 +3,6 @@ import DistrictInfo from './DistrictInfo';
 class Home extends Component {
     
     logout = () => {
-        window.localStorage.removeItem("isUserLogged");
-        window.localStorage.removeItem("Name");
         window.location.replace("/");
     }
 

@@ -12,11 +12,12 @@ class Admin extends Component {
     }  
 
     logout = () => {
-        window.localStorage.removeItem("isAdminLogged");
-        window.localStorage.removeItem("currTab");
-        window.localStorage.removeItem("location");
+        window.sessionStorage.removeItem("currTab");
+        window.sessionStorage.removeItem("location");
+        window.sessionStorage.removeItem("isAdminLogged");
         window.location.replace("/");
     }
+
 
     selectTab =() =>{
       if(this.props.currTab === "Institutions")
@@ -28,7 +29,7 @@ class Admin extends Component {
     }
 
     componentDidMount(){
-      if(window.localStorage.getItem('currTab')==="Home"){
+      if(window.sessionStorage.getItem('currTab')==="Home"){
         document.getElementById('v-pills-home-tab').classList.add('active');
         document.getElementById('v-pills-institution-tab').classList.remove('active');
         document.getElementById('v-pills-home').classList.add('active');
@@ -36,7 +37,7 @@ class Admin extends Component {
         document.getElementById('v-pills-home').classList.add('show');
         document.getElementById('v-pills-institution').classList.remove('show');
       }
-      if(window.localStorage.getItem('currTab')==="Institutions")
+      if(window.sessionStorage.getItem('currTab')==="Institutions")
       {
         document.getElementById('v-pills-home-tab').classList.remove('active');
         document.getElementById('v-pills-institution-tab').classList.add('active');
@@ -46,6 +47,16 @@ class Admin extends Component {
         document.getElementById('v-pills-institution').classList.add('show');
       }
     }
+
+
+    componentWillUnmount=()=>{
+        window.sessionStorage.removeItem('currTab');
+        window.sessionStorage.removeItem('location');
+        window.sessionStorage.removeItem('isAdminLogged');
+        window.sessionStorage.removeItem('isUserLogged');
+    }
+
+
 
     render() {
         return (

@@ -7,10 +7,8 @@ class Login extends Component {
     constructor(){
         super();
         this.state = {username:"" , password:""};
-        window.localStorage.removeItem('currTab');
-        window.localStorage.removeItem('location');
-        window.localStorage.removeItem('isAdminLogged');
-        window.localStorage.removeItem('isUserLogged');
+        window.sessionStorage.removeItem('currTab');
+        window.sessionStorage.removeItem('location');
     }
 
 
@@ -34,14 +32,14 @@ class Login extends Component {
         document.getElementById("username").value = "";
         document.getElementById("password").value = ""; 
         axios
-        .post("http://localhost:9000/login", data, config)
+        .post("http://localhost:9000/api/login", data, config)
         .then(function(res)
             {
-                if(window.localStorage.getItem("isAdminLogged")){
+                if(window.sessionStorage.getItem("isAdminLogged")){
                     window.location.assign("./admin");
                     return;    
                 }
-                if(window.localStorage.getItem("isUserLogged")){
+                if(window.sessionStorage.getItem("isUserLogged")){
                     window.location.assign("./home");
                     return;    
                 }
@@ -50,17 +48,17 @@ class Login extends Component {
                     document.getElementById("Message").innerHTML = "Invalid Credentials";
                 }
                 else if(res.data.admin === 'y'){
-                    window.localStorage.setItem("isAdminLogged", "true");
+                    window.sessionStorage.setItem("isAdminLogged", "true");
                     window.location.assign("./admin");    
                 }
                 else if(res.data.admin === 'n'){
-                    window.localStorage.setItem("isUserLogged", "true");
+                    window.sessionStorage.setItem("isUserLogged", "true");
                     window.location.assign("./home");
                 }
             })
         .catch(err => console.log(err))
-        window.localStorage.setItem('currTab',"Home");
-        window.localStorage.setItem('location',"Alappuzha");
+        window.sessionStorage.setItem('currTab',"Home");
+        window.sessionStorage.setItem('location',"Alappuzha");
     }
 
 
