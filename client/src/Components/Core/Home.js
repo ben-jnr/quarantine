@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DistrictInfo from './DistrictInfo';
+import DistrictInfo from '../District/DistrictInfo';
 class Home extends Component {
     
     logout = () => {

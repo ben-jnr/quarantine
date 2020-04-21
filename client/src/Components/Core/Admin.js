@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import Institutions from "./Institutions";
-import UserAdd from "./UserAdd";
-import Rooms from "./Room"
-import "./Styles/Admin.css";
-import RoomInfo from './RoomInfo';
-import Home from './Home';
+import Institutions from "../Institution/Institutions";
+import UserAdd from "../Auth/UserAdd";
+import Rooms from "../Room/Room"
+import RoomInfo from '../Room/RoomInfo';
+import Home from '../Core/Home';
 
 class Admin extends Component {
     constructor(props){

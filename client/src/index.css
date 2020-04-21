@@ -1,9 +1,15 @@
-html{
-    margin: 0 !important;
-    padding: 0 !important;
+@import url('https://fonts.googleapis.com/css?family=Arvo&display=swap');
+
+.loginH1{
+    font-family: 'Arvo', serif;
+    margin-top: 15px;
 }
 
-body{
-    margin: 0 !important;
-    padding:0 !important;
+.container{
+    padding: 10% 5% 15% 5%;
+}
+
+#Message{
+    height: 50px;
+    width: 100%;
 }

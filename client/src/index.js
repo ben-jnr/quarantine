@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Login from './Components/Login';
-import Admin from './Components/Admin';
-import Home from './Components/Home';
+import Login from './Components/Auth/Login';
+import Admin from './Components/Core/Admin';
+import Home from './Components/Core/Home';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, Route } from "react-router-dom";
 

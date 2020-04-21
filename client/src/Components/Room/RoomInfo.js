@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import InmateTab from './InmateTab'
-import InmateAdd from './InmateAdd';
+import InmateTab from '../Inmate/InmateTab'
+import InmateAdd from '../Inmate/InmateAdd';
 import axios from 'axios';
 
 var flag=0;
