@@ -42,10 +42,10 @@ class Institutions extends Component {
                         <button type="button" class="btn btn-primary mr-3 mb-2">
                                 Total Rooms <span class="badge badge-light">{u.rooms.length}</span>
                         </button>
-                        <button type="button" class="btn btn-success mr-3 mb-2">
+                        <button type="button" class="btn btn-warning mr-3 mb-2">
                                 Vacant <span class="badge badge-light">{vacantCount(u.rooms)}</span>
                         </button>
-                        <button type="button" class="btn btn-danger mr-3 mb-2">
+                        <button type="button" class="btn btn-success mr-3 mb-2">
                                 Decontaminated <span class="badge badge-light">{decontaminatedCount(u.rooms)}</span>
                         </button><br/>
                         <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={this.roomsRedirect.bind(this,"/admin/"+u.name+'/'+u.district)}>Check Rooms</button>
@@ -190,17 +190,15 @@ class Institutions extends Component {
     render() {
         return (
             <div id="InstitutionTab p-2">
-                <div className="form-row">
-                <div class="form-group col-md-6">
-                    <label for="instName">Name</label>
-                    <input type="text" name="newInstitution" class="form-control" id="instName" placeholder="Name of institution" onChange={this.handleChange}/>
-                </div>
+                <div className="row">
+                    <div class="form-group col">
+                        <label for="instName">Name</label>
+                        <input type="text" name="newInstitution" class="form-control" id="instName" placeholder="Name of institution" onChange={this.handleChange}/>
+                    </div>
                 
-                <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" for="dist">District</label>
-                            </div>
-                            <select class="custom-select" name="District" id="dist" size="1" onChange={this.handleDropdown}>
+                    <div class="col">
+                        <label for="dist">District</label>
+                            <select class="custom-select " name="District" id="dist" size="1" onChange={this.handleDropdown}>
                                 <option selected>Choose...</option>
                                 <option value="Alappuzha">Alappuzha</option>
                                 <option value="Ernakulam">Ernakulam</option>
@@ -217,16 +215,20 @@ class Institutions extends Component {
                                 <option value="Thrissur">Thrissur</option>
                                 <option value="Wayanad">Wayanad</option>
                             </select>
-                        </div>
-                
-                <button type="submit" id="NewInsititutionButton" className="btn btn-primary btn-lg btn-block mb-4" onClick={this.handleSubmit}>Add Institution</button>  
-                    
+                    </div>
+                    <div className="col">
+                        <button type="submit" id="NewInsititutionButton" className=" h-50 mt-4 row btn btn-primary" onClick={this.handleSubmit}>Add Institution</button>
+                    </div>                    
                 </div>
+                
+                
                 <div id="InstitutionAddMssg"></div>
                 
                 
                 {/*Location Dropdown*/}
-                <div class="input-group mb-2">
+                <hr/>
+                <h5>Search by district</h5>
+                <div class="input-group mt-2 mb-3">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="loc">Location</label>
                     </div>
