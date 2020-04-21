@@ -88,7 +88,7 @@ class RoomInfo extends Component {
         }
 
         return (
-            <div>
+            <div className="container">
                 <div>
                     <button onClick={this.RoomsRedirect} class='btn btn-primary'>Back</button>
                 </div>

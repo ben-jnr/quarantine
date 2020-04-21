@@ -5,7 +5,7 @@ class DistrictInfo extends Component {
         return (
             <div class="col-sm-4">
                 <div class="card mt-2">
-                    <h5 className="card-header">District</h5>
+                    <h5 className="card-header">District Name</h5>
                     <div class="card-body">
                         <div id="accordion">
                             <div class="card">

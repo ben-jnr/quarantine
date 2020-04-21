@@ -165,7 +165,7 @@ class Room extends Component {
         <div className="row">
             <div className="input-group col-6">
                 <div>
-                    <button className="btn btn-primary mr-2" onClick={this.institutionsRedirect}>Back</button>
+                    <button className="btn btn-primary mr-2" onClick={this.institutionsRedirect}><i className="fa fa-arrow-left "></i></button>
                 </div>
                     <form>
                         <div className="form-group">

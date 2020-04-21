@@ -62,7 +62,7 @@ class Admin extends Component {
         return (
             <div className="row p-3">
               <div class="col">
-                <div class="col-3 p-2">
+                <div class="col p-2 mb-3">
                   <div className="nav row nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a className="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
                     <a className="nav-link" id="v-pills-institution-tab" data-toggle="pill" href="#v-pills-institution" role="tab" aria-controls="v-pills-profile" aria-selected="false">{this.props.currTab}</a>
