@@ -3,11 +3,12 @@ import axios from 'axios';
 
 
 class Login extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {username:"" , password:""};
-        window.sessionStorage.removeItem('currTab');
-        window.sessionStorage.removeItem('location');
+        window.localStorage.removeItem('currTab');
+        window.localStorage.removeItem('location');
+        window.localStorage.removeItem("session");
     }
 
 
@@ -30,35 +31,22 @@ class Login extends Component {
         this.setState({username:"", password:""}); 
         document.getElementById("username").value = "";
         document.getElementById("password").value = ""; 
+        const tempThis = this;
+        var url = "http://localhost:9000/api/login?id="+window.localStorage.getItem('session');
         axios
-        .post("http://localhost:9000/api/login", data, config)
-        .then(function(res)
-            {
-                if(window.sessionStorage.getItem("isAdminLogged")){
-                    window.location.assign("./admin");
-                    return;    
-                }
-                if(window.sessionStorage.getItem("isUserLogged")){
-                    window.location.assign("./home");
-                    return;    
-                }
-                console.log(res.data);
-                if(res.data ==null) {
-                    document.getElementById("Message").innerHTML = "Invalid Credentials";
-                }
-                else if(res.data.admin === 'y'){
-                    window.sessionStorage.setItem("isAdminLogged", "true");
-                    window.location.assign("./admin");    
-                }
-                else if(res.data.admin === 'n'){
-                    window.sessionStorage.setItem("isUserLogged", "true");
-                    window.location.assign("./home");
-                }
-            })
-        .catch(err => console.log(err))
+        .post(url, data, config)
+                .then(res =>{ 
+                            window.localStorage.setItem('session',res.data);
+                            window.localStorage.setItem('currTab',"Home");
+                            window.localStorage.setItem('location',"Alappuzha");
+                            tempThis.props.parentFunction();
+                        })
+                .catch(err => console.log(err));
         window.sessionStorage.setItem('currTab',"Home");
         window.sessionStorage.setItem('location',"Alappuzha");
+        tempThis.props.parentFunction();
     }
+
 
 
     render() {
