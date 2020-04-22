@@ -4,6 +4,7 @@ import UserAdd from "../Auth/UserAdd";
 import Rooms from "../Room/Room"
 import RoomInfo from '../Room/RoomInfo';
 import Home from '../Core/Home';
+import axios from 'axios';
 
 class Admin extends Component {
     constructor(props){
@@ -11,9 +12,11 @@ class Admin extends Component {
     }  
 
     logout = () => {
-        window.sessionStorage.removeItem("currTab");
-        window.sessionStorage.removeItem("location");
-        window.sessionStorage.removeItem("isAdminLogged");
+        axios.get('http://localhost:9000/api/delsession?id='+window.localStorage.getItem('session'))
+        .catch(err => console.log(err));
+        window.localStorage.removeItem("currTab");
+        window.localStorage.removeItem("location");
+        window.localStorage.removeItem("session");
         window.location.replace("/");
     }
 
