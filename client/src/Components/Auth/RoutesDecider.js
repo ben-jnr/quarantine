@@ -1,63 +1,74 @@
-import React, { Component } from 'react';
+import React, {useState, useEffect} from 'react';
 import Login from './Login';
 import Admin from '../Core/Admin';
-import Home from '../Core/Home';
-import { BrowserRouter, Route } from "react-router-dom";
 import axios from 'axios';
+import { Route } from "react-router-dom";
 
-var flag = 0;
-class RoutesDecider extends Component {
-    constructor(){
-        super();
-        this.state ={'type':""};
-    }
-   
-    componentDidMount = ()=>
-    {
+function RoutesDecider()
+{        
+    const [type, setType] = useState("");
+    const [institutionId , setInstitutionId] = useState(""); 
+    var flag=0;
+    
+
+
+    const readSession=() =>{
         axios.get('http://localhost:9000/api/?id='+window.localStorage.getItem('session'))
-        .then(res => this.setState({type:res.data}))
+        .then(res =>{
+            if(res.data.type === 'institution')
+                setInstitutionId(res.data.id);
+            setType(res.data.type);    
+        })
         .catch(err => console.log(err));
-        flag =1;
     }
     
-    render() {
-        if(window.localStorage.getItem('session'))
-        {    
-            if(this.state.type === 'y')
-            {
-                return (
-                    <div>
-                    <Route exact path = "/" render={() => <Admin currTab="Institutions"/>} />
-                    <Route exact path = "/admin" render={() => <Admin currTab="Institutions"/>} />
-                    <Route exact path = "/admin/:name/:district" render={() => <Admin currTab="Rooms"/>} />
-                    <Route exact path = "/admin/:name/:district/:room/:floor" render={() => <Admin currTab="Inmate"/>} />      
-                    </div>
-                );
-            }
-            else if(this.state.type === "User does not exist")
-            {
-                return( 
-                    <Route path= '/' render={()=> <Login parentFunction={this.componentDidMount} /> }/>
-                )
-            }
-            else if(flag===0){
-                return(
-                    <div></div>
-                )
-            }
-            else{
-                return( 
-                    <Route path= '/' render={()=> <Login parentFunction={this.componentDidMount} /> }/>
-                )
-            }    
-        }
-        else
-        {
-            return(
-                <Route path= '/' render={()=> <Login parentFunction={this.componentDidMount} /> }/>
-            )
-        }     
-   }  
+    useEffect(() => {
+        axios.get('http://localhost:9000/api/?id='+window.localStorage.getItem('session'))
+        .then(res => {
+                if(res.data.type === 'institution')
+                    setInstitutionId(res.data.id);
+                setType(res.data.type);
+                })
+        .catch(err => console.log(err));
+    },[])
     
-}    
+    console.log(type);  
+
+    if(window.localStorage.getItem('session')){    
+        if(type === "admin" || type === 'dashboard' || type === 'airport' || type === 'institution' || type === 'superadmin'){
+            if(type === 'admin' || type === 'superadmin' || type === 'dashboard')
+                window.localStorage.setItem('currTab',"Home");
+            else if(type === 'airport')
+                window.localStorage.setItem('currTab',"Emigrant");
+            else if(type === 'institution')
+                window.localStorage.setItem('currTab',"Institution");        
+            window.localStorage.setItem('location',"Alappuzha");
+            return (
+                <div>
+                    <Route exact path = "/" render={() => <Admin currInstitutionsTab="Institutions" type={type} institutionId={institutionId}/>} />
+                    <Route exact path = "/admin" render={() => <Admin currInstitutionsTab="Institutions" type={type} institutionId={institutionId}/>} />
+                    <Route exact path = "/admin/:id" render={() => <Admin currInstitutionsTab="Rooms" type={type} institutionId={institutionId}/>} />
+                    <Route exact path = "/admin/:id/:room/" render={() => <Admin currInstitutionsTab="Inmate" type={type} institutionId={institutionId}/>} />      
+                </div>
+            );
+        }
+        else if(window.localStorage.getItem('session') === "User does not exist")
+        {
+            return(<Route path= '/' render={()=> <Login parentFunction={readSession} /> }/>)
+        }
+        else if(flag===0)
+        {
+            flag=1;
+            return(<div></div>)
+        }   
+    }
+    else if(type === "User does not exist")
+    {
+        return(<Route path= '/' render={()=> <Login parentFunction={readSession} /> }/>)
+    }
+    else
+    {
+        return(<Route path= '/' render={()=> <Login parentFunction={readSession} /> }/>)
+    }     
+}     
 export default RoutesDecider;   
