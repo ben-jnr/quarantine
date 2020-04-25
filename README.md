@@ -7,7 +7,7 @@
 <ul>
   <li>clone it to your local machine</li>
   <li>install all the required npm packages</li>
-  <li>open your mongo terminal using mongo/mongod command and type in the following commands</li>
+  <li>open your mongo terminal using mongo command and type in the following commands</li>
   <ol>
     <li>use quarantine</li>
     <li>db.user.insertOne({username:"sam",password:"admin",type:"superadmin"})</li>
