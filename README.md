@@ -25,5 +25,5 @@
   </ol>
   <li>now open the cloned app and inside server folder run the command npm run dev</li>
   <li>this will run react client at port 3000 and node at port 9000</li>
-  <li>at port 3000 login with sam to use admin features else as john</li>
+  <li>at port 3000 login and enjoy</li>
 </ul>
