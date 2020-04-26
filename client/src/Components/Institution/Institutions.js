@@ -8,28 +8,33 @@ function Institution(props)
     const [institutions , setInstitutions] = useState();
     const [location , setLocation] = useState(window.localStorage.getItem('location'));
 
+    
     const vacantCount = function(rooms){
         var count = 0;
         for(var i=0;i<rooms.length;i++){
-            if(rooms[i].name=="")
+            if(rooms[i].name==="")
                 count++;
         }
         return(count);
     }
+
+
     const decontaminatedCount = function(rooms){
         var count = 0;
         for(var i=0;i<rooms.length;i++){
-            if(rooms[i].status=="no")
+            if(rooms[i].status==="no")
                 count++;
         }
         return(count);
     }
+
 
     const handleLocation = e =>{
         setLocation(e.target.options[e.target.options.selectedIndex].value)
         window.localStorage.setItem('location',e.target.options[e.target.options.selectedIndex].value); 
     }
     
+
     const roomsRedirect = (url) =>{
         window.location.assign(url);
     }
@@ -91,10 +96,15 @@ function Institution(props)
         .catch(err => console.log(err));
     }
 
+
     useEffect(()=>{
         InstitutionsListGenerate();
     },[location]);
 
+
+    useEffect(()=>{
+        window.localStorage.setItem('currTab',"Institutions");
+    },[])
     
 
 

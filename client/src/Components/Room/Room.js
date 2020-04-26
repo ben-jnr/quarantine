@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import RoomsAddForm from './RoomsAddForm';
 
 
-function Room(props)
-{
+function Room(props){
+
     const [roomInfo, setRoomInfo] = useState({no:0 , status:""});
-    const [rooms , setRooms] = useState([])
+    const [rooms , setRooms] = useState([]);
+    const [roomsArray, setRoomsArray] = useState([]);
     const institutionId = window.location.pathname.split('/')[2];
-   
+
+
     const vacancyCheck = name =>{
         if(name === "")
             return("yes");
@@ -17,9 +20,9 @@ function Room(props)
     
 
     const institutionsRedirect = () =>{
-        window.localStorage.setItem('currTab','Institution');
+        window.localStorage.setItem('currTab','Institutions');
         window.location.assign('/admin');
-       }
+    }
 
 
     const handleChange =(e)=>{    
@@ -30,6 +33,24 @@ function Room(props)
         setRoomInfo({...roomInfo,[e.target.name]: e.target.options[e.target.options.selectedIndex].value});
     }
 
+    
+    const removeRoom = (no) =>{
+        if(window.confirm("Are you sure?")){
+            var url = "http://localhost:9000/api/rooms/"+no+"/delete?id="+window.localStorage.getItem('session')+
+                                                        "&institutionId="+institutionId;
+            axios.get(url)
+            .then(res =>{
+                if(res.data === "connection closed"){
+                    alert("connection closed");
+                    window.location.replace('/');
+                }
+                if(res.data.mssg==="Room Successfully Deleted"){
+                    setRoomsArray(res.data.rooms);
+                }
+            })
+            .catch(err => console.log(err));
+        }  
+    }
 
 
     const handleSubmit = (e) =>{
@@ -41,6 +62,7 @@ function Room(props)
         };
         if(roomInfo.no !== "" && roomInfo.status !== "")
         {
+            let no;
             const data ={no:roomInfo.no, status:roomInfo.status, name:""};    
             var url = "http://localhost:9000/api/rooms/add?id="+window.localStorage.getItem('session')+"&institutionId="+institutionId;
             axios
@@ -55,7 +77,8 @@ function Room(props)
                         document.getElementById("RoomAddMssg").innerHTML = res.data;      
                 }
                 else{
-                    document.getElementById("RoomAddMssg").innerHTML =res.data;
+                    setRoomsArray(res.data.rooms);
+                    document.getElementById("RoomAddMssg").innerHTML =res.data.mssg;
                 }
             })
             .catch(err =>console.log(err));
@@ -74,104 +97,63 @@ function Room(props)
    }
 
 
+   const RoomsListGenerator=(arr)=>
+   {
+    let url;
+    let no;
+    const Rooms = arr.map( u => 
+        <div className="RoomsContainer" key={u.no}>
+            <div className="card mb-2">
+                <div className="card-body">
+                    <h5 className="card-title">Room No: {u.no}</h5>
+                    <h6 className="card-subtitle mb-2 text-muted">Vacancy: {vacancyCheck(u.name)}</h6>
+                    <h6 className="card-subtitle mb-2 text-muted">Contaminated: {u.status}</h6>
+                    <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={inmateRedirect.bind(url,"/admin/"+institutionId+"/"+u.no)}>Info</button>
+                    <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={removeRoom.bind(no,u.no)}>Delete</button>
+                </div>  
+            </div>
+        </div>
+    );
+    return Rooms;
+   }
+
 
     useEffect(()=>{
+        let no;
         window.localStorage.setItem('currTab',"Institutions");
-        var url = "http://localhost:9000/api/rooms?id="+window.localStorage.getItem('session')+
-                                            "&institutionId="+institutionId;                                    
-        axios.get(url)
-        .then(res => {
-            if(res.data === "connection closed")
-            {
-                alert("connection closed");
-                window.location.replace('/');
-            }
-            const Rooms = res.data.map( u => 
-                <div className="RoomsContainer" key={u.no}>
-                    <div className="card mb-2">
-                        <div className="card-body">
-                            <h5 className="card-title">Room No: {u.no}</h5>
-                            <h6 className="card-subtitle mb-2 text-muted">Vacancy: {vacancyCheck(u.name)}</h6>
-                            <h6 className="card-subtitle mb-2 text-muted">Contaminated: {u.status}</h6>
-                            <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={inmateRedirect.bind(url,"/admin/"+institutionId+"/"+u.no)}>Info</button>
-                            <button className="btn btn-danger DeleteInstitution mt-2 float-right" /*onClick={this.removeRoom.bind(this,u.no+'/'+u.floor)}*/>Delete</button>
-                        </div>  
-                    </div>
-                </div>
-            );
-            setRooms(Rooms);
-        })
-        .catch(err => console.log(err));
-    })
+        if(roomsArray.length === 0){
+            var url = "http://localhost:9000/api/rooms?id="+window.localStorage.getItem('session')+
+                                                "&institutionId="+institutionId;                                                                       
+            axios.get(url)
+            .then(res => {
+                if(res.data === "connection closed"){
+                    alert("connection closed");
+                    window.location.replace('/');
+                }
+                setRoomsArray(res.data);
+                setRooms(RoomsListGenerator(res.data));
+            })
+            .catch(err => console.log(err));
+        }
+        else{
+            setRooms(RoomsListGenerator(roomsArray));
+        }    
+    },[roomsArray])
 
     
 
     return(
         <div className="row">
-            <div className="input-group col-6">
-                <div>
-                    <button className="btn btn-primary mr-2" onClick={institutionsRedirect}><i className="fa fa-arrow-left "></i></button>
-                </div>
-                <form>
-                    <div className="form-group">
-                        <label htmlFor="exampleInputEmail1">Room No</label>
-                        <input type="number" id="roomNo" name="no" className="form-control" placeholder="Room No" onChange={handleChange}/>
-                    </div>
-                    <div className="input-group mb-3">
-                        <div className="input-group-prepend">
-                            <label className="input-group-text" htmlFor="inputGroupSelect01">Status</label>
-                        </div>
-                        <select className="custom-select" id="roomStatus" name='status' onChange={handleDropdown}>
-                            <option defaultValue>Choose...</option>
-                            <option value="no">Decontaminated</option>
-                            <option value="yes">Contaminated</option>
-                        </select>
-                    </div>
-                    <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Add room</button>
-                </form>
+            <div col-4>
+                <RoomsAddForm institutionsRedirectParent={institutionsRedirect} handleChangeParent={handleChange}
+                            handleDropdownParent = {handleDropdown} handleSubmitParent={handleSubmit}/>
+                <div id="RoomAddMssg"></div>
             </div>
-            <div id="RoomAddMssg"></div>
-            <div className="col">
-                <div className="row-6">
-                    {rooms}
-                </div>
+            <div className="col-6">
+                {rooms}
             </div>
         </div>
     );
-
-    /*
-        
-       removeRoom = (roomUrl) =>{
-        if(window.confirm("Are you sure?"))
-        {
-            var url = "http://localhost:9000/api/"+ this.name+'/'+this.district+'/'+roomUrl+'/delete/';
-            axios.get(url)
-            .then(res =>{
-                if(res.data.mssg==="Room Successfully Deleted"){
-                    const Rooms = res.data.rooms.map( u => 
-                        <div className="RoomsContainer">
-                            <div class="card mb-2">
-                                <div class="card-body">
-                                    <h5 className="card-title">Room No: {u.no}</h5>
-                                    <h6 className="card-subtitle mb-2 text-muted">Floor: {u.floor}</h6>
-                                    <h6 className="card-subtitle mb-2 text-muted">Vacancy: {vacancyCheck(u.name)}</h6>
-                                    <h6 className="card-subtitle mb-2 text-muted">Contaminated: {u.status}</h6>
-                                    <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={this.inmateRedirect.bind(this,'/admin/'+this.name+'/'+this.district+'/'+u.no+'/'+u.floor+'/')}>Info</button>
-                                    <button className="btn btn-danger DeleteRoom mt-2 float-right" onClick={this.removeRoom.bind(this,u.no+'/'+u.floor)}>Delete</button>
-                                </div>  
-                            </div>
-                        </div>
-                    );
-                    this.setState({"Rooms": Rooms});
-                }
-            })
-            .catch(err => console.log(err));
-        }  
-    }
-
-    
-
-    }*/
 }
 
 export default Room;
