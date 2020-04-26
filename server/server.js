@@ -13,6 +13,8 @@ require('./routes/auth/session')(app);
 require('./routes/auth/useradd')(app);
 require('./routes/institution/allInstitutions')(app);
 require('./routes/institution/delInstitution')(app);
+require('./routes/room/addRooms')(app);
+require('./routes/room/allRooms')(app);
 
 
 var MongoPool = require("./routes/db/db");
@@ -22,70 +24,6 @@ var quarantine = db.db('quarantine'),
     institution = quarantine.collection('institution'); 
 
     
-        
-
-    
-
-    //route to add new Room
-    app.post("/api/:name/:district",function(req,res){
-        institution.findOne({name:req.params.name, district:req.params.district},function(err,exists){
-            if(!exists){
-                res.send({mssg:"Hotel does not Exist"}); 
-            }
-            else{
-                var rooms = exists.rooms;
-                var flag=0;
-                for(var i=0;i<rooms.length;i++){
-                    if(rooms[i].no === req.body.no && rooms[i].floor == req.body.floor)
-                    {
-                        flag=1;
-                        break;
-                    }   
-                }
-                if(flag===0)
-                {
-                    rooms.push(req.body);
-                    rooms.sort((a, b) => (a.floor > b.floor) ? 1 : (a.floor === b.floor) ? ((a.no > b.no) ? 1 : -1) : -1 );
-                    institution.updateOne({
-                                    name:req.params.name,
-                                    district:req.params.district
-                                    },
-                                    {$set: {
-                                        rooms:rooms,
-                                    }},function(err,newRoom){
-                                        if(err)
-                                            console.log(err);
-                                        else    
-                                            res.send({mssg:"Room Successfully Added",
-                                                    rooms:rooms});
-                                    })
-                }
-                else
-                {
-                    res.send({mssg:"Room Already Exists"});
-                }    
-            }
-        })           
-    });          
-
-
-
-    //Route to read all rooms
-    app.get("/api/:name/:district",function(req,res){
-        institution.findOne({name:req.params.name, district:req.params.district},function(err,exists){
-            if(!exists){
-                res.send({mssg:"failed"});
-            }
-            else{
-                exists.rooms.sort((a, b) => (a.floor > b.floor) ? 1 : (a.floor === b.floor) ? ((a.no > b.no) ? 1 : -1) : -1 );
-                res.send({mssg:"success", rooms:(exists.rooms)});
-            }    
-        })    
-    })
-
-
-
-
     //Route to delete room
     app.get("/api/:name/:district/:no/:floor/delete/" ,function(req,res){
         institution.findOne({name:req.params.name, district:req.params.district},function(err,exists)

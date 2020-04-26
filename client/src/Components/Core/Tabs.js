@@ -25,7 +25,6 @@ function Tabs(props) {
                     <div className="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"><Home/></div>
                     <div className="tab-pane fade p-2" id="v-pills-institution" role="tabpanel" aria-labelledby="v-pills-institution-tab">
                         <h2>{props.currTab}</h2> {selectInstitutionsTab()}</div>
-                    <div className="tab-pane fade" id="v-pills-emigrant" role="tabpanel" aria-labelledby="v-pills-emigrant-tab"><Emigrant/></div>
                     <div class="tab-pane fade" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
                         <UserAdd type={props.type}/>
                     </div>
@@ -39,7 +38,6 @@ function Tabs(props) {
                 <div className="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"><Home/></div>
                 <div className="tab-pane fade p-2" id="v-pills-institution" role="tabpanel" aria-labelledby="v-pills-institution-tab">
                     <h2>{props.currTab}</h2> {selectInstitutionsTab()}</div>
-                <div className="tab-pane fade" id="v-pills-emigrant" role="tabpanel" aria-labelledby="v-pills-emigrant-tab"><Emigrant/></div>
                 <div class="tab-pane fade" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
                     <UserAdd type={props.type}/>
                 </div>
@@ -58,7 +56,6 @@ function Tabs(props) {
         return (
             <div className="row-12">
                 <div className="tab-content ml-4" id="v-pills-tabContent">
-                    <div className="tab-pane fade" id="v-pills-emigrant" role="tabpanel" aria-labelledby="v-pills-emigrant-tab"><Emigrant/></div>
                     <div className="tab-pane fade p-2" id="v-pills-institution" role="tabpanel" aria-labelledby="v-pills-institution-tab">
                         <h2>{props.currTab}</h2> {selectInstitutionsTab()}</div>
                 </div>
