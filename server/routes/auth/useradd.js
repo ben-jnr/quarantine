@@ -39,7 +39,7 @@ module.exports = function(app)
                                         var rooms=[];
                                         for(var i=1;i<=req.body.no;i++)
                                         {
-                                            var roomData = {no:i , floor:0 }
+                                            var roomData = {no:i , status:"no", name:"" }
                                             rooms.push(roomData);
                                         }
                                         institution.insertOne({ name:req.body.institution,

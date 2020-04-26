@@ -7,10 +7,7 @@ import { Route } from "react-router-dom";
 function RoutesDecider()
 {        
     const [type, setType] = useState("");
-    const [institutionId , setInstitutionId] = useState(""); 
-    var flag=0;
-    
-
+    const [institutionId , setInstitutionId] = useState("");     
 
     const readSession=() =>{
         axios.get('http://localhost:9000/api/?id='+window.localStorage.getItem('session'))
@@ -23,24 +20,17 @@ function RoutesDecider()
     }
     
     useEffect(() => {
-        axios.get('http://localhost:9000/api/?id='+window.localStorage.getItem('session'))
-        .then(res => {
-                if(res.data.type === 'institution')
-                    setInstitutionId(res.data.id);
-                setType(res.data.type);
-                })
-        .catch(err => console.log(err));
-    },[])
-    
-    console.log(type);  
+        readSession();
+    },[]);
 
-    if(window.localStorage.getItem('session')){    
-        if(type === "admin" || type === 'dashboard' || type === 'airport' || type === 'institution' || type === 'superadmin'){
+    
+    if(window.localStorage.getItem('session'))
+    {    
+        if(type === "admin" || type === 'dashboard' || type === 'airport' || type === 'institution' || type === 'superadmin')
+        {
             if(type === 'admin' || type === 'superadmin' || type === 'dashboard')
                 window.localStorage.setItem('currTab',"Home");
-            else if(type === 'airport')
-                window.localStorage.setItem('currTab',"Emigrant");
-            else if(type === 'institution')
+            else if(type === 'institution' || type === 'airport')
                 window.localStorage.setItem('currTab',"Institution");        
             window.localStorage.setItem('location',"Alappuzha");
             return (
@@ -52,19 +42,14 @@ function RoutesDecider()
                 </div>
             );
         }
-        else if(window.localStorage.getItem('session') === "User does not exist")
+        else if(type==="")
+        {
+            return(<div></div>)
+        }
+        else
         {
             return(<Route path= '/' render={()=> <Login parentFunction={readSession} /> }/>)
         }
-        else if(flag===0)
-        {
-            flag=1;
-            return(<div></div>)
-        }   
-    }
-    else if(type === "User does not exist")
-    {
-        return(<Route path= '/' render={()=> <Login parentFunction={readSession} /> }/>)
     }
     else
     {

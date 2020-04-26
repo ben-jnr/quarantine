@@ -27,11 +27,6 @@ function Admin(props)
       document.getElementById('v-pills-institution').classList.add('active');
       document.getElementById('v-pills-institution').classList.add('show');
     }
-    else if(window.localStorage.getItem('currTab')==="Emigrant"){
-      document.getElementById('v-pills-emigrant-tab').classList.add('active');
-      document.getElementById('v-pills-emigrant').classList.add('active');
-      document.getElementById('v-pills-emigrant').classList.add('show');
-    } 
   })
 
   

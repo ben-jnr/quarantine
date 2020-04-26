@@ -8,8 +8,6 @@ function Login(props){
     const [credentials , setCredentials] = useState(defaultCredentials);
     window.localStorage.removeItem('currTab');
     window.localStorage.removeItem('location');
-    window.localStorage.removeItem("session");
-
 
     const handleChange = e => {
         setCredentials({...credentials, [e.target.name]:e.target.value});      

@@ -71,6 +71,10 @@ function UserAdd(props)
                         window.location.replace('/');
                     }
                     document.getElementById("passwordMismatch").innerHTML = res.data;
+                    if(credentials.type === 'institution'){
+                        if(credentials.district === window.localStorage.getItem('location'))
+                            window.location.reload();
+                    }
                 })
                 .catch(err =>console.log(err));            
             }

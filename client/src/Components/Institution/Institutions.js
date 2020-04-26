@@ -7,7 +7,6 @@ function Institution(props)
 {
     const [institutions , setInstitutions] = useState();
     const [location , setLocation] = useState(window.localStorage.getItem('location'));
-     
 
     const vacantCount = function(rooms){
         var count = 0;
@@ -28,7 +27,7 @@ function Institution(props)
 
     const handleLocation = e =>{
         setLocation(e.target.options[e.target.options.selectedIndex].value)
-        window.sessionStorage.setItem('location',e.target.options[e.target.options.selectedIndex].value); 
+        window.localStorage.setItem('location',e.target.options[e.target.options.selectedIndex].value); 
     }
     
     const roomsRedirect = (url) =>{
@@ -92,10 +91,10 @@ function Institution(props)
         .catch(err => console.log(err));
     }
 
-    
     useEffect(()=>{
-        InstitutionsListGenerate(); 
+        InstitutionsListGenerate();
     },[location]);
+
     
 
 
@@ -106,6 +105,7 @@ function Institution(props)
             return(<div></div>);
     }
     
+    
     return (
         <div id="InstitutionTab p-2">
             <div>
@@ -114,6 +114,7 @@ function Institution(props)
             </div>                   
         </div>  
     );
+       
 }
 
 export default Institution;
