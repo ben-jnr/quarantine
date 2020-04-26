@@ -37,9 +37,13 @@ module.exports = function(app)
                             var rooms = exists.rooms;
                             var flag=0;
                             index = -1;
-                            if(req.body.no < rooms[0].no)
+                            if(rooms.length === 0)
                             {
-                                index = -1;
+                                index =0;
+                            }
+                            else if(parseInt(req.body.no) < parseInt(rooms[0].no))
+                            {
+                                index = 0;
                             }
                             else if(parseInt(req.body.no) > parseInt(rooms[rooms.length-1].no))
                             {
@@ -48,7 +52,6 @@ module.exports = function(app)
                             else
                             {
                                 for(var i=0;i<rooms.length;i++){
-                                    console.log(rooms[i].no);
                                     if(rooms[i].no === req.body.no)
                                     {
                                         flag=1;
@@ -61,7 +64,7 @@ module.exports = function(app)
                                     }   
                                 }
                             }    
-                            if(flag===0 && index>0)
+                            if(flag===0 && index>=0)
                             {
                                 rooms.splice(index , 0, req.body);
                                 institution
@@ -74,7 +77,8 @@ module.exports = function(app)
                                                     if(err)
                                                         console.log(err);
                                                     else{
-                                                        res.send("Room Succesfully Added");
+                                                        res.send({mssg:"Room Succesfully Added",
+                                                                rooms:rooms});
                                                     }    
                                                 })
                             }

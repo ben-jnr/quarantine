@@ -4,7 +4,6 @@ import UserAdd from "../Auth/UserAdd";
 import Institutions from "../Institution/Institutions";
 import Rooms from "../Room/Room"
 import RoomInfo from '../Room/RoomInfo';
-import Emigrant from '../Emigrant/Emigrant';
 
 function Tabs(props) {
     

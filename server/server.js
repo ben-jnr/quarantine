@@ -15,6 +15,7 @@ require('./routes/institution/allInstitutions')(app);
 require('./routes/institution/delInstitution')(app);
 require('./routes/room/addRooms')(app);
 require('./routes/room/allRooms')(app);
+require('./routes/room/delRooms')(app);
 
 
 var MongoPool = require("./routes/db/db");
@@ -24,34 +25,7 @@ var quarantine = db.db('quarantine'),
     institution = quarantine.collection('institution'); 
 
     
-    //Route to delete room
-    app.get("/api/:name/:district/:no/:floor/delete/" ,function(req,res){
-        institution.findOne({name:req.params.name, district:req.params.district},function(err,exists)
-        {
-            if(exists){
-                var rooms = exists.rooms;
-                var newRooms = [];
-                for(var i=0;i<rooms.length;i++){
-                    if(rooms[i].no !== req.params.no || rooms[i].floor !== req.params.floor)
-                            newRooms.push(rooms[i]);
-                }
-                institution.updateOne({
-                    name:req.params.name,
-                    district:req.params.district
-                    },
-                    {$set: {
-                        rooms:newRooms,
-                    }},function(err,current){
-                        if(err)
-                            console.log(err);
-                        else    
-                            res.send({mssg:"Room Successfully Deleted",
-                                    rooms:newRooms});
-                    })
-            }
-        })
-    })
-
+    
 
 
     //Route to read Inmate and returns the particular room
