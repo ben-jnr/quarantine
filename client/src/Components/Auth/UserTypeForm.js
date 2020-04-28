@@ -15,12 +15,16 @@ function UserTypeForm(props) {
                             <label class="custom-control-label" for="rBtn2">Dashboard</label>
                         </div>
                         <div class="custom-control custom-radio ml-4">
-                            <input type="radio" id="rBtn3" name="type" value="airport" onChange={props.handleChangeParent} class="custom-control-input"/>
-                            <label class="custom-control-label" for="rBtn3">Airport</label>
+                            <input type="radio" id="rBtn3" name="type" value="taluk" onChange={props.handleChangeParent} class="custom-control-input"/>
+                            <label class="custom-control-label" for="rBtn3">Taluk</label>
                         </div>
                         <div class="custom-control custom-radio ml-4">
-                            <input type="radio" id="rBtn4" name="type" value="institution" onChange={props.handleChangeParent} class="custom-control-input"/>
-                            <label class="custom-control-label" for="rBtn4">Institution</label>
+                            <input type="radio" id="rBtn4" name="type" value="airport" onChange={props.handleChangeParent} class="custom-control-input"/>
+                            <label class="custom-control-label" for="rBtn4">Airport</label>
+                        </div>
+                        <div class="custom-control custom-radio ml-4">
+                            <input type="radio" id="rBtn5" name="type" value="institution" onChange={props.handleChangeParent} class="custom-control-input"/>
+                            <label class="custom-control-label" for="rBtn5">Institution</label>
                         </div>
                     </div>
             </div>
@@ -35,14 +39,25 @@ function UserTypeForm(props) {
                             <label class="custom-control-label" for="rBtn2">Dashboard</label>
                         </div>
                         <div class="custom-control custom-radio ml-4">
-                            <input type="radio" id="rBtn3" name="type" value="airport" onChange={props.handleChangeParent} class="custom-control-input"/>
-                            <label class="custom-control-label" for="rBtn3">Airport</label>
+                            <input type="radio" id="rBtn3" name="type" value="taluk" onChange={props.handleChangeParent} class="custom-control-input"/>
+                            <label class="custom-control-label" for="rBtn3">Taluk</label>
                         </div>
                         <div class="custom-control custom-radio ml-4">
-                            <input type="radio" id="rBtn4" name="type" value="institution" onChange={props.handleChangeParent} class="custom-control-input"/>
-                            <label class="custom-control-label" for="rBtn4">Institution</label>
+                            <input type="radio" id="rBtn4" name="type" value="airport" onChange={props.handleChangeParent} class="custom-control-input"/>
+                            <label class="custom-control-label" for="rBtn4">Airport</label>
+                        </div>
+                        <div class="custom-control custom-radio ml-4">
+                            <input type="radio" id="rBtn5" name="type" value="institution" onChange={props.handleChangeParent} class="custom-control-input"/>
+                            <label class="custom-control-label" for="rBtn5">Institution</label>
                         </div>
                     </div>
+            </div>
+        );
+    else if(props.type === 'taluk')
+        return(
+            <div class="custom-control custom-radio ml-4">
+                <input type="radio" id="rBtn4" name="type" value="institution" onChange={props.handleChangeParent} class="custom-control-input"/>
+                <label class="custom-control-label" for="rBtn4">Institution</label>
             </div>
         );
 }

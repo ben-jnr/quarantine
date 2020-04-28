@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import DistrictSearch from './DistrictSearch';
+import TalukSearch from './TalukSearch';
 
 
 function Institution(props)
 {
     const [institutions , setInstitutions] = useState();
-    const [location , setLocation] = useState(window.localStorage.getItem('location'));
+    const [taluk , setTaluk] = useState(window.localStorage.getItem('taluk')); 
 
-    
     const vacantCount = function(rooms){
         var count = 0;
         for(var i=0;i<rooms.length;i++){
@@ -30,8 +29,8 @@ function Institution(props)
 
 
     const handleLocation = e =>{
-        setLocation(e.target.options[e.target.options.selectedIndex].value)
-        window.localStorage.setItem('location',e.target.options[e.target.options.selectedIndex].value); 
+        setTaluk(e.target.options[e.target.options.selectedIndex].value)
+        window.localStorage.setItem('taluk',e.target.options[e.target.options.selectedIndex].value); 
     }
     
 
@@ -47,7 +46,7 @@ function Institution(props)
             axios.get(url)
                 .catch(err => console.log(err));
         }  
-        window.localStorage.setItem('location',location);
+        window.localStorage.setItem('taluk',taluk);
         InstitutionsListGenerate();
     }
 
@@ -62,7 +61,7 @@ function Institution(props)
 
     const InstitutionsListGenerate = () => {
         var url = "";
-        axios.get("http://localhost:9000/api/institution?location="+location +"&id=" +window.localStorage.getItem('session') 
+        axios.get("http://localhost:9000/api/institution?taluk="+taluk +"&id=" +window.localStorage.getItem('session') 
                                             +"&institutionId=" + props.institutionId)
         .then(res => {
             if(res.data === "connection closed")
@@ -99,10 +98,11 @@ function Institution(props)
 
     useEffect(()=>{
         InstitutionsListGenerate();
-    },[location]);
+    },[taluk, props.institutionId]);
 
 
     useEffect(()=>{
+        InstitutionsListGenerate();
         window.localStorage.setItem('currTab',"Institutions");
     },[])
     
@@ -110,7 +110,7 @@ function Institution(props)
 
     const searchDecider = () =>{
         if(props.type !== 'institution')
-            return(<DistrictSearch handleLocationParent = {handleLocation} />) ;
+            return(<TalukSearch handleLocationParent = {handleLocation} />) ;
         else
             return(<div></div>);
     }
