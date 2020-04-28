@@ -17,21 +17,31 @@ function Admin(props)
 
 
   useEffect(()=>{
-    if(window.localStorage.getItem('currTab')==="Home"){
-      document.getElementById('v-pills-institution-tab').classList.remove('active');
-      document.getElementById('v-pills-institution').classList.remove('active');
-      document.getElementById('v-pills-institution').classList.remove('show');
-      document.getElementById('v-pills-home-tab').classList.add('active');
-      document.getElementById('v-pills-home').classList.add('active');
-      document.getElementById('v-pills-home').classList.add('show');
+    if(props.type === 'superadmin' || props.type === 'admin')
+    {
+      if(window.localStorage.getItem('currTab')==="Institutions"){
+        document.getElementById('v-pills-home-tab').classList.remove('active');
+        document.getElementById('v-pills-home').classList.remove('active');
+        document.getElementById('v-pills-home').classList.remove('show');
+        document.getElementById('v-pills-institution-tab').classList.add('active');
+        document.getElementById('v-pills-institution').classList.add('active');
+        document.getElementById('v-pills-institution').classList.add('show');
+      }
+      if(window.localStorage.getItem('currTab')==="Home"){
+        document.getElementById('v-pills-institution-tab').classList.remove('active');
+        document.getElementById('v-pills-institution').classList.remove('active');
+        document.getElementById('v-pills-institution').classList.remove('show');
+        document.getElementById('v-pills-home-tab').classList.add('active');
+        document.getElementById('v-pills-home').classList.add('active');
+        document.getElementById('v-pills-home').classList.add('show');
+      }
     }
-    else if(window.localStorage.getItem('currTab')==="Institutions"){
-      document.getElementById('v-pills-home-tab').classList.remove('active');
-      document.getElementById('v-pills-home').classList.remove('active');
-      document.getElementById('v-pills-home').classList.remove('show');
-      document.getElementById('v-pills-institution-tab').classList.add('active');
-      document.getElementById('v-pills-institution').classList.add('active');
-      document.getElementById('v-pills-institution').classList.add('show');
+    
+    else if(props.type === 'taluk' || props.type === 'institution')
+    {
+        document.getElementById('v-pills-institution-tab').classList.add('active');
+        document.getElementById('v-pills-institution').classList.add('active');
+        document.getElementById('v-pills-institution').classList.add('show');
     }
   })
 

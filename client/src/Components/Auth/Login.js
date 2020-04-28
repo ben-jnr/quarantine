@@ -7,7 +7,9 @@ function Login(props){
     const defaultCredentials = {username:"", password:""}
     const [credentials , setCredentials] = useState(defaultCredentials);
     window.localStorage.removeItem('currTab');
-    window.localStorage.removeItem('location');
+    window.localStorage.removeItem('taluk');
+    window.localStorage.removeItem('panchayat');
+    window.localStorage.removeItem('session');
 
     const handleChange = e => {
         setCredentials({...credentials, [e.target.name]:e.target.value});      

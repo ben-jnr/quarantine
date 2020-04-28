@@ -20,11 +20,13 @@ module.exports = function(app)
         cookie: { secure:true, maxAge:1*60*60*1000 },
     }))
 
+    var userCollection = 'user';
+
     var MongoPool = require("../db/db");
     MongoPool.getInstance(function (db){
 
         var quarantine = db.db('quarantine'),
-            user  = quarantine.collection('user');        
+            user  = quarantine.collection(userCollection);        
         
         //Route for Login Form
         app.post("/api/login",function(req,res){

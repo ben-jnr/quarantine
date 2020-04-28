@@ -7,7 +7,7 @@ import UserDependantForm from './UserDependantForm';
 function UserAdd(props) 
 {
     const defaultCredentials = {username:"", password:"", confirmpassword:"", type:"",
-                        institution:"", district:"", no:0};
+                        institution:"", taluk:"", panchayat:"",priority:0, fit:""};
     const [credentials, setCredentials] = useState(defaultCredentials);
     
     const handleChange = (e)=>{
@@ -32,36 +32,40 @@ function UserAdd(props)
 
     const handleSubmit = (e) =>{
         e.preventDefault();
+        var data;
         document.getElementById("passwordMismatch").innerHTML = "";    
         var config = {  headers: {'Access-Control-Allow-Origin': '*',
                         'Access-Control-Allow-Credentials': true}};
-        if(credentials.username !== "" && credentials.password !== ""
-        && credentials.confirmpassword !== "" && credentials.type !== "")
-        {
+        if(credentials.username !== "" && credentials.password !== "" 
+            && credentials.confirmpassword !== "" && credentials.type !== "")
+        {                    
             if(credentials.password === credentials.confirmpassword)
             {
                 if(credentials.type === 'institution')
                 {
-                    if(credentials.institution !=="" && credentials.district !== "" && credentials.no !== 0)
-                        var data ={   username:credentials.username,
+                    if(credentials.institution !== "" && credentials.taluk !== "" && credentials.panchayat !== ""
+                        && credentials.fit !== "" && document.querySelector("#map-link").textContent !== "")
+                        data ={   username:credentials.username,
                             password:credentials.password,
                             type:credentials.type,
                             institution : credentials.institution,
-                            district: credentials.district,
-                            no:credentials.no
+                            taluk: credentials.taluk,
+                            panchayat:credentials.panchayat,
+                            priority:0,
+                            fit:credentials.fit
                         };
                     else
                     {
-                        document.getElementById("passwordMismatch").innerHTML = "Empty Field Present";
-                        setFormsDefault();
-                        return;
-                    }    
-                }
-                else    
-                    var data ={   username:credentials.username,
-                                    password:credentials.password,
-                                    type:credentials.type
+                        document.getElementById("passwordMismatch").innerHTML = "Empty Fields Present";
+                    }
+                }            
+                else
+                {    
+                    data ={ username:credentials.username,
+                                password:credentials.password,
+                                type:credentials.type
                                 };
+                }                
                 var url = "http://localhost:9000/api/useradd?id="+ window.localStorage.getItem('session');
                 axios
                 .post(url, data, config)
@@ -72,19 +76,19 @@ function UserAdd(props)
                     }
                     document.getElementById("passwordMismatch").innerHTML = res.data;
                     if(credentials.type === 'institution'){
-                        if(credentials.district === window.localStorage.getItem('location'))
+                        if(credentials.taluk === window.localStorage.getItem('location'))
                             window.location.reload();
                     }
                 })
-                .catch(err =>console.log(err));            
-            }
+                    .catch(err =>console.log(err));            
+            }    
             else{document.getElementById("passwordMismatch").innerHTML = "Password Mismatch";}
+            setFormsDefault();
         }
-        else{document.getElementById("passwordMismatch").innerHTML = "Empty Field Present";}
-        setFormsDefault();
+        else
+            document.getElementById("passwordMismatch").innerHTML = "Empty Fields Present";
     }
 
-    
     
     return (
         <div>

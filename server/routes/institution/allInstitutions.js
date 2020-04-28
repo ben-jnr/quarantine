@@ -31,7 +31,7 @@ module.exports = function(app)
                 {
                     if(req.query.institutionId === "")
                     {
-                        institution.find({district:req.query.location}).sort({'_id':-1}).toArray(function(err,institutions){
+                        institution.find({taluk:req.query.taluk}).sort({'_id':-1}).toArray(function(err,institutions){
                             if(err)
                                 res.send(err);
                             else

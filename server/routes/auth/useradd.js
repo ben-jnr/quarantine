@@ -21,7 +21,7 @@ module.exports = function(app)
             institution =quarantine.collection('institution');
     
         //Route to add new user 
-        app.post("/api/useradd",function(req,res){
+        app.post("/api/useradd",function(req,res){ 
             store.get(req.query.id, function(err,session){
                 if(err || !session) 
                     res.send('connection closed');
@@ -36,15 +36,12 @@ module.exports = function(app)
                                         res.send("Institution Exists");
                                     else
                                     {
-                                        var rooms=[];
-                                        for(var i=1;i<=req.body.no;i++)
-                                        {
-                                            var roomData = {no:i , status:"no", name:"" }
-                                            rooms.push(roomData);
-                                        }
                                         institution.insertOne({ name:req.body.institution,
-                                                                district:req.body.district,
-                                                                rooms:rooms
+                                                                taluk:req.body.taluk,
+                                                                panchayat:req.body.panchayat,
+                                                                fit:req.body.fit,
+                                                                priority:req.body.priority,
+                                                                rooms:[]
                                                                 },function(err, currInstitution){
                                             if(err)
                                                 console.log(err);

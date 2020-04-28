@@ -10,11 +10,12 @@ function RoutesDecider()
     const [institutionId , setInstitutionId] = useState("");     
 
     const readSession=() =>{
+        console.log(1);
         axios.get('http://localhost:9000/api/?id='+window.localStorage.getItem('session'))
         .then(res =>{
+            setType(res.data.type); 
             if(res.data.type === 'institution')
-                setInstitutionId(res.data.id);
-            setType(res.data.type);    
+                setInstitutionId(res.data.id);   
         })
         .catch(err => console.log(err));
     }
@@ -26,13 +27,14 @@ function RoutesDecider()
     
     if(window.localStorage.getItem('session'))
     {    
-        if(type === "admin" || type === 'dashboard' || type === 'airport' || type === 'institution' || type === 'superadmin')
+        if(type === "admin" || type === 'dashboard' || type === 'airport' || type === 'institution' || type === 'superadmin' || type === 'taluk')
         {
             if(type === 'admin' || type === 'superadmin' || type === 'dashboard')
                 window.localStorage.setItem('currTab',"Home");
-            else if(type === 'institution' || type === 'airport')
+            else if(type === 'institution' || type === 'taluk')
                 window.localStorage.setItem('currTab',"Institution");        
-            window.localStorage.setItem('location',"Alappuzha");
+            window.localStorage.setItem('taluk',"Chavakkad");
+            window.localStorage.setItem('panchayat',"Chavakkad");
             return (
                 <div>
                     <Route exact path = "/" render={() => <Admin currInstitutionsTab="Institutions" type={type} institutionId={institutionId}/>} />

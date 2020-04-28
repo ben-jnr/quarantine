@@ -32,11 +32,20 @@ function Navbar(props) {
             </div>
         </div>
         );
-    else if(props.type === 'airport')
+    else if(props.type === 'taluk')
         return (
             <div class="col p-2 mb-3">
                 <div className="nav row nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a className="nav-link" id="v-pills-institution-tab" data-toggle="pill" href="#v-pills-institution" role="tab" aria-controls="v-pills-profile" aria-selected="false">{props.currInstitutionsTab}</a>
+                    <a className="nav-link" id="v-pills-user-tab" data-toggle="pill" href="#v-pills-user" role="tab" aria-controls="v-pills-messages" aria-selected="false">Add User</a>
+                    <a className="nav-link" id="v-pills-logout" onClick ={props.logoutParent} data-toggle="pill" href="#v-pills-settings" role="tab"aria-selected="false">Logout</a>
+                </div>
+            </div>
+        );    
+    else if(props.type === 'airport')
+        return (
+            <div class="col p-2 mb-3">
+                <div className="nav row nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a className="nav-link" id="v-pills-logout" onClick ={props.logoutParent} data-toggle="pill" href="#v-pills-settings" role="tab"aria-selected="false">Logout</a>
                 </div>
             </div>
