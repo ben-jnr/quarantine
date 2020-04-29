@@ -64,7 +64,7 @@ function Institution(props)
     const removeInstitution = (id) =>{
         if(window.confirm("Are you sure?"))
         {
-            var url = "http://localhost:9000/api/institution/delete/"+id+"?id="+window.localStorage.getItem('session')
+            var url = "http://18.223.108.131:9000/api/institution/delete/"+id+"?id="+window.localStorage.getItem('session')
             axios.get(url)
                 .catch(err => console.log(err));
         }  
@@ -81,7 +81,7 @@ function Institution(props)
     }
 
     const InstitutionsListGenerate = () => {
-        var url = "http://localhost:9000/api/institution?taluk="+taluk+ "&village="+village + 
+        var url = "http://18.223.108.131:9000/api/institution?taluk="+taluk+ "&village="+village + 
         "&id=" +window.localStorage.getItem('session') +"&institutionId=" + props.institutionId;
         console.log(url);
         console.log(props.institutionId);
@@ -134,7 +134,7 @@ function Institution(props)
                 coordinates: document.getElementById('map-link').textContent,
                 rooms:[]
             }
-            var url = "http://localhost:9000/api/institution/add?id="+ window.localStorage.getItem('session');
+            var url = "http://18.223.108.131:9000/api/institution/add?id="+ window.localStorage.getItem('session');
             axios
             .post(url, data, config)
             .then(function(res){

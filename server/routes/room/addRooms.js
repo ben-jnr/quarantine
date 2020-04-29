@@ -4,7 +4,7 @@ module.exports = function(app)
         MongoDBStore = require('connect-mongodb-session')(session),
         ObjectId = require('mongodb').ObjectID;
     var store = new MongoDBStore({
-        uri: 'mongodb://localhost:27017/connect_mongodb_session_test',
+        uri: 'mongodb://18.223.108.131:27017/connect_mongodb_session_test',
         collection: 'mySessions'
     });
             
