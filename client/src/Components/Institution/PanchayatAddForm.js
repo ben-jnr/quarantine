@@ -35,8 +35,6 @@ function geoFindMe() {
 
 function PanchayatAddForm(props)
 {
-    
-    
   useEffect(()=>{
         const panchayatAdd = document.getElementById('panchayatAdd');
         panchayatAdd.options.length =1;
@@ -49,13 +47,12 @@ function PanchayatAddForm(props)
         <div class="col">
             <label for="panchayatAdd">Panchayat</label>
             <select class="custom-select" name="panchayat" id="panchayatAdd" size="1" onChange={props.handleDropdownParent}>
-                <option defaultValue>Choose...</option>
+                <option value="" defaultValue>Choose</option>
             </select>
 
             <button className = 'btn' id = "find-me" onClick={geoFindMe}>Show my location</button><br/>
             <p id = "status"></p>
             <a class="" id = "map-link" target="_blank"></a> 
-            <div id="InstitutionAddMssg"></div>
         </div>
     )
 

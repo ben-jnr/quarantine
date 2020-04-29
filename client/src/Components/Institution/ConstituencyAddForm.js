@@ -6,7 +6,7 @@ function ConstituencyForm(props) {
             <div class="col">
                 <label for="constituencyAdd">Constituency</label>
                 <select class="custom-select" name="constituency" id="constituencyAdd" size="1" onChange={props.handleDropdownParent}>
-                    <option selected>Choose...</option>
+                    <option value="Choose" selected>Choose</option>
                     <option value="Chelakkara">Chelakkara</option>
                     <option value="Kunnamkulam">Kunnamkulam</option>
                     <option value="Guruvayur">Guruvayur</option>
