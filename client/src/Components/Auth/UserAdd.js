@@ -88,11 +88,11 @@ function UserAdd(props)
 
     
     return (
-        <div>
+        <div className="container col-lg-8 col-sm-4 addUser">
             <UserAddForm handleChangeParent = {handleChange}/> 
             <UserTypeForm handleChangeParent = {handleChange} type={props.type}/>
             <UserDependantForm handleDropdownParent={handleDropdown} type={credentials.type}/>
-            <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Add User</button>
+            <button type="submit" id="addUser" className="float-right btn btn-primary" onClick={handleSubmit}>Add User</button>
             <div id="passwordMismatch"></div>
         </div>                    
     )

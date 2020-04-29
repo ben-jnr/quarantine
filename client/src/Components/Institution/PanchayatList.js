@@ -1,7 +1,7 @@
 export default{
 
-    "":[],
-    Choose:"",
+    "":[""],
+    Choose:[""],
     
     Chelakkara: ["Chelakkara" ,"Desamangalam" ,"Kondazhy" ,"Mullurkara" ,"Panjal" ,"Pazhayannur" ,"Thiruvilwamala" ,"Vallathole Nagar" ,"Varavoor"],
     Kunnamkulam: ["Chowannur" ,"Erumapetty" ,"Kadangode" ,"Kadavallur" ,"Kattakampal" ,"Kunnamkulam Mty." ,"Porkulam" ,"Velur"],

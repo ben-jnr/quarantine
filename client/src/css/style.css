@@ -18,6 +18,15 @@
   max-width: 22rem;
 }
 
+.inst .inst-details .lsgd .sbmt-btn {
+  text-align: right;
+}
+
+.inst .inst-details .lsgd .sbmt-btn button {
+  background-color: #104cf3;
+  color: white;
+}
+
 .inst .inst-details .inst-only .inst-type {
   display: -webkit-box;
   display: -ms-flexbox;

@@ -13,6 +13,7 @@ require('./routes/auth/session')(app);
 require('./routes/auth/useradd')(app);
 require('./routes/institution/allInstitutions')(app);
 require('./routes/institution/delInstitution')(app);
+require('./routes/institution/addInstitution')(app);
 require('./routes/room/addRooms')(app);
 require('./routes/room/allRooms')(app);
 require('./routes/room/delRooms')(app);

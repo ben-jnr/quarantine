@@ -16,8 +16,6 @@ function Institution(props)
     const [newInstitution , setNewInstitution] = useState(defaultInstitution);
     const [institutionsArray, setInstitutionsAray] =useState([]);
 
-   
-
     const vacantCount = function(rooms){
         var count = 0;
         for(var i=0;i<rooms.length;i++){
@@ -113,14 +111,49 @@ function Institution(props)
     }
 
 
-    const handleSubmit = () =>{
-        let data = {
-            ...newInstitution ,
-            priority:"",
-            coordinates: document.getElementById('map-link').textContent,
-            rooms:[]
+
+    const handleSubmit = (e) =>{
+        e.preventDefault();
+        document.getElementById('institutionAddMssg').innerHTML = "";
+        if(newInstitution.name !== "" && newInstitution.type !== "" && newInstitution.taluk !== "" &&
+            newInstitution.village!=="" && newInstitution.constituency!=="" && newInstitution.panchayat!=="" &&
+            document.getElementById('map-link').textContent!== "")
+        {    
+            var config = {  headers: {'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Credentials': true}};
+            let data = {
+                ...newInstitution ,
+                coordinates: document.getElementById('map-link').textContent,
+                rooms:[]
+            }
+            var url = "http://localhost:9000/api/institution/add?id="+ window.localStorage.getItem('session');
+            console.log(url);
+            axios
+            .post(url, data, config)
+            .then(function(res){
+               if(typeof(res.data) === 'string')
+               {
+                   if(res.data === 'connection closed')
+                   {
+                       alert(res.data);
+                       window.location.replace('/');
+                   }
+                   else
+                   {
+                    document.getElementById('institutionAddMssg').innerHTML = res.data;
+                   }
+                }
+                else
+                {
+                    document.getElementById('institutionAddMssg').innerHTML = res.data.mssg;
+                    console.log(res.data.data);
+                }    
+            })
+            .catch(err => console.log(err));
         }
-        console.log(data);
+        else{
+            document.getElementById('institutionAddMssg').innerHTML = "Empty Fields Present";
+        }    
     }
 
 
@@ -129,9 +162,10 @@ function Institution(props)
         if(props.type === 'taluk')
         {
             setTaluk(props.taluk);
-            setNewInstitution({...newInstitution, ['taluk']:props.taluk})
+            setNewInstitution({...newInstitution, taluk:props.taluk})
         }
-    },[])
+    },[props.taluk])
+
 
 
     const searchDecider = () =>{
@@ -143,22 +177,32 @@ function Institution(props)
             return(<div></div>);
     }
     
+
+    const formsDecider = () =>{
+        if(props.type !== 'institution')
+        {
+            return(
+                <div id="institutionForm" className="inst">
+                    <h1>Enter basic institution details</h1>
+                    
+                    <div className="inst-details">
+                    <InstitutionsAddForm type = {props.type} handleDropdownParent={handleDropdown} handleChangeParent = {handleChange}/>
+                    <div className="lsgd">
+                    <VillageAddForm taluk= {newInstitution.taluk} handleDropdownParent={handleDropdown}/>
+                    <ConstituencyAddForm handleDropdownParent = {handleDropdown}/>
+                    <PanchayatAddForm constituency={newInstitution.constituency}  handleDropdownParent = {handleDropdown}/>
+                    <div class="sbmt-btn"><button className='btn' onClick = {handleSubmit}>Submit</button></div>
+                    <div id="institutionAddMssg"></div>
+                    </div>
+                    </div>
+                </div>
+            )
+        }
+    }
+
     return (
         <div id="InstitutionTab p-2">
-            
-            <div id="institutionForm" className="inst">
-            <h1>Enter basic institution details</h1>
-            <div className="inst-details">
-                <InstitutionsAddForm type = {props.type} handleDropdownParent={handleDropdown} handleChangeParent = {handleChange}/>
-                <div className="lsgd">
-                <VillageAddForm taluk= {newInstitution.taluk} handleDropdownParent={handleDropdown}/>
-                <ConstituencyAddForm handleDropdownParent = {handleDropdown}/>
-                <PanchayatAddForm constituency={newInstitution.constituency}  handleDropdownParent = {handleDropdown}/>
-                
-                <button className='btn' onClick = {handleSubmit}>Submit</button>
-                </div>
-                </div>
-            </div>    
+                {formsDecider()}
                 <h6>Search</h6>
                 {searchDecider()}
                 {institutions}                   

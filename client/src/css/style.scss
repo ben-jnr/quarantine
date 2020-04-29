@@ -12,6 +12,13 @@ font-family:"Roboto";
         
         .lsgd {
             max-width: 22rem;
+            .sbmt-btn{
+                text-align: right;
+                button{
+                    background-color: rgb(16, 76, 243);
+                    color:white;
+                }
+            }
         }
 
         .inst-only {
