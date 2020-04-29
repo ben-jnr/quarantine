@@ -145,12 +145,19 @@ function Institution(props)
     
     return (
         <div id="InstitutionTab p-2">
-            <div id="institutionForm">
+            
+            <div id="institutionForm" className="inst">
+            <h1>Enter basic institution details</h1>
+            <div className="inst-details">
                 <InstitutionsAddForm type = {props.type} handleDropdownParent={handleDropdown} handleChangeParent = {handleChange}/>
+                <div className="lsgd">
                 <VillageAddForm taluk= {newInstitution.taluk} handleDropdownParent={handleDropdown}/>
                 <ConstituencyAddForm handleDropdownParent = {handleDropdown}/>
                 <PanchayatAddForm constituency={newInstitution.constituency}  handleDropdownParent = {handleDropdown}/>
+                
                 <button className='btn' onClick = {handleSubmit}>Submit</button>
+                </div>
+                </div>
             </div>    
                 <h6>Search</h6>
                 {searchDecider()}
