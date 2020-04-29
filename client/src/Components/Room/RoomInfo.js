@@ -88,7 +88,7 @@ class RoomInfo extends Component {
         }
 
         return (
-            <div className="container">
+            <div className="container ">
                 <div>
                     <button onClick={this.RoomsRedirect} class='btn btn-primary'>Back</button>
                 </div>
@@ -102,7 +102,7 @@ class RoomInfo extends Component {
                         </button>
                         <div>
                         <button type="button" className="btn mb-2" id="RoomStatusBtn">
-                            Contaminated : <span class="badge badge-light">{this.state.room.status}</span>
+                            Contaminated  : <span class="badge badge-light">{this.state.room.status}</span>
                         </button>
                         </div>
                     </div>
