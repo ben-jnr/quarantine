@@ -12,7 +12,7 @@
     margin-bottom: 7vh;
 }
 
-input[type="text"],input[type="password"]{
+input[type="text"],input[type="password"],input[type="email"]{
     border: none;
     background:  #ebedef ;
     font-size: 1.12rem;
@@ -20,14 +20,20 @@ input[type="text"],input[type="password"]{
     padding: 5px;
 }
 
-#loginButton{
+#loginButton,#addUser{
     border:none;
     background-color: navy;
     border-radius: 25px;
     padding: 10px 20px 10px 20px;
 }
 
+.addUser{
+    left:10vw;
+}
 
+.addUser button{
+    margin-right: 25vw !important;
+}
 
 /* Mobile View*/
 @media only screen and (max-width: 650px) {
@@ -42,5 +48,19 @@ input[type="text"],input[type="password"]{
 
     #loginForm{
         padding: 10%;
+    }
+
+    .addUser{
+        left: 0;
+    }
+    .userType{
+        display:inline-flex;
+    }
+    .rBtn{
+        margin-left: 25px;
+    }
+
+    .ml4{
+        margin-right: 10px;
     }
 }  
