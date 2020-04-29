@@ -7,15 +7,9 @@ module.exports = function(app)
         collection: 'mySessions'
     });
             
-<<<<<<< HEAD
-    store.on('error', function(err) {
-        if(err)
-            console.log(err);
-=======
     store.on('error', function(error) {
         if(error)
             console.log(error);
->>>>>>> d8d71a502bcf2e0220d33353c0a3ce74f83e3c1a
     });  
 
     
