@@ -201,7 +201,7 @@ function Institution(props)
     }
 
     return (
-        <div id="InstitutionTab p-2">
+        <div id="InstitutionTab p-2" className="search">
                 {formsDecider()}
                 <h6>Search</h6>
                 {searchDecider()}

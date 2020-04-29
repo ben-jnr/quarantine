@@ -2,6 +2,11 @@
   margin: 0;
   padding: 0;
   font-family: "Roboto";
+  overflow-x: hidden;
+}
+
+.inst {
+  max-width: 2000rem;
 }
 
 .inst .inst-details {
@@ -27,12 +32,17 @@
   color: white;
 }
 
+.inst .inst-details .inst-only {
+  max-width: 500px;
+}
+
 .inst .inst-details .inst-only .inst-type {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 .inst h1 {
@@ -40,5 +50,9 @@
   font-size: 2rem;
   font-weight: bold;
   padding: 1rem;
+}
+
+.search {
+  width: 100%;
 }
 /*# sourceMappingURL=style.css.map */
