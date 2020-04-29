@@ -182,6 +182,7 @@ function Institution(props)
         if(props.type !== 'institution')
         {
             return(
+
                 <div id="institutionForm" className="inst">
                     <h1>Enter basic institution details</h1>
                     
@@ -195,13 +196,16 @@ function Institution(props)
                     <div id="institutionAddMssg"></div>
                     </div>
                     </div>
+
                 </div>
             )
         }
     }
 
     return (
+
         <div id="InstitutionTab p-2" className="search">
+
                 {formsDecider()}
                 <h6>Search</h6>
                 {searchDecider()}
