@@ -5,11 +5,10 @@ import RoomsAddForm from './RoomsAddForm';
 
 function Room(props){
 
-    const [roomInfo, setRoomInfo] = useState({no:0 , status:""});
+    const [roomInfo, setRoomInfo] = useState({no:0 , beds:0 , status:"" ,ready:"", bathroom:"" , disable:"" });
     const [rooms , setRooms] = useState([]);
     const [roomsArray, setRoomsArray] = useState([]);
     const institutionId = window.location.pathname.split('/')[2];
-
 
     const vacancyCheck = name =>{
         if(name === "")
@@ -63,7 +62,8 @@ function Room(props){
         if(roomInfo.no !== "" && roomInfo.status !== "")
         {
             let no;
-            const data ={no:roomInfo.no, status:roomInfo.status, name:""};    
+            const data ={no:roomInfo.no, status:roomInfo.status, name:"", beds:roomInfo.beds,
+                        ready:roomInfo.ready, bathroom:roomInfo.bathroom, disable:roomInfo.disable};    
             var url = "http://localhost:9000/api/rooms/add?id="+window.localStorage.getItem('session')+"&institutionId="+institutionId;
             axios
             .post(url, data, config)
@@ -107,7 +107,11 @@ function Room(props){
                 <div className="card-body">
                     <h5 className="card-title">Room No: {u.no}</h5>
                     <h6 className="card-subtitle mb-2 text-muted">Vacancy: {vacancyCheck(u.name)}</h6>
+                    <h6 className="card-subtitle mb-2 text-muted">No of Beds: {u.beds}</h6>
+                    <h6 className="card-subtitle mb-2 text-muted">Attached Bathroom: {u.bathroom}</h6>
+                    <h6 className="card-subtitle mb-2 text-muted">Disable Friendly: {u.disable}</h6>
                     <h6 className="card-subtitle mb-2 text-muted">Contaminated: {u.status}</h6>
+                    <h6 className="card-subtitle mb-2 text-muted">Ready: {u.ready}</h6>
                     <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={inmateRedirect.bind(url,"/admin/"+institutionId+"/"+u.no)}>Info</button>
                     <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={removeRoom.bind(no,u.no)}>Delete</button>
                 </div>  
