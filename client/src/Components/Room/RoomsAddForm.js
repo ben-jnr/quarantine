@@ -13,17 +13,17 @@ function RoomsAddForm(props) {
                 </div>
                 <div className="form-group">
                     <label>No of beds</label>
-                    <input type="number" id="roomBeds" name="bedsNo" className="form-control" placeholder="Room No" onChange={props.handleChangeParent}/>
+                    <input type="number" id="roomBeds" name="beds" className="form-control" placeholder="Room No" onChange={props.handleChangeParent}/>
                 </div>
                 <div className="form-group">
                     <label>Attached Bathroom?</label>
                     <div className="row mb-3 ml-2">
                         <div class="custom-control custom-radio ml-4">
-                            <input type="radio" id="attchBath1" name="attchBath" value="yes" onChange={props.handleChangeParent} class="custom-control-input"/>
+                            <input type="radio" id="attchBath1" name="bathroom" value="yes" onChange={props.handleChangeParent} class="custom-control-input"/>
                             <label class="custom-control-label" for="attchBath1">Yes</label>
                         </div>
                         <div class="custom-control custom-radio ml-4">
-                            <input type="radio" id="attchBath1" name="attchBath" value="no" onChange={props.handleChangeParent} class="custom-control-input"/>
+                            <input type="radio" id="attchBath1" name="bathroom" value="no" onChange={props.handleChangeParent} class="custom-control-input"/>
                             <label class="custom-control-label" for="attchBath2">No</label>
                         </div>
                     </div>
