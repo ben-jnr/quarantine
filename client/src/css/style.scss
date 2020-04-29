@@ -1,0 +1,49 @@
+*{
+margin: 0;
+padding: 0;
+font-family:"Roboto";
+// border: 2px violet solid;
+overflow-x: hidden;
+}
+.inst{
+    // width: 100%;
+    max-width: 2000rem;
+    .inst-details {
+        // border: 2px solid blue;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        
+        .lsgd {
+            max-width: 22rem;
+            .sbmt-btn{
+                text-align: right;
+                button{
+                    background-color: rgb(16, 76, 243);
+                    color:white;
+                }
+            }
+        }
+
+        .inst-only {
+            max-width: 500px;
+            .inst-type {
+                display: flex;
+                flex-wrap: wrap;
+                flex-wrap: wrap;
+            }
+            
+        }
+        
+    }
+    h1{
+        text-align: center;
+        font-size: 2rem;
+        font-weight: bold;
+        padding: 1rem;
+    }
+}
+
+.search {
+    width: 100%;
+}

@@ -30,13 +30,16 @@ function InstitutionsAddForm(props){
     
     
     return(
-        <div>
+        <div className="inst-only">
+            
+            <div>
+            
             <div class="form-group col">
                 <label for="instName">Institution Name</label>
                 <input type="text" name="name" class="form-control" id="instName" placeholder="Name of institution" onChange={props.handleChangeParent}/>
             </div>  
             <h6>Institution Type?</h6>
-            <div className="row mb-3 ml-2">
+            <div className="inst-type">
                 <div class="custom-control custom-radio ml-4">
                     <input type="radio" id="type1" name="type" value="hotel/lodge" onChange={props.handleChangeParent} class="custom-control-input"/>
                     <label class="custom-control-label" for="type1">Hotel/Lodge</label>
@@ -50,7 +53,8 @@ function InstitutionsAddForm(props){
                     <label class="custom-control-label" for="type3">Educational Institution</label>
                 </div>
             </div>   
-            {talukDecider()}                    
+            {talukDecider()} 
+            </div>                 
         </div>
     );
 }  

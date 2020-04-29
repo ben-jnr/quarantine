@@ -182,20 +182,30 @@ function Institution(props)
         if(props.type !== 'institution')
         {
             return(
-                <div id="institutionForm">
+
+                <div id="institutionForm" className="inst">
+                    <h1>Enter basic institution details</h1>
+                    
+                    <div className="inst-details">
                     <InstitutionsAddForm type = {props.type} handleDropdownParent={handleDropdown} handleChangeParent = {handleChange}/>
+                    <div className="lsgd">
                     <VillageAddForm taluk= {newInstitution.taluk} handleDropdownParent={handleDropdown}/>
                     <ConstituencyAddForm handleDropdownParent = {handleDropdown}/>
                     <PanchayatAddForm constituency={newInstitution.constituency}  handleDropdownParent = {handleDropdown}/>
-                    <button className='btn' onClick = {handleSubmit}>Submit</button>
+                    <div class="sbmt-btn"><button className='btn' onClick = {handleSubmit}>Submit</button></div>
                     <div id="institutionAddMssg"></div>
+                    </div>
+                    </div>
+
                 </div>
             )
         }
     }
 
     return (
-        <div id="InstitutionTab p-2">
+
+        <div id="InstitutionTab p-2" className="search">
+
                 {formsDecider()}
                 <h6>Search</h6>
                 {searchDecider()}

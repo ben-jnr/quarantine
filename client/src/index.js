@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import './css/style.css'
 import './Components/Auth/RoutesDecider';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from "react-router-dom";
