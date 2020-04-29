@@ -10,7 +10,7 @@ function InstitutionsAddForm(props){
                 <div class="col">
                     <label for="talukAdd">Taluk</label>
                     <select class="custom-select" name="taluk" id="talukAdd" size="1" onChange={props.handleDropdownParent}>
-                        <option selected>Choose...</option>
+                        <option selected value="Choose">Choose</option>
                         <option value="Chavakkad">Chavakkad</option>
                         <option value="Chalakkudy">Chalakkudy</option>
                         <option value="Kodungallur">Kodungallur</option>
