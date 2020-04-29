@@ -5,6 +5,8 @@ import TalukSearch from './TalukSearch';
 import VillageAddForm  from './VillageAddForm';
 import ConstituencyAddForm from './ConstituencyAddForm';
 import PanchayatAddForm from './PanchayatAddForm';
+import VillageSearch from './VillageSearch';
+import VillageList from "../Institution/VillageList";
 
 
 function Institution(props)
@@ -43,9 +45,14 @@ function Institution(props)
         setNewInstitution({...newInstitution,[e.target.name]: e.target.options[e.target.options.selectedIndex].value});
     }
 
-    const handleLocation = e =>{
+    const handleTaluk = e =>{
         setTaluk(e.target.options[e.target.options.selectedIndex].value)
         window.localStorage.setItem('taluk',e.target.options[e.target.options.selectedIndex].value); 
+    }
+    
+    const handleVillage = e =>{
+        setVillage(e.target.options[e.target.options.selectedIndex].value)
+        window.localStorage.setItem('village',e.target.options[e.target.options.selectedIndex].value); 
     }
     
 
@@ -73,11 +80,12 @@ function Institution(props)
             return(<div></div>)
     }
 
-
     const InstitutionsListGenerate = () => {
-        var url = "";
-        axios.get("http://localhost:9000/api/institution?taluk="+taluk +"&id=" +window.localStorage.getItem('session') 
-                                            +"&institutionId=" + props.institutionId)
+        var url = "http://localhost:9000/api/institution?taluk="+taluk+ "&village="+village + 
+        "&id=" +window.localStorage.getItem('session') +"&institutionId=" + props.institutionId;
+        console.log(url);
+        console.log(props.institutionId);
+        axios.get(url)
         .then(res => {
             if(res.data === "connection closed")
             {
@@ -127,7 +135,6 @@ function Institution(props)
                 rooms:[]
             }
             var url = "http://localhost:9000/api/institution/add?id="+ window.localStorage.getItem('session');
-            console.log(url);
             axios
             .post(url, data, config)
             .then(function(res){
@@ -158,20 +165,37 @@ function Institution(props)
 
 
     useEffect(()=>{
+        if(props.type !== 'taluk')
+        {
+            window.localStorage.setItem('village', 'Engandiyoor');
+        }
+    },[])
+
+    useEffect(()=>{
+        InstitutionsListGenerate();
         window.localStorage.setItem('currTab',"Institutions");
         if(props.type === 'taluk')
         {
             setTaluk(props.taluk);
-            setNewInstitution({...newInstitution, taluk:props.taluk})
+            setNewInstitution({...newInstitution, taluk:props.taluk});
+            window.localStorage.setItem('village', VillageList[props.taluk][0] );
         }
-    },[props.taluk])
-
+    },[props.taluk, props.institutionId, taluk,village]);
 
 
     const searchDecider = () =>{
-        if(props.type !== 'institution' && props.type !== 'taluk' )
+        if(props.type === 'taluk')
             return(
-                <TalukSearch handleLocationParent = {handleLocation} />
+                <div>
+                    <VillageSearch handleVillageParent = {handleVillage} taluk={taluk}/>
+                </div>
+            );
+        else if(props.type !== 'institution')
+            return(
+                <div>
+                    <TalukSearch handleTalukParent = {handleTaluk} />
+                    <VillageSearch handleVillageParent = {handleVillage} taluk={taluk}/>
+                </div>
             );
         else
             return(<div></div>);

@@ -35,16 +35,20 @@ function RoutesDecider()
                 window.localStorage.setItem('currTab',"Home");
             else if(type === 'institution' || type === 'taluk')
                 window.localStorage.setItem('currTab',"Institution");        
-            window.localStorage.setItem('taluk',"Chavakkad");
-            window.localStorage.setItem('village',"Engandiyoor");
-            return (
+            if(taluk === ""){
+                window.localStorage.setItem('taluk',"Chavakkad");
+            }    
+            else{
+                window.localStorage.setItem('taluk',taluk);
+            }  
+            return(    
                 <div>
                     <Route exact path = "/" render={() => <Admin currInstitutionsTab="Institutions" type={type} institutionId={institutionId} taluk={taluk}/>} />
                     <Route exact path = "/admin" render={() => <Admin currInstitutionsTab="Institutions" type={type} institutionId={institutionId} taluk={taluk}/>} />
                     <Route exact path = "/admin/:id" render={() => <Admin currInstitutionsTab="Rooms" type={type} institutionId={institutionId} taluk={taluk}/>} />
                     <Route exact path = "/admin/:id/:room/" render={() => <Admin currInstitutionsTab="Inmate" type={type} institutionId={institutionId} taluk={taluk}/>} />      
                 </div>
-            );
+            );    
         }
         else if(type==="")
         {
