@@ -19,7 +19,7 @@ function RoomsAddForm(props) {
                 </div>
                 <div className="form-row">
                     <div className="form-group col">
-                        <label>Attached Bathroom?</label>
+                        <label>Attached Bathroom ?</label>
                         <div className="row mb-3 ml-2">
                             <div class="custom-control custom-radio">
                                 <input type="radio" id="attchBath1" name="bathroom" value="yes" onChange={props.handleChangeParent} class="custom-control-input"/>
