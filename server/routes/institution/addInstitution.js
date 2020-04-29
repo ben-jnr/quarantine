@@ -8,9 +8,9 @@ module.exports = function(app)
         collection: 'mySessions'
     });
             
-    store.on('error', function(error) {
+    store.on('error', function(err) {
         if(err)
-            console.log(error);
+            console.log(err);
     });  
 
     var MongoPool = require("../db/db");
