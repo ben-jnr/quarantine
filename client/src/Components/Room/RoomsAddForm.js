@@ -2,11 +2,22 @@ import React from 'react';
 
 function RoomsAddForm(props) {
     return (
-        <div className="col">
-            <div>
-                <button className="btn btn-primary mr-2" onClick={props.institutionsRedirectParent}><i className="fa fa-arrow-left "></i></button>
-            </div>
-            <form className="p-2 col">
+<div className="col">
+        <div class="accordion">
+        <div class="card mb-4">
+      <button className="btn btn-primary btn-block mr-2" onClick={props.institutionsRedirectParent}>Prev page <i className="fa fa-arrow-left "></i></button>
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <h3>Add Room info</h3>
+        </button>
+      </h2>
+    </div>
+
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+      <form className="p-2 col">
                 <div className="form-row">
                     <div className="form-group col">
                         <label>Room No</label>
@@ -69,7 +80,11 @@ function RoomsAddForm(props) {
                     </div>
                 </div>
                 <button type="submit" className="btn btn-primary" onClick={props.handleSubmitParent}>Add room</button>
-            </form>
+            </form>      </div>
+    </div>
+  </div>
+</div>
+            
         </div>
     );
 }

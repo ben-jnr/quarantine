@@ -64,7 +64,7 @@ function Institution(props)
     const removeInstitution = (id) =>{
         if(window.confirm("Are you sure?"))
         {
-            var url = "http://18.223.108.131:9000/api/institution/delete/"+id+"?id="+window.localStorage.getItem('session')
+            var url = "http://localhost:9000/api/institution/delete/"+id+"?id="+window.localStorage.getItem('session')
             axios.get(url)
                 .catch(err => console.log(err));
         }  
@@ -82,7 +82,7 @@ function Institution(props)
 
 
     const InstitutionsListGenerate = () => {
-        var url = "http://18.223.108.131:9000/api/institution?taluk="+taluk+ "&village="+village + 
+        var url = "http://localhost:9000/api/institution?taluk="+taluk+ "&village="+village + 
         "&id=" +window.localStorage.getItem('session') +"&institutionId=" + props.institutionId;
         axios.get(url)
         .then(res => {
@@ -133,7 +133,7 @@ function Institution(props)
                 coordinates: document.getElementById('map-link').textContent,
                 rooms:[]
             }
-            var url = "http://18.223.108.131:9000/api/institution/add?id="+ window.localStorage.getItem('session');
+            var url = "http://localhost:9000/api/institution/add?id="+ window.localStorage.getItem('session');
             axios
             .post(url, data, config)
             .then(function(res){
@@ -210,11 +210,20 @@ function Institution(props)
         if(props.type !== 'institution')
         {
             return(
+                    <div id="institutionForm" className="inst">
+                <div class="accordion" id="accordionExample">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Add Institution
+        </button>
+      </h2>
+    </div>
 
-                <div id="institutionForm" className="inst">
-                    <h1>Enter basic institution details</h1>
-                    
-                    <div className="inst-details">
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+      <div className="inst-details">
                     <InstitutionsAddForm type = {props.type} handleDropdownParent={handleDropdown} handleChangeParent = {handleChange}/>
                     <div className="lsgd">
                     <VillageAddForm taluk= {newInstitution.taluk} handleDropdownParent={handleDropdown}/>
@@ -223,7 +232,14 @@ function Institution(props)
                     <div class="sbmt-btn"><button className='btn' onClick = {handleSubmit}>Submit</button></div>
                     <div id="institutionAddMssg"></div>
                     </div>
-                    </div>
+                    </div>      </div>
+    </div>
+  </div>
+</div>
+
+                  
+                    
+                   
 
                 </div>
             )

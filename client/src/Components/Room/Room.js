@@ -35,7 +35,7 @@ function Room(props){
     
     const removeRoom = (no) =>{
         if(window.confirm("Are you sure?")){
-            var url = "http://18.223.108.131:9000/api/rooms/"+no+"/delete?id="+window.localStorage.getItem('session')+
+            var url = "http://localhost:9000/api/rooms/"+no+"/delete?id="+window.localStorage.getItem('session')+
                                                         "&institutionId="+institutionId;
             axios.get(url)
             .then(res =>{
@@ -64,7 +64,7 @@ function Room(props){
             let no;
             const data ={no:roomInfo.no, status:roomInfo.status, name:"", beds:roomInfo.beds,
                         ready:roomInfo.ready, bathroom:roomInfo.bathroom, disable:roomInfo.disable};    
-            var url = "http://18.223.108.131:9000/api/rooms/add?id="+window.localStorage.getItem('session')+"&institutionId="+institutionId;
+            var url = "http://localhost:9000/api/rooms/add?id="+window.localStorage.getItem('session')+"&institutionId="+institutionId;
             axios
             .post(url, data, config)
             .then(function(res){
@@ -126,7 +126,7 @@ function Room(props){
         let no;
         window.localStorage.setItem('currTab',"Institutions");
         if(roomsArray.length === 0){
-            var url = "http://18.223.108.131:9000/api/rooms?id="+window.localStorage.getItem('session')+
+            var url = "http://localhost:9000/api/rooms?id="+window.localStorage.getItem('session')+
                                                 "&institutionId="+institutionId;                                                                       
             axios.get(url)
             .then(res => {
