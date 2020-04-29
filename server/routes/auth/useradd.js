@@ -3,7 +3,7 @@ module.exports = function(app)
     const session = require('express-session'),
         MongoDBStore = require('connect-mongodb-session')(session);
     var store = new MongoDBStore({
-        uri: 'mongodb://18.223.108.131:27017/connect_mongodb_session_test',
+        uri: 'mongodb://127.0.0.1:27017/connect_mongodb_session_test',  // do not change the IP !!!
         collection: 'mySessions'
     });
             
