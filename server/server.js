@@ -1,6 +1,6 @@
 const   express = require('express'),
         app = express(),
-        port = process.env.PORT || 9000,
+        port = 9000,
         ObjectId = require('mongodb').ObjectID,
         cors=require('cors');
 require("./routes/db/db").initPool();

@@ -3,12 +3,12 @@ module.exports = function(app)
     const session = require('express-session'),
         MongoDBStore = require('connect-mongodb-session')(session);
     var store = new MongoDBStore({
-        uri: 'mongodb://18.223.108.131:27017/connect_mongodb_session_test',
+        uri: 'mongodb://127.0.0.1:27017/connect_mongodb_session_test',
         collection: 'mySessions'
     });
             
     store.on('error', function(error) {
-        if(err)
+        if(error)
             console.log(error);
     });  
     
@@ -33,9 +33,10 @@ module.exports = function(app)
             user.findOne({username:req.body.username, password:req.body.password},function(err,currUser){
                 if(!currUser)
                 {
+			console.log(req.body.username, req.body.password);
                     res.send('User does not exist');
                 }
-                else if(req.query.id)
+                else //if(req.query.id)
                 {
                     store.get(req.query.id, function(err,session){
                         if(err)
@@ -53,6 +54,8 @@ module.exports = function(app)
                             })
                         }
                         store.all(function(err,sessions){
+				console.log('session list ', sessions);
+				console.log('session id ',  sessions[sessions.length-1]);
                             res.send(sessions[sessions.length-1]._id);
                         })
                     })    

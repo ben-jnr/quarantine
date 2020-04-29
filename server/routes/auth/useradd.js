@@ -8,7 +8,7 @@ module.exports = function(app)
     });
             
     store.on('error', function(error) {
-        if(err)
+        if(error)
             console.log(error);
     });  
 
