@@ -11,7 +11,9 @@
     font-weight: 400;
     margin-bottom: 7vh;
 }
-
+#login{
+    height: 100vh !important;
+}
 input[type="text"],input[type="password"],input[type="email"]{
     border: none;
     background:  #ebedef ;
@@ -34,6 +36,7 @@ input[type="text"],input[type="password"],input[type="email"]{
 .addUser button{
     margin-right: 25vw !important;
 }
+
 
 /* Mobile View*/
 @media only screen and (max-width: 650px) {
