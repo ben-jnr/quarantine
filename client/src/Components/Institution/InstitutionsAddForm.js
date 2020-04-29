@@ -31,9 +31,7 @@ function InstitutionsAddForm(props){
     
     return(
         <div className="inst-only">
-            
             <div>
-            
             <div class="form-group col">
                 <label for="instName">Institution Name</label>
                 <input type="text" name="name" class="form-control" id="instName" placeholder="Name of institution" onChange={props.handleChangeParent}/>

@@ -14,7 +14,7 @@ function Institution(props)
     const defaultInstitution = {name:"" , type:"" , taluk:"", village:"", constituency:"", panchayat:"" ,coordinates:"", priority:0} 
     const [institutions , setInstitutions] = useState("");
     const [taluk , setTaluk] = useState(window.localStorage.getItem('taluk'));
-    const [village, setVillage] = useState(window.localStorage.getItem('village'))
+    const [village, setVillage] = useState(window.localStorage.getItem('village'));
     const [newInstitution , setNewInstitution] = useState(defaultInstitution);
     const [institutionsArray, setInstitutionsAray] =useState([]);
 
@@ -61,24 +61,13 @@ function Institution(props)
     }
 
 
-    const removeInstitution = (id) =>{
-        if(window.confirm("Are you sure?"))
-        {
-            var url = "http://localhost:9000/api/institution/delete/"+id+"?id="+window.localStorage.getItem('session')
-            axios.get(url)
-                .catch(err => console.log(err));
-        }  
-        window.localStorage.setItem('taluk',taluk);
-        InstitutionsListGenerate();
-    }
-
-
     const removeInstitutionDecider=(id)=>{
         if(props.type !== 'institution')
             return(<button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={removeInstitution.bind(id,id)}>Delete</button>)
         else
             return(<div></div>)
     }
+
 
 
     const InstitutionsListGenerate = () => {
@@ -117,7 +106,17 @@ function Institution(props)
         .catch(err => console.log(err));
     }
 
-
+    
+    const removeInstitution = (id) =>{
+        if(window.confirm("Are you sure?"))
+        {
+            var url = "http://localhost:9000/api/institution/delete/"+id+"?id="+window.localStorage.getItem('session')
+            axios.get(url)
+                .catch(err => console.log(err));
+        }  
+        window.localStorage.setItem('taluk',taluk);
+        InstitutionsListGenerate();
+    }
 
     const handleSubmit = (e) =>{
         e.preventDefault();
@@ -158,14 +157,14 @@ function Institution(props)
             .catch(err => console.log(err));
         }
         else{
-            document.getElementById('institutionAddMssg').innerHTML = "Empty Fields Present";
-        }    
+            document.getElementById('institutionAddMssg').innerHTML = "Empty Fields Present"
+        }
+        InstitutionsListGenerate();
     }
 
 
     
     useEffect(()=>{
-        console.log(props.type);
         if(props.type === 'taluk')
         {
             setTaluk(props.taluk);
@@ -176,7 +175,7 @@ function Institution(props)
         {
             window.localStorage.setItem('village', 'Engandiyoor');
         }
-    },[])
+    },[props.taluk,taluk])
 
 
 
