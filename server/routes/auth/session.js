@@ -26,9 +26,11 @@ module.exports = function(app)
             else if(session)
             {
                 if(session.type==='institution')
-                    res.send({type:session.type, id:session.institutionId})
+                    res.send({type:session.type, id:session.institutionId, taluk:""})
+                else if(session.type === 'taluk')
+                    res.send({type:session.type, id:"", taluk:session.taluk})    
                 else
-                    res.send({type:session.type, id:""})
+                    res.send({type:session.type, id:"", taluk:""})
             }
             else
                 res.send("User does not exist");            

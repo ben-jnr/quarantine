@@ -6,8 +6,7 @@ import UserDependantForm from './UserDependantForm';
 
 function UserAdd(props) 
 {
-    const defaultCredentials = {username:"", password:"", confirmpassword:"", type:"",
-                        institution:"", taluk:"", panchayat:"",priority:0, fit:""};
+    const defaultCredentials = {username:"", password:"", confirmpassword:"", type:"", taluk:""}
     const [credentials, setCredentials] = useState(defaultCredentials);
     
     const handleChange = (e)=>{
@@ -41,30 +40,28 @@ function UserAdd(props)
         {                    
             if(credentials.password === credentials.confirmpassword)
             {
-                if(credentials.type === 'institution')
+                if(credentials.type === 'taluk')
                 {
-                    if(credentials.institution !== "" && credentials.taluk !== "" && credentials.panchayat !== ""
-                        && credentials.fit !== "" && document.querySelector("#map-link").textContent !== "")
-                        data ={   username:credentials.username,
-                            password:credentials.password,
-                            type:credentials.type,
-                            institution : credentials.institution,
-                            taluk: credentials.taluk,
-                            panchayat:credentials.panchayat,
-                            priority:0,
-                            fit:credentials.fit
+                    if(credentials.taluk !== '')
+                    {
+                        data ={ username:credentials.username,
+                                password:credentials.password,
+                                type:credentials.type,
+                                taluk:credentials.taluk
                         };
+                    }
                     else
                     {
                         document.getElementById("passwordMismatch").innerHTML = "Empty Fields Present";
+                        return;
                     }
                 }            
                 else
                 {    
                     data ={ username:credentials.username,
-                                password:credentials.password,
-                                type:credentials.type
-                                };
+                            password:credentials.password,
+                            type:credentials.type
+                        };
                 }                
                 var url = "http://localhost:9000/api/useradd?id="+ window.localStorage.getItem('session');
                 axios
@@ -94,7 +91,7 @@ function UserAdd(props)
         <div>
             <UserAddForm handleChangeParent = {handleChange}/> 
             <UserTypeForm handleChangeParent = {handleChange} type={props.type}/>
-            <UserDependantForm handleChangeParent = {handleChange} handleDropdownParent={handleDropdown} type={credentials.type}/>
+            <UserDependantForm handleDropdownParent={handleDropdown} type={credentials.type}/>
             <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Add User</button>
             <div id="passwordMismatch"></div>
         </div>                    

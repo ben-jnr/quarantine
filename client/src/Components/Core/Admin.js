@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import Navbar from './Navbar';
 import Tabs from './Tabs';
-
 import axios from 'axios';
 
 function Admin(props)
@@ -10,7 +9,8 @@ function Admin(props)
     axios.get('http://localhost:9000/api/delsession?id='+window.localStorage.getItem('session'))
     .catch(err => console.log(err));
     window.localStorage.removeItem("currTab");
-    window.localStorage.removeItem("location");
+    window.localStorage.removeItem("taluk");
+    window.localStorage.removeItem("village");
     window.localStorage.removeItem("session");
     window.location.replace("/");
   }
@@ -49,8 +49,8 @@ function Admin(props)
   return (
     <div className="row p-3">
       <div class="col">
-        <Navbar currInstitutionsTab={props.currInstitutionsTab} type={props.type} logoutParent={logout}/>
-        <Tabs currInstitutionsTab={props.currInstitutionsTab} type={props.type} institutionId = {props.institutionId}/>
+        <Navbar currInstitutionsTab={props.currInstitutionsTab} type={props.type} logoutParent={logout} taluk={props.taluk}/>
+        <Tabs currInstitutionsTab={props.currInstitutionsTab} type={props.type} institutionId = {props.institutionId} taluk={props.taluk}/>
       </div>
     </div>
   );

@@ -25,8 +25,6 @@ var quarantine = db.db('quarantine'),
     institution = quarantine.collection('institution'); 
 
     
-    
-
 
     //Route to read Inmate and returns the particular room
     app.get("/api/:name/:district/:no/:floor/patient",function(req,res){

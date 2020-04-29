@@ -8,7 +8,7 @@ function Login(props){
     const [credentials , setCredentials] = useState(defaultCredentials);
     window.localStorage.removeItem('currTab');
     window.localStorage.removeItem('taluk');
-    window.localStorage.removeItem('panchayat');
+    window.localStorage.removeItem('village');
     window.localStorage.removeItem('session');
 
     const handleChange = e => {

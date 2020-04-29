@@ -29,47 +29,15 @@ module.exports = function(app)
                 {
                     user.findOne({username:req.body.username},function(err,exists){
                         if(!exists){
-                            if(req.body.type === 'institution')
-                            {
-                                institution.findOne({name:req.body.institution, district:req.body.district},function(error,exists){
-                                    if(exists)
-                                        res.send("Institution Exists");
-                                    else
-                                    {
-                                        institution.insertOne({ name:req.body.institution,
-                                                                taluk:req.body.taluk,
-                                                                panchayat:req.body.panchayat,
-                                                                fit:req.body.fit,
-                                                                priority:req.body.priority,
-                                                                rooms:[]
-                                                                },function(err, currInstitution){
-                                            if(err)
-                                                console.log(err);
-                                            user.insertOne({username:req.body.username,
-                                                            password:req.body.password,
-                                                            type:req.body.type,
-                                                            institutionId:currInstitution.ops[0]._id
-                                                        },function(err,newUser){
-                                                            if(err)
-                                                                console.log(err);
-                                                            res.send("User successfully added")
-                                                        })
-                                        })
-                                    }    
-                                })
-                            }
-                            else
-                            {
-                                user.insertOne(req.body,function(err,newUser){
-                                    if(err)
-                                        console.log(err);
+                            user.insertOne(req.body,function(err,newUser){
+                                if(err)
+                                    console.log(err);
                                     res.send("User successfully added");
-                                })
-                            }    
+                            })
                         }
                         else
                             res.send("User Already Exists")    
-                    })
+                    })    
                 }
             })        
         })    

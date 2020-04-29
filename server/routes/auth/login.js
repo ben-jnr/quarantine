@@ -45,6 +45,8 @@ module.exports = function(app)
                             req.session.type = currUser.type;
                             if(currUser.type === 'institution')
                                 req.session.institutionId = currUser.institutionId;
+                            if(currUser.type === 'taluk')
+                                req.session.taluk = currUser.taluk;    
                             req.session.save(function(err){
                             if(err)
                                 console.log(err)
