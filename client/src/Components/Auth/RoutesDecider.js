@@ -7,15 +7,17 @@ import { Route } from "react-router-dom";
 function RoutesDecider()
 {        
     const [type, setType] = useState("");
-    const [institutionId , setInstitutionId] = useState("");     
+    const [institutionId , setInstitutionId] = useState("");   
+    const [taluk, setTaluk] = useState("");  
 
     const readSession=() =>{
-        console.log(1);
         axios.get('http://localhost:9000/api/?id='+window.localStorage.getItem('session'))
         .then(res =>{
             setType(res.data.type); 
             if(res.data.type === 'institution')
                 setInstitutionId(res.data.id);   
+            if(res.data.type === 'taluk')
+                setTaluk(res.data.taluk);    
         })
         .catch(err => console.log(err));
     }
@@ -34,13 +36,13 @@ function RoutesDecider()
             else if(type === 'institution' || type === 'taluk')
                 window.localStorage.setItem('currTab',"Institution");        
             window.localStorage.setItem('taluk',"Chavakkad");
-            window.localStorage.setItem('panchayat',"Chavakkad");
+            window.localStorage.setItem('village',"Engandiyoor");
             return (
                 <div>
-                    <Route exact path = "/" render={() => <Admin currInstitutionsTab="Institutions" type={type} institutionId={institutionId}/>} />
-                    <Route exact path = "/admin" render={() => <Admin currInstitutionsTab="Institutions" type={type} institutionId={institutionId}/>} />
-                    <Route exact path = "/admin/:id" render={() => <Admin currInstitutionsTab="Rooms" type={type} institutionId={institutionId}/>} />
-                    <Route exact path = "/admin/:id/:room/" render={() => <Admin currInstitutionsTab="Inmate" type={type} institutionId={institutionId}/>} />      
+                    <Route exact path = "/" render={() => <Admin currInstitutionsTab="Institutions" type={type} institutionId={institutionId} taluk={taluk}/>} />
+                    <Route exact path = "/admin" render={() => <Admin currInstitutionsTab="Institutions" type={type} institutionId={institutionId} taluk={taluk}/>} />
+                    <Route exact path = "/admin/:id" render={() => <Admin currInstitutionsTab="Rooms" type={type} institutionId={institutionId} taluk={taluk}/>} />
+                    <Route exact path = "/admin/:id/:room/" render={() => <Admin currInstitutionsTab="Inmate" type={type} institutionId={institutionId} taluk={taluk}/>} />      
                 </div>
             );
         }

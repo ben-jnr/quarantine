@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import InstitutionsAddForm from './InstitutionsAddForm';
 import TalukSearch from './TalukSearch';
+import VillageAddForm  from './VillageAddForm';
+import ConstituencyAddForm from './ConstituencyAddForm';
+import PanchayatAddForm from './PanchayatAddForm';
 
 
 function Institution(props)
 {
-    const [institutions , setInstitutions] = useState();
-    const [taluk , setTaluk] = useState(window.localStorage.getItem('taluk')); 
+    const defaultInstitution = {name:"" , type:"" , taluk:"", village:"", constituency:"", panchayat:"" ,coordinates:"", priority:0} 
+    const [institutions , setInstitutions] = useState("");
+    const [taluk , setTaluk] = useState(window.localStorage.getItem('taluk'));
+    const [village, setVillage] = useState(window.localStorage.getItem('village'))
+    const [newInstitution , setNewInstitution] = useState(defaultInstitution);
+    const [institutionsArray, setInstitutionsAray] =useState([]);
+
+   
 
     const vacantCount = function(rooms){
         var count = 0;
@@ -27,6 +37,13 @@ function Institution(props)
         return(count);
     }
 
+    const handleChange =(e)=>{    
+        setNewInstitution({...newInstitution, [e.target.name]:e.target.value})
+    }
+
+    const handleDropdown = e =>{
+        setNewInstitution({...newInstitution,[e.target.name]: e.target.options[e.target.options.selectedIndex].value});
+    }
 
     const handleLocation = e =>{
         setTaluk(e.target.options[e.target.options.selectedIndex].value)
@@ -96,35 +113,52 @@ function Institution(props)
     }
 
 
-    useEffect(()=>{
-        InstitutionsListGenerate();
-    },[taluk, props.institutionId]);
+    const handleSubmit = () =>{
+        let data = {
+            ...newInstitution ,
+            priority:"",
+            coordinates: document.getElementById('map-link').textContent,
+            rooms:[]
+        }
+        console.log(data);
+    }
 
 
     useEffect(()=>{
-        InstitutionsListGenerate();
         window.localStorage.setItem('currTab',"Institutions");
+        if(props.type === 'taluk')
+        {
+            setTaluk(props.taluk);
+            setNewInstitution({...newInstitution, ['taluk']:props.taluk})
+        }
     },[])
-    
 
 
     const searchDecider = () =>{
-        if(props.type !== 'institution')
-            return(<TalukSearch handleLocationParent = {handleLocation} />) ;
+        if(props.type !== 'institution' && props.type !== 'taluk' )
+            return(
+                <TalukSearch handleLocationParent = {handleLocation} />
+            );
         else
             return(<div></div>);
     }
     
-    
     return (
         <div id="InstitutionTab p-2">
-            <div>
+            <div id="institutionForm">
+                <InstitutionsAddForm type = {props.type} handleDropdownParent={handleDropdown} handleChangeParent = {handleChange}/>
+                <VillageAddForm taluk= {newInstitution.taluk} handleDropdownParent={handleDropdown}/>
+                <ConstituencyAddForm handleDropdownParent = {handleDropdown}/>
+                <PanchayatAddForm constituency={newInstitution.constituency}  handleDropdownParent = {handleDropdown}/>
+                <button className='btn' onClick = {handleSubmit}>Submit</button>
+            </div>    
+                <h6>Search</h6>
                 {searchDecider()}
-                {institutions}
-            </div>                   
+                {institutions}                   
         </div>  
     );
        
 }
+
 
 export default Institution;
