@@ -215,7 +215,7 @@ function Institution(props)
         InstitutionsListGenerate();
         setTaluk(props.taluk);
         window.localStorage.setItem('currTab',"Institutions");
-    },[props.taluk, taluk,village, institutionsArray, institutionId]);
+    },[props.taluk, taluk,village, institutionsArray]);
     
 
 
