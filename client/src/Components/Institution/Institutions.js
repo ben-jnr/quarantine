@@ -228,7 +228,10 @@ function Institution(props)
         else{
             document.getElementById('institutionAddMssg').innerHTML = "Empty Fields Present"
         }
-        setNewInstitution(defaultInstitution);
+        if(props.type === 'taluk')
+            setNewInstitution({...defaultInstitution, taluk:taluk});
+        else
+            setNewInstitution(defaultInstitution);    
         document.getElementById('instName').value ="";
         var radio = document.getElementsByName("type");
         for(var i=0;i<radio.length;i++)

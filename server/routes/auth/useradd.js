@@ -2,7 +2,8 @@ module.exports = function(app)
 {
     const session = require('express-session'),
         MongoDBStore = require('connect-mongodb-session')(session),
-        bcrypt = require('bcryptjs');
+        bcrypt = require('bcryptjs'),
+        salt = bcrypt.genSaltSync(10);
     var store = new MongoDBStore({
         uri: 'mongodb://127.0.0.1:27017/connect_mongodb_session_test',  // do not change the IP !!!
         collection: 'mySessions'
@@ -30,7 +31,12 @@ module.exports = function(app)
                 {
                     user.findOne({username:req.body.username},function(err,exists){
                         if(!exists){
-                            user.insertOne(req.body,function(err,newUser){
+                            var hash = bcrypt.hashSync(req.body.password, salt);
+                            if(req.body.type === 'taluk')
+                                data = {username:req.body.username , password:hash, type:req.body.type, taluk:req.body.taluk, creator:session.name};
+                            else
+                                data = {username:req.body.username , password:hash, type:req.body.type, creator:session.name};    
+                            user.insertOne(data,function(err,newUser){
                                 if(err)
                                     console.log(err);
                                     res.send("User successfully added");

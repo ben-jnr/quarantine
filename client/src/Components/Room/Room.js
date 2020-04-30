@@ -138,6 +138,7 @@ function Room(props){
 
    const RoomsListGenerator=()=>
     {
+        console.log(1);
         let no;
         let url = "http://localhost:9000/api/rooms?id="+window.localStorage.getItem('session')+
                                                     "&institutionId="+institutionId;                                                                       

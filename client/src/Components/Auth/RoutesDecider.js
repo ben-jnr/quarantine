@@ -27,6 +27,7 @@ function RoutesDecider()
         readSession();
     },[]);
 
+    console.log(taluk);
     if(window.localStorage.getItem('session'))
     {    
         if(type === "admin" || type === 'dashboard' || type === 'airport' || type === 'institution' || type === 'superadmin' || type === 'taluk')
