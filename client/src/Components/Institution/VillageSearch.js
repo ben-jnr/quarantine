@@ -12,7 +12,7 @@ function VillageSearch(props)
     
     
     return(
-        <div class="col">
+        <div class="col-lg-6">
             <label for="villageSearch">Village</label>
             <select class="custom-select" name="village" id="villageSearch" size="1" onChange={props.handleVillageParent}>
                 <option value="" defaultValue>Choose</option>
