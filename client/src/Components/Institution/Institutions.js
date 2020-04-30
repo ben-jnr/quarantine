@@ -11,10 +11,15 @@ import VillageList from "../Institution/VillageList";
 
 function Institution(props)
 {
+    if(props.type === 'taluk')
+        var temp = props.taluk;
+    else
+        var temp = 'Chavakkad';
+    console.log(temp);        
     const defaultInstitution = {type:"" , taluk:"", village:"", constituency:"", panchayat:"", priority:0, fit:""} 
     const [institutions , setInstitutions] = useState("");
-    const [taluk , setTaluk] = useState(window.localStorage.getItem('taluk'));
-    const [village, setVillage] = useState(window.localStorage.getItem('village'));
+    const [taluk , setTaluk] = useState(temp);
+    const [village, setVillage] = useState(VillageList[temp][0]);
     const [newInstitution , setNewInstitution] = useState(defaultInstitution);
     const [institutionsArray, setInstitutionsArray] =useState([]);
 
@@ -38,6 +43,7 @@ function Institution(props)
         }
         return(count);
     }
+    
 
     const ReadyCount = function(rooms){
         var count = 0;
@@ -47,6 +53,7 @@ function Institution(props)
         }
         return(count);
     }
+
 
     const handleChange =(e)=>{    
         setNewInstitution({...newInstitution, [e.target.name]:e.target.value})
@@ -59,12 +66,10 @@ function Institution(props)
     const handleTaluk = e =>{
         setTaluk(e.target.options[e.target.options.selectedIndex].value)
         setVillage(VillageList[e.target.options[e.target.options.selectedIndex].value][0]);
-        window.localStorage.setItem('taluk',e.target.options[e.target.options.selectedIndex].value); 
     }
     
     const handleVillage = e =>{
         setVillage(e.target.options[e.target.options.selectedIndex].value)
-        window.localStorage.setItem('village',e.target.options[e.target.options.selectedIndex].value); 
     }
     
 
@@ -194,29 +199,19 @@ function Institution(props)
         document.getElementById('panchayatAdd').options.selectedIndex = 0;
     }
 
-    
+
     useEffect(()=>{
+        setTaluk(taluk);
+        setVillage(VillageList[taluk][0]);
         if(props.type === 'taluk')
-        {
-            setTaluk(props.taluk);
-            setVillage(VillageList[props.taluk][0]);
-            setNewInstitution({...newInstitution, taluk:props.taluk});
-            window.localStorage.setItem('village', VillageList[props.taluk][0] );
-        }
-        else if(props.type !== 'taluk')
-        {
-            window.localStorage.setItem('village', 'Engandiyoor');
-        }
-    },[props.taluk])
-
-
-
-    useEffect(()=>{
+            setNewInstitution({...newInstitution ,taluk:taluk});
         InstitutionsListGenerate();
-        setTaluk(props.taluk);
         window.localStorage.setItem('currTab',"Institutions");
-    },[props.taluk, taluk,village, institutionsArray]);
+    },[]);
     
+    useEffect(()=>{
+        InstitutionsListGenerate();  
+    },[taluk,village]);
 
 
     const searchDecider = () =>{
@@ -227,16 +222,26 @@ function Institution(props)
                 </div>
             );
         else if(props.type !== 'institution')
+        {
             return(
                 <div className="row mt-3 mb-4">
                     <TalukSearch handleTalukParent = {handleTaluk} />
                     <VillageSearch handleVillageParent = {handleVillage} taluk={taluk}/>
                 </div>
             );
+        }    
         else
             return(<div></div>);
     }
     
+
+    const villageFormsDecider = () =>{
+        if(props.type === 'taluk')
+            return(<VillageAddForm taluk= {taluk} handleDropdownParent={handleDropdown}/>)
+        else
+            return(<VillageAddForm taluk= {newInstitution.taluk} handleDropdownParent={handleDropdown}/>)
+    }
+
 
     const formsDecider = () =>{
         if(props.type !== 'institution')
@@ -256,7 +261,7 @@ function Institution(props)
                                         <div className="inst-details">
                                             <InstitutionsAddForm type = {props.type} handleDropdownParent={handleDropdown} handleChangeParent = {handleChange}/>
                                                 <div className="lsgd">
-                                                    <VillageAddForm taluk= {newInstitution.taluk} handleDropdownParent={handleDropdown}/>
+                                                    {villageFormsDecider()}
                                                     <ConstituencyAddForm handleDropdownParent = {handleDropdown}/>
                                                     <PanchayatAddForm constituency={newInstitution.constituency}  handleDropdownParent = {handleDropdown}/>
                                                         <div class="sbmt-btn">
