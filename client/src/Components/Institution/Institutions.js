@@ -97,9 +97,18 @@ function Institution(props)
                 window.location.replace('/');
             }    
             const institutions = res.data.map( u =>
-                <div  key={u._id} className="InstitutionsContainer">
-                    <div class="card mb-2">
-                        <div class="card-body">
+                <div key={u._id} className="accordion InstitutionsContainer mb-3" id="accordionExample11">
+                <div class="card">
+                <div class="card-header" id="headingOne11">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne11" aria-expanded="true" aria-controls="collapseOne">
+                    {u.name}
+                    </button>
+                </h2>
+                </div>
+
+                <div id="collapseOne11" class="collapse" aria-labelledby="headingOne11" data-parent="#accordionExample11">
+                    <div class="card-body">
                         <h5 className="card-title">{u.name}</h5>
 
                         <h6 className="card-title">{u.type}</h6>
@@ -121,7 +130,9 @@ function Institution(props)
                         {removeInstitutionDecider(u._id)}
                     </div>  
                 </div>
-                </div>
+            </div>
+        </div>
+
                 );    
             setInstitutions(institutions);
         })
@@ -250,9 +261,9 @@ function Institution(props)
                     <div id="institutionForm" className="inst">
                         <div class="accordion" id="accordionExample">
                             <div class="card p-0 m-0">
-                                <div class="card-header text-center" id="headingOne">
+                                <div class="card-header text-center p-2" id="headingOne">
                                     <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            <h2>Add Institution</h2>
+                                            <h5>Add Institution</h5>
                                     </button>
                             </div>
 
