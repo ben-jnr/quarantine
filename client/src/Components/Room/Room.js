@@ -157,7 +157,11 @@ function Room(props){
     
 
     return(
-        <div className="row">
+        <div>
+            <div className="text-center">
+                <h1>Rooms information</h1>
+            </div>
+        <div className="row mt-4">
             <div className="col-lg-6">
                 <RoomsAddForm institutionsRedirectParent={institutionsRedirect} handleChangeParent={handleChange}
                             handleDropdownParent = {handleDropdown} handleSubmitParent={handleSubmit}/>
@@ -166,6 +170,7 @@ function Room(props){
             <div className="col-lg-6">
                 {rooms}
             </div>
+        </div>
         </div>
     );
 }

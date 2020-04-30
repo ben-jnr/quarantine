@@ -97,6 +97,7 @@ function Institution(props)
                     <div class="card mb-2">
                         <div class="card-body">
                         <h5 className="card-title">{u.name}</h5>
+
                         <h6 className="card-title">{u.type}</h6>
                         <h6 className="card-title">Structurally Fit : {u.fit}</h6>
                         <button type="button" class="btn btn-primary mr-3 mb-2">
@@ -112,6 +113,19 @@ function Institution(props)
                                 Decontaminated <span class="badge badge-light">{decontaminatedCount(u.rooms)}</span>
                         </button><br/>
                         <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={roomsRedirect.bind(url,"/admin/"+u._id)}>Check Rooms</button>
+
+                        <h6 className="card-subtitle mb-2 text-muted">{u.district}</h6>
+                            <button type="button" class="btn btn-primary mr-3 mb-2">
+                                    Total Rooms <button class="btn btn-light roomBadge">{u.rooms.length}</button>
+                            </button>
+                            <button type="button" class="btn btn-warning mr-3 mb-2">
+                                    Vacant <button class="btn btn-light roomBadge">{vacantCount(u.rooms)}</button>
+                            </button>
+                            <button type="button" class="btn btn-success mr-3 mb-2">
+                                    Decontaminated <button class="btn btn-light roomBadge">{decontaminatedCount(u.rooms)}</button>
+                            </button><br/>
+                            <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={roomsRedirect.bind(url,"/admin/"+u._id)}>Check Rooms</button>
+
                         {removeInstitutionDecider(u._id)}
                     </div>  
                 </div>
@@ -227,7 +241,7 @@ function Institution(props)
             );
         else if(props.type !== 'institution')
             return(
-                <div>
+                <div className="row mt-3 mb-4">
                     <TalukSearch handleTalukParent = {handleTaluk} />
                     <VillageSearch handleVillageParent = {handleVillage} taluk={taluk}/>
                 </div>
@@ -242,37 +256,33 @@ function Institution(props)
         {
             return(
                     <div id="institutionForm" className="inst">
-                <div class="accordion" id="accordionExample">
-  <div class="card">
-    <div class="card-header" id="headingOne">
-      <h2 class="mb-0">
-        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Add Institution
-        </button>
-      </h2>
-    </div>
+                        <div class="accordion" id="accordionExample">
+                            <div class="card p-0 m-0">
+                                <div class="card-header text-center" id="headingOne">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <h2>Add Institution</h2>
+                                    </button>
+                            </div>
 
-    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-      <div class="card-body">
-      <div className="inst-details">
-                    <InstitutionsAddForm type = {props.type} handleDropdownParent={handleDropdown} handleChangeParent = {handleChange}/>
-                    <div className="lsgd">
-                    <VillageAddForm taluk= {newInstitution.taluk} handleDropdownParent={handleDropdown}/>
-                    <ConstituencyAddForm handleDropdownParent = {handleDropdown}/>
-                    <PanchayatAddForm constituency={newInstitution.constituency}  handleDropdownParent = {handleDropdown}/>
-                    <div class="sbmt-btn"><button className='btn' onClick = {handleSubmit}>Submit</button></div>
-                    <div id="institutionAddMssg"></div>
-                    </div>
-                    </div>      </div>
-    </div>
-  </div>
-</div>
-
-                  
-                    
-                   
-
-                </div>
+                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div className="inst-details">
+                                            <InstitutionsAddForm type = {props.type} handleDropdownParent={handleDropdown} handleChangeParent = {handleChange}/>
+                                                <div className="lsgd">
+                                                    <VillageAddForm taluk= {newInstitution.taluk} handleDropdownParent={handleDropdown}/>
+                                                    <ConstituencyAddForm handleDropdownParent = {handleDropdown}/>
+                                                    <PanchayatAddForm constituency={newInstitution.constituency}  handleDropdownParent = {handleDropdown}/>
+                                                        <div class="sbmt-btn">
+                                                            <button className='btn' onClick = {handleSubmit}>Submit</button>
+                                                        </div>
+                                                        <div id="institutionAddMssg"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
             )
         }
     }
@@ -282,7 +292,8 @@ function Institution(props)
         <div id="InstitutionTab p-2" className="search">
 
                 {formsDecider()}
-                <h6>Search</h6>
+                <hr/>
+                <h2 className="text-center mb-4">Search</h2>
                 {searchDecider()}
                 {institutions}                   
         </div>  

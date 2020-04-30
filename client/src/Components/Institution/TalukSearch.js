@@ -2,11 +2,10 @@ import React from 'react';
 
 function TalukSearch(props) {
     return (
-        <div class="input-group mt-2 mb-3">
-            <div class="input-group-prepend">
-                <label class="input-group-text" for="loc">Taluk</label>
-            </div>
-            <select class="custom-select" name="taluk" id="locTaluk" size="1" onChange={props.handleTalukParent}>
+        <div class="mb-3 col-lg-6">
+            
+                <label  htmlFor="locTaluk">Taluk</label>
+                <select class="custom-select" name="taluk" id="locTaluk" onChange={props.handleTalukParent}>
                 <option selected value="Chavakkad">Chavakkad</option>
                 <option value="Chalakkudy">Chalakkudy</option>
                 <option value="Kodungallur">Kodungallur</option>
