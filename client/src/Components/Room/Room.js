@@ -5,7 +5,7 @@ import RoomsAddForm from './RoomsAddForm';
 
 function Room(props){
 
-    const [roomInfo, setRoomInfo] = useState({no:0 , beds:0 , status:"" ,ready:"", bathroom:"" , disable:"" });
+    const [roomInfo, setRoomInfo] = useState({no:0 , beds:0 , status:"" ,ready:"", bathroom:"" , disable:""});
     const [rooms , setRooms] = useState([]);
     const [roomsArray, setRoomsArray] = useState([]);
     const institutionId = window.location.pathname.split('/')[2];
@@ -62,7 +62,7 @@ function Room(props){
         if(roomInfo.no !== "" && roomInfo.status !== "")
         {
             let no;
-            const data ={no:roomInfo.no, status:roomInfo.status, name:"", beds:roomInfo.beds,
+            const data ={no:roomInfo.no, status:roomInfo.status, emigrantId:"", beds:roomInfo.beds,
                         ready:roomInfo.ready, bathroom:roomInfo.bathroom, disable:roomInfo.disable};    
             var url = "http://localhost:9000/api/rooms/add?id="+window.localStorage.getItem('session')+"&institutionId="+institutionId;
             axios
@@ -88,7 +88,17 @@ function Room(props){
         }    
         setRoomInfo({no:0,status:""}); 
         document.getElementById("roomNo").value = "";
+        document.getElementById("roomBeds").value = "";
         document.getElementById("roomStatus").options.selectedIndex = 0;
+        var radio = document.getElementsByName("bathroom");
+        for(var i=0;i<radio.length;i++)
+            radio[i].checked = false;
+        var radio = document.getElementsByName("disable");
+        for(var i=0;i<radio.length;i++)
+            radio[i].checked = false;
+        var radio = document.getElementsByName("ready");
+        for(var i=0;i<radio.length;i++)
+            radio[i].checked = false;         
     }
     
 

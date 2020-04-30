@@ -11,17 +11,19 @@ import VillageList from "../Institution/VillageList";
 
 function Institution(props)
 {
-    const defaultInstitution = {name:"" , type:"" , taluk:"", village:"", constituency:"", panchayat:"" ,coordinates:"", priority:0} 
+    const defaultInstitution = {type:"" , taluk:"", village:"", constituency:"", panchayat:"", priority:0, fit:""} 
     const [institutions , setInstitutions] = useState("");
     const [taluk , setTaluk] = useState(window.localStorage.getItem('taluk'));
     const [village, setVillage] = useState(window.localStorage.getItem('village'));
     const [newInstitution , setNewInstitution] = useState(defaultInstitution);
     const [institutionsArray, setInstitutionsAray] =useState([]);
 
+
     const vacantCount = function(rooms){
         var count = 0;
         for(var i=0;i<rooms.length;i++){
-            if(rooms[i].name==="")
+            console.log(rooms[i]);
+            if(rooms[i].emigrantId === "")
                 count++;
         }
         return(count);
@@ -37,6 +39,15 @@ function Institution(props)
         return(count);
     }
 
+    const ReadyCount = function(rooms){
+        var count = 0;
+        for(var i=0;i<rooms.length;i++){
+            if(rooms[i].ready==="yes")
+                count++;
+        }
+        return(count);
+    }
+
     const handleChange =(e)=>{    
         setNewInstitution({...newInstitution, [e.target.name]:e.target.value})
     }
@@ -47,6 +58,7 @@ function Institution(props)
 
     const handleTaluk = e =>{
         setTaluk(e.target.options[e.target.options.selectedIndex].value)
+        setVillage(VillageList[e.target.options[e.target.options.selectedIndex].value][0]);
         window.localStorage.setItem('taluk',e.target.options[e.target.options.selectedIndex].value); 
     }
     
@@ -85,12 +97,16 @@ function Institution(props)
                     <div class="card mb-2">
                         <div class="card-body">
                         <h5 className="card-title">{u.name}</h5>
-                        <h6 className="card-subtitle mb-2 text-muted">{u.district}</h6>
+                        <h6 className="card-title">{u.type}</h6>
+                        <h6 className="card-title">Structurally Fit : {u.fit}</h6>
                         <button type="button" class="btn btn-primary mr-3 mb-2">
                                 Total Rooms <span class="badge badge-light">{u.rooms.length}</span>
                         </button>
                         <button type="button" class="btn btn-warning mr-3 mb-2">
                                 Vacant <span class="badge badge-light">{vacantCount(u.rooms)}</span>
+                        </button>
+                        <button type="button" class="btn btn-success mr-3 mb-2">
+                                Ready <span class="badge badge-light">{ReadyCount(u.rooms)}</span>
                         </button>
                         <button type="button" class="btn btn-success mr-3 mb-2">
                                 Decontaminated <span class="badge badge-light">{decontaminatedCount(u.rooms)}</span>
@@ -102,9 +118,11 @@ function Institution(props)
                 </div>
                 );    
             setInstitutions(institutions);
+            setInstitutionsAray(institutions);
         })
         .catch(err => console.log(err));
     }
+
 
     
     const removeInstitution = (id) =>{
@@ -118,18 +136,18 @@ function Institution(props)
         InstitutionsListGenerate();
     }
 
+
     const handleSubmit = (e) =>{
         e.preventDefault();
         document.getElementById('institutionAddMssg').innerHTML = "";
         if(newInstitution.name !== "" && newInstitution.type !== "" && newInstitution.taluk !== "" &&
             newInstitution.village!=="" && newInstitution.constituency!=="" && newInstitution.panchayat!=="" &&
-            document.getElementById('map-link').textContent!== "")
+            newInstitution.fit !=="")
         {    
             var config = {  headers: {'Access-Control-Allow-Origin': '*',
                         'Access-Control-Allow-Credentials': true}};
             let data = {
                 ...newInstitution ,
-                coordinates: document.getElementById('map-link').textContent,
                 rooms:[]
             }
             var url = "http://localhost:9000/api/institution/add?id="+ window.localStorage.getItem('session');
@@ -159,7 +177,20 @@ function Institution(props)
         else{
             document.getElementById('institutionAddMssg').innerHTML = "Empty Fields Present"
         }
-        InstitutionsListGenerate();
+        setInstitutionsAray([]);
+        document.getElementById('instName').value ="";
+        var radio = document.getElementsByName("type");
+        for(var i=0;i<radio.length;i++)
+            radio[i].checked = false;
+        radio = document.getElementsByName("fit");
+            for(var i=0;i<radio.length;i++)
+                radio[i].checked = false;    
+        if(document.getElementById('talukAdd')!== null)
+            document.getElementById('talukAdd').options.selectedIndex = 0;
+        document.getElementById('villageAdd').options.selectedIndex = 0;
+        document.getElementById('constituencyAdd').options.selectedIndex = 0;
+        document.getElementById('panchayatAdd').options.selectedIndex = 0;
+
     }
 
 
@@ -168,6 +199,7 @@ function Institution(props)
         if(props.type === 'taluk')
         {
             setTaluk(props.taluk);
+            setVillage(VillageList[props.taluk][0]);
             setNewInstitution({...newInstitution, taluk:props.taluk});
             window.localStorage.setItem('village', VillageList[props.taluk][0] );
         }
@@ -175,7 +207,7 @@ function Institution(props)
         {
             window.localStorage.setItem('village', 'Engandiyoor');
         }
-    },[props.taluk,taluk])
+    },[props.taluk])
 
 
 
@@ -183,7 +215,7 @@ function Institution(props)
         InstitutionsListGenerate();
         window.localStorage.setItem('currTab',"Institutions");
     },[props.taluk, props.institutionId, taluk,village]);
-
+    
 
 
     const searchDecider = () =>{

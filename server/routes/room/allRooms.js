@@ -36,7 +36,7 @@ module.exports = function(app)
                             res.send("No such Institution");
                         }
                         else{
-                            res.send((exists.rooms));
+                            res.send((exists.rooms.reverse()));
                         }    
                     })
                 }        
