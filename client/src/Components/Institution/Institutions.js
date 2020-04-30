@@ -14,12 +14,11 @@ function Institution(props)
     if(props.type === 'taluk')
         var temp = props.taluk;
     else
-        var temp = 'Chavakkad';
-    console.log(temp);        
+        var temp = 'Chavakkad';       
     const defaultInstitution = {type:"" , taluk:"", village:"", constituency:"", panchayat:"", priority:0, fit:""} 
     const [institutions , setInstitutions] = useState("");
     const [taluk , setTaluk] = useState(temp);
-    const [village, setVillage] = useState(VillageList[temp][0]);
+    const [village, setVillage] = useState(VillageList[props.taluk][0]);
     const [newInstitution , setNewInstitution] = useState(defaultInstitution);
     const [institutionsArray, setInstitutionsArray] =useState([]);
 
@@ -209,6 +208,7 @@ function Institution(props)
         window.localStorage.setItem('currTab',"Institutions");
     },[]);
     
+
     useEffect(()=>{
         InstitutionsListGenerate();  
     },[taluk,village]);
