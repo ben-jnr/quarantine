@@ -63,7 +63,7 @@ function UserAdd(props)
                             type:credentials.type
                         };
                 }                
-                var url = "http://localhost:9000/api/useradd?id="+ window.localStorage.getItem('session');
+                var url = "http://18.223.108.131:9000/api/useradd?id="+ window.localStorage.getItem('session');
                 axios
                 .post(url, data, config)
                 .then(function(res){
