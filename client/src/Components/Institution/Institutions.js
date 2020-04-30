@@ -100,20 +100,6 @@ function Institution(props)
 
                         <h6 className="card-title">{u.type}</h6>
                         <h6 className="card-title">Structurally Fit : {u.fit}</h6>
-                        <button type="button" class="btn btn-primary mr-3 mb-2">
-                                Total Rooms <span class="badge badge-light">{u.rooms.length}</span>
-                        </button>
-                        <button type="button" class="btn btn-warning mr-3 mb-2">
-                                Vacant <span class="badge badge-light">{vacantCount(u.rooms)}</span>
-                        </button>
-                        <button type="button" class="btn btn-success mr-3 mb-2">
-                                Ready <span class="badge badge-light">{ReadyCount(u.rooms)}</span>
-                        </button>
-                        <button type="button" class="btn btn-success mr-3 mb-2">
-                                Decontaminated <span class="badge badge-light">{decontaminatedCount(u.rooms)}</span>
-                        </button><br/>
-                        <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={roomsRedirect.bind(url,"/admin/"+u._id)}>Check Rooms</button>
-
                         <h6 className="card-subtitle mb-2 text-muted">{u.district}</h6>
                             <button type="button" class="btn btn-primary mr-3 mb-2">
                                     Total Rooms <button class="btn btn-light roomBadge">{u.rooms.length}</button>
@@ -121,11 +107,13 @@ function Institution(props)
                             <button type="button" class="btn btn-warning mr-3 mb-2">
                                     Vacant <button class="btn btn-light roomBadge">{vacantCount(u.rooms)}</button>
                             </button>
+                            <button type="button" class="btn btn-warning mr-3 mb-2">
+                                    Ready <button class="btn btn-light roomBadge">{ReadyCount(u.rooms)}</button>
+                            </button>
                             <button type="button" class="btn btn-success mr-3 mb-2">
                                     Decontaminated <button class="btn btn-light roomBadge">{decontaminatedCount(u.rooms)}</button>
                             </button><br/>
                             <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={roomsRedirect.bind(url,"/admin/"+u._id)}>Check Rooms</button>
-
                         {removeInstitutionDecider(u._id)}
                     </div>  
                 </div>
