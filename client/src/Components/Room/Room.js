@@ -112,19 +112,27 @@ function Room(props){
     let url;
     let no;
     const Rooms = arr.map( u => 
-        <div className="RoomsContainer" key={u.no}>
-            <div className="card mb-2">
-                <div className="card-body">
-                    <h5 className="card-title">Room No: {u.no}</h5>
-                    <h6 className="card-subtitle mb-2 text-muted">Vacancy: {vacancyCheck(u.name)}</h6>
-                    <h6 className="card-subtitle mb-2 text-muted">No of Beds: {u.beds}</h6>
-                    <h6 className="card-subtitle mb-2 text-muted">Attached Bathroom: {u.bathroom}</h6>
-                    <h6 className="card-subtitle mb-2 text-muted">Disable Friendly: {u.disable}</h6>
-                    <h6 className="card-subtitle mb-2 text-muted">Contaminated: {u.status}</h6>
-                    <h6 className="card-subtitle mb-2 text-muted">Ready: {u.ready}</h6>
-                    <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={inmateRedirect.bind(url,"/admin/"+institutionId+"/"+u.no)}>Info</button>
-                    <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={removeRoom.bind(no,u.no)}>Delete</button>
-                </div>  
+        <div class="accordion" id="accordionExample1">
+            <div class="card">
+                <div class="card-header row" id="headingOne1">
+                    <button class="btn btn-link col" type="button" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1">
+                        Room No :{u.no}
+                    </button>
+                    <button className="btn btn-success col-3">Ready</button>
+                </div>
+
+                <div id="collapseOne1" class="collapse" aria-labelledby="headingOne1" data-parent="#accordionExample1">
+                    <div class="card-body">
+                        <h6 className="card-subtitle mb-2 text-muted">Vacancy: {vacancyCheck(u.name)}</h6>
+                        <h6 className="card-subtitle mb-2 text-muted">No of Beds: {u.beds}</h6>
+                        <h6 className="card-subtitle mb-2 text-muted">Attached Bathroom: {u.bathroom}</h6>
+                        <h6 className="card-subtitle mb-2 text-muted">Disable Friendly: {u.disable}</h6>
+                        <h6 className="card-subtitle mb-2 text-muted">Contaminated: {u.status}</h6>
+                        <h6 className="card-subtitle mb-2 text-muted">Ready: {u.ready}</h6>
+                        <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={inmateRedirect.bind(url,"/admin/"+institutionId+"/"+u.no)}>Info</button>
+                        <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={removeRoom.bind(no,u.no)}>Delete</button>
+                    </div>
+                </div>
             </div>
         </div>
     );

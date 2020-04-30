@@ -24,22 +24,27 @@ function Login(props){
 
     const handleSubmit = e => {
         e.preventDefault();
-        document.getElementById("loginMessage").innerHTML = "";    
-        var config = {
-            headers: {'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Credentials': true}
-        };
-        const data ={username:credentials.username , password:credentials.password};
-        setDefault();
-        var url = "http://localhost:9000/api/login?id="+window.localStorage.getItem('session');
-        axios
-        .post(url, data, config)
-            .then(res =>{ 
-                window.localStorage.setItem('session',res.data);
-                props.parentFunction();
-            })
-            .catch(err => console.log(err));
-    }
+        document.getElementById("loader").style.visibility = "visible";
+        document.getElementById("loaderText").style.visibility ="visible";
+        setTimeout(()=>{
+            document.getElementById("loginMessage").innerHTML = "";    
+            var config = {
+                headers: {'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Credentials': true}
+            };
+            const data ={username:credentials.username , password:credentials.password};
+            setDefault();
+            var url = "http://localhost:9000/api/login?id="+window.localStorage.getItem('session');
+            axios
+            .post(url, data, config)
+                .then(res =>{ 
+                    window.localStorage.setItem('session',res.data);
+                    props.parentFunction();
+                })
+                .catch(err => console.log(err));
+        }
+    ,1000);
+    }   
 
 
     return (

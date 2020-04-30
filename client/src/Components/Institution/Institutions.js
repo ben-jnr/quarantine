@@ -105,10 +105,10 @@ function Institution(props)
                         <h6 className="card-title">{u.type}</h6>
                         <h6 className="card-title">Structurally Fit : {u.fit}</h6>
                         <h6 className="card-subtitle mb-2 text-muted">{u.district}</h6>
-                            <button type="button" class="btn btn-primary mr-3 mb-2">
+                            <button type="button" class="btn btn-secondary mr-3 mb-2">
                                     Total Rooms <button class="btn btn-light roomBadge">{u.rooms.length}</button>
                             </button>
-                            <button type="button" class="btn btn-warning mr-3 mb-2">
+                            <button type="button" class="btn btn-primary mr-3 mb-2">
                                     Vacant <button class="btn btn-light roomBadge">{vacantCount(u.rooms)}</button>
                             </button>
                             <button type="button" class="btn btn-warning mr-3 mb-2">
