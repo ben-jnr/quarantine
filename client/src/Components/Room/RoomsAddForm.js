@@ -20,8 +20,8 @@ function RoomsAddForm(props) {
       <form className="p-2 col">
                 <div className="form-row">
                     <div className="form-group col">
-                        <label>Room No</label>
-                        <input type="number" id="roomNo" name="no" className="form-control" placeholder="Room No" onChange={props.handleChangeParent}/>
+                        <label>Room No/Name</label>
+                        <input type="text" id="roomNo" name="no" className="form-control" placeholder="Room No" onChange={props.handleChangeParent}/>
                     </div>
                     <div className="form-group col">
                         <label>No of beds</label>
@@ -37,7 +37,7 @@ function RoomsAddForm(props) {
                                 <label class="custom-control-label" for="attchBath1">Yes</label>
                             </div>
                             <div class="custom-control custom-radio ml-2">
-                                <input type="radio" id="attchBath1" name="bathroom" value="no" onChange={props.handleChangeParent} class="custom-control-input"/>
+                                <input type="radio" id="attchBath2" name="bathroom" value="no" onChange={props.handleChangeParent} class="custom-control-input"/>
                                 <label class="custom-control-label" for="attchBath2">No</label>
                             </div>
                         </div>
