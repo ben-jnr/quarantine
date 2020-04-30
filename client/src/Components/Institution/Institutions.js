@@ -138,6 +138,7 @@ function Institution(props)
     }
 
 
+
     const handleSubmit = (e) =>{
         e.preventDefault();
         document.getElementById('institutionAddMssg').innerHTML = "";
@@ -191,9 +192,7 @@ function Institution(props)
         document.getElementById('villageAdd').options.selectedIndex = 0;
         document.getElementById('constituencyAdd').options.selectedIndex = 0;
         document.getElementById('panchayatAdd').options.selectedIndex = 0;
-
     }
-
 
     
     useEffect(()=>{
@@ -216,7 +215,7 @@ function Institution(props)
         InstitutionsListGenerate();
         setTaluk(props.taluk);
         window.localStorage.setItem('currTab',"Institutions");
-    },[props.taluk, taluk,village, institutionsArray]);
+    },[props.taluk, taluk,village, institutionsArray, institutionId]);
     
 
 

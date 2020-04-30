@@ -7,11 +7,11 @@ function TalukSearch(props) {
                 <label  htmlFor="locTaluk">Taluk</label>
                 <select class="custom-select" name="taluk" id="locTaluk" onChange={props.handleTalukParent}>
                 <option selected value="Chavakkad">Chavakkad</option>
-                <option value="Chalakkudy">Chalakkudy</option>
+                <option value="Chalakudy">Chalakudy</option>
                 <option value="Kodungallur">Kodungallur</option>
                 <option value="Kunnamkulam">Kunnamkulam</option>
-                <option value="Mukundapuram">Mukundapuram</option>
-                <option value="Thalappally">Thalappally</option>
+                <option value="Mukunthapuram">Mukunthapuram</option>
+                <option value="Thalapilly">Thalapilly</option>
                 <option value="Thrissur">Thrissur</option>
             </select>
         </div>
