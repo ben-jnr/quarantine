@@ -60,6 +60,21 @@ input[type="text"],input[type="password"],input[type="email"]{
     text-align: center;
     padding-right: 23px;
 }
+.loader
+{
+    width: 50px;
+    height: 50px;
+    border: 5px solid  #cacfd2 ;
+    border-top: 5px solid navy;
+    border-radius: 50%;
+    animation: spin 1.5s linear infinite;
+}
+#loader{visibility: hidden;}
+@keyframes spin
+{
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 /* Mobile View*/
 @media only screen and (max-width: 650px) {
     #Login{

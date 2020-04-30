@@ -12,6 +12,9 @@ function LoginForm(props){
                     <div className="form-group">
                         <input type="password" onChange={props.handleChangeParent} name="password" id="password" className="form-control" placeholder="Password" />
                     </div>
+                    <div id="loader"> 
+                        <div className="loader"></div>Verifying credentials
+                    </div>
                     <button type="submit" onClick={props.handleSubmitParent} value="Login" id="loginButton" className="btn btn-primary float-right">Login</button>
                 </form>
             </div>
