@@ -10,7 +10,7 @@ function RoomsAddForm(props) {
       <h2 class="mb-0">
 
         <button class="btn btn-link text-center" type="button" data-toggle="collapse" data-target="#collapseRooms" aria-expanded="true" aria-controls="collapseRooms">
-          <h5>Add Room info</h5>
+          <h6>Add Room info</h6>
         </button>
       </h2>
     </div>

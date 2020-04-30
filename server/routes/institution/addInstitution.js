@@ -50,8 +50,10 @@ module.exports = function(app)
                                                 if(err)console.log(err);
                                                 else
                                                 {
+                                                    var arr = [];
+                                                    arr.push(newInstitution.ops[0])
                                                     res.send({mssg:"institution successfully added",
-                                                        data:newInstitution})
+                                                        data:arr})
                                                 }
                                             })
                                         }

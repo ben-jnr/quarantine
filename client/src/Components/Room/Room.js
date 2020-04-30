@@ -5,13 +5,13 @@ import RoomsAddForm from './RoomsAddForm';
 
 function Room(props){
 
-    const [roomInfo, setRoomInfo] = useState({no:0 , beds:0 , status:"" ,ready:"", bathroom:"" , disable:""});
+    const [roomInfo, setRoomInfo] = useState({no:"" , beds:0 , status:"" ,ready:"", bathroom:"" , disable:""});
     const [rooms , setRooms] = useState([]);
-    const [roomsArray, setRoomsArray] = useState([]);
     const institutionId = window.location.pathname.split('/')[2];
 
-    const vacancyCheck = name =>{
-        if(name === "")
+
+    const vacancyCheck = emigrantId =>{
+        if(emigrantId === "")
             return("yes");
         else 
             return("no");    
@@ -44,7 +44,7 @@ function Room(props){
                     window.location.replace('/');
                 }
                 if(res.data.mssg==="Room Successfully Deleted"){
-                    setRoomsArray(res.data.rooms);
+                    RoomsListGenerator();
                 }
             })
             .catch(err => console.log(err));
@@ -59,9 +59,9 @@ function Room(props){
             headers: {'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Credentials': true}
         };
-        if(roomInfo.no !== "" && roomInfo.status !== "")
+        if(roomInfo.no !=="" && roomInfo.status !== "" && roomInfo.beds !== 0 &&
+            roomInfo.ready !== "" && roomInfo.bathroom !== "" && roomInfo.disable!=="")
         {
-            let no;
             const data ={no:roomInfo.no, status:roomInfo.status, emigrantId:"", beds:roomInfo.beds,
                         ready:roomInfo.ready, bathroom:roomInfo.bathroom, disable:roomInfo.disable};    
             var url = "http://localhost:9000/api/rooms/add?id="+window.localStorage.getItem('session')+"&institutionId="+institutionId;
@@ -77,16 +77,45 @@ function Room(props){
                         document.getElementById("RoomAddMssg").innerHTML = res.data;      
                 }
                 else{
-                    setRoomsArray(res.data.rooms);
+                    let no;
                     document.getElementById("RoomAddMssg").innerHTML =res.data.mssg;
+                    const reqIndex = document.querySelectorAll('.RoomsContainer').length;
+                    const Room = res.data.room.map( (u,index) => 
+                        <div class="accordion RoomsContainer" id={"accordion"+reqIndex}>
+                            <div class="card">
+                                <div class="card-header row" id={"heading"+reqIndex}>
+                                    <button class="btn btn-link col" type="button" data-toggle="collapse" data-target={"#collapse"+reqIndex} aria-expanded="true" aria-controls="collapseOne1">
+                                        Room No :{u.no}
+                                    </button>
+                                    <button className="btn btn-success col-3">Ready</button>
+                                </div>
+
+                                <div id={"collapse"+reqIndex} class="collapse" aria-labelledby={"heading"+reqIndex} data-parent={"#accordion"+reqIndex}>
+                                    <div class="card-body">
+                                        <h6 className="card-subtitle mb-2 text-muted">Vacancy: {vacancyCheck(u.emigrantId)}</h6>
+                                        <h6 className="card-subtitle mb-2 text-muted">No of Beds: {u.beds}</h6>
+                                        <h6 className="card-subtitle mb-2 text-muted">Attached Bathroom: {u.bathroom}</h6>
+                                        <h6 className="card-subtitle mb-2 text-muted">Disable Friendly: {u.disable}</h6>
+                                        <h6 className="card-subtitle mb-2 text-muted">Contaminated: {u.status}</h6>
+                                        <h6 className="card-subtitle mb-2 text-muted">Ready: {u.ready}</h6>
+                                        <button className="btn btn-primary  mt-2 ml-2 float-right" /*onClick={inmateRedirect.bind(url,"/admin/"+institutionId+"/"+u.no)}*/>Info</button>
+                                        <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={removeRoom.bind(no,u.no)}>Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                    console.log(Room);
+                    console.log(rooms);
+                    setRooms([Room, ...rooms]);
                 }
             })
             .catch(err =>console.log(err));
         }                
         else{
-            document.getElementById("RoomAddMssg").innerHTML = "Empty Field";
+            document.getElementById("RoomAddMssg").innerHTML = "Empty Fields Present";
         }    
-        setRoomInfo({no:0,status:""}); 
+        setRoomInfo({no:0 , beds:0 , status:"" ,ready:"", bathroom:"" , disable:""}); 
         document.getElementById("roomNo").value = "";
         document.getElementById("roomBeds").value = "";
         document.getElementById("roomStatus").options.selectedIndex = 0;
@@ -107,67 +136,60 @@ function Room(props){
    }
 
 
-   const RoomsListGenerator=(arr)=>
-   {
-    let url;
-    let no;
-    const Rooms = arr.map( (u,index) => 
-        <div class="accordion" id={"accordion"+index}>
-            <div class="card">
-                <div class="card-header row" id={"heading"+index}>
-                    <button class="btn btn-link col" type="button" data-toggle="collapse" data-target={"#collapse"+index} aria-expanded="true" aria-controls="collapseOne1">
-                        Room No :{u.no}
-                    </button>
-                    <button className="btn btn-success col-3">Ready</button>
-                </div>
+   const RoomsListGenerator=()=>
+    {
+        let no;
+        let url = "http://localhost:9000/api/rooms?id="+window.localStorage.getItem('session')+
+                                                    "&institutionId="+institutionId;                                                                       
+        axios.get(url)
+        .then(res => {
+            if(res.data === "connection closed"){
+                alert("connection closed");
+                window.location.replace('/');
+            }
+            document.getElementById('roomHeading').innerHTML = res.data.name;
+            const Rooms = res.data.rooms.map( (u,index) => 
+            <div class="accordion RoomsContainer" id={"accordion"+index}>
+                <div class="card">
+                    <div class="card-header row" id={"heading"+index}>
+                        <button class="btn btn-link col" type="button" data-toggle="collapse" data-target={"#collapse"+index} aria-expanded="true" aria-controls="collapseOne1">
+                            Room No :{u.no}
+                        </button>
+                        <button className="btn btn-success col-3">Ready</button>
+                    </div>
 
-                <div id={"collapse"+index} class="collapse" aria-labelledby={"heading"+index} data-parent={"#accordion"+index}>
-                    <div class="card-body">
-                        <h6 className="card-subtitle mb-2 text-muted">Vacancy: {vacancyCheck(u.name)}</h6>
-                        <h6 className="card-subtitle mb-2 text-muted">No of Beds: {u.beds}</h6>
-                        <h6 className="card-subtitle mb-2 text-muted">Attached Bathroom: {u.bathroom}</h6>
-                        <h6 className="card-subtitle mb-2 text-muted">Disable Friendly: {u.disable}</h6>
-                        <h6 className="card-subtitle mb-2 text-muted">Contaminated: {u.status}</h6>
-                        <h6 className="card-subtitle mb-2 text-muted">Ready: {u.ready}</h6>
-                        <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={inmateRedirect.bind(url,"/admin/"+institutionId+"/"+u.no)}>Info</button>
-                        <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={removeRoom.bind(no,u.no)}>Delete</button>
+                    <div id={"collapse"+index} class="collapse" aria-labelledby={"heading"+index} data-parent={"#accordion"+index}>
+                        <div class="card-body">
+                            <h6 className="card-subtitle mb-2 text-muted">Vacancy: {vacancyCheck(u.emigrantId)}</h6>
+                            <h6 className="card-subtitle mb-2 text-muted">No of Beds: {u.beds}</h6>
+                            <h6 className="card-subtitle mb-2 text-muted">Attached Bathroom: {u.bathroom}</h6>
+                            <h6 className="card-subtitle mb-2 text-muted">Disable Friendly: {u.disable}</h6>
+                            <h6 className="card-subtitle mb-2 text-muted">Contaminated: {u.status}</h6>
+                            <h6 className="card-subtitle mb-2 text-muted">Ready: {u.ready}</h6>
+                            <button className="btn btn-primary  mt-2 ml-2 float-right" /*onClick={inmateRedirect.bind(url,"/admin/"+institutionId+"/"+u.no)}*/>Info</button>
+                            <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={removeRoom.bind(no,u.no)}>Delete</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    );
-    return Rooms;
-   }
+            );
+            setRooms(Rooms);
+        })
+        .catch(err => console.log(err));
+    }
 
 
     useEffect(()=>{
-        let no;
         window.localStorage.setItem('currTab',"Institutions");
-        if(roomsArray.length === 0){
-            var url = "http://localhost:9000/api/rooms?id="+window.localStorage.getItem('session')+
-                                                "&institutionId="+institutionId;                                                                       
-            axios.get(url)
-            .then(res => {
-                if(res.data === "connection closed"){
-                    alert("connection closed");
-                    window.location.replace('/');
-                }
-                setRoomsArray(res.data);
-                setRooms(RoomsListGenerator(res.data));
-            })
-            .catch(err => console.log(err));
-        }
-        else{
-            setRooms(RoomsListGenerator(roomsArray));
-        }    
-    },[roomsArray])
+        RoomsListGenerator();    
+    },[])
 
     
 
     return(
         <div>
             <div className="text-center">
-                <h1>Rooms information</h1>
+                <h3 id="roomHeading"></h3>
             </div>
         <div className="row mt-4">
             <div className="col-lg-6">

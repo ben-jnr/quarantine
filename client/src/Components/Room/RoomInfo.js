@@ -16,12 +16,10 @@ class RoomInfo extends Component {
     }
     
 
-
     RoomsRedirect = () =>{
         var url = "/admin/"+this.name+'/'+this.district + '/';
         window.location.assign(url);
     }
-
 
 
     componentDidMount=() =>{
