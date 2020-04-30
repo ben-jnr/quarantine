@@ -2,6 +2,9 @@
 a{
 text-decoration:none !important;}
 
+body{
+    letter-spacing: 0.5px;
+}
 #Login{
     top:10vh;
     color:navy;
@@ -81,6 +84,14 @@ input[type="text"],input[type="password"],input[type="email"]{
  .loaderDiv .loader, .loaderText{
      visibility: hidden;
  }       
+
+ #loginMessage{
+     position: absolute !important;
+     margin-top: -40vh;
+     text-align: center;
+     width: 100%;
+ }
+
 /* Mobile View*/
 @media only screen and (max-width: 700px) {
     #Login{

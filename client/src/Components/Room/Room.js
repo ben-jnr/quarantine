@@ -111,17 +111,17 @@ function Room(props){
    {
     let url;
     let no;
-    const Rooms = arr.map( u => 
-        <div class="accordion" id="accordionExample1">
+    const Rooms = arr.map( (u,index) => 
+        <div class="accordion" id={"accordion"+index}>
             <div class="card">
-                <div class="card-header row" id="headingOne1">
-                    <button class="btn btn-link col" type="button" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1">
+                <div class="card-header row" id={"heading"+index}>
+                    <button class="btn btn-link col" type="button" data-toggle="collapse" data-target={"#collapse"+index} aria-expanded="true" aria-controls="collapseOne1">
                         Room No :{u.no}
                     </button>
                     <button className="btn btn-success col-3">Ready</button>
                 </div>
 
-                <div id="collapseOne1" class="collapse" aria-labelledby="headingOne1" data-parent="#accordionExample1">
+                <div id={"collapse"+index} class="collapse" aria-labelledby={"heading"+index} data-parent={"#accordion"+index}>
                     <div class="card-body">
                         <h6 className="card-subtitle mb-2 text-muted">Vacancy: {vacancyCheck(u.name)}</h6>
                         <h6 className="card-subtitle mb-2 text-muted">No of Beds: {u.beds}</h6>

@@ -96,18 +96,18 @@ function Institution(props)
                 alert(res.data);
                 window.location.replace('/');
             }    
-            const institutions = res.data.map( u =>
-                <div key={u._id} className="accordion InstitutionsContainer mb-3" id="accordionExample11">
+            const institutions = res.data.map( (u,index) =>
+                <div key={u._id} className="accordion InstitutionsContainer mb-3" id={"accordionExample"+index}>
                 <div class="card">
-                <div class="card-header" id="headingOne11">
+                <div class="card-header" id={"headingOne"+index}>
                 <h2 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne11" aria-expanded="true" aria-controls="collapseOne">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target={"#collapseOne"+index} aria-expanded="true" aria-controls="collapseOne">
                     {u.name}
                     </button>
                 </h2>
                 </div>
 
-                <div id="collapseOne11" class="collapse" aria-labelledby="headingOne11" data-parent="#accordionExample11">
+                <div id={"collapseOne"+index} class="collapse" aria-labelledby={"headingOne"+index} data-parent={"#accordionExample"+index}>
                     <div class="card-body">
                         <h5 className="card-title">{u.name}</h5>
 
@@ -194,6 +194,7 @@ function Institution(props)
         else{
             document.getElementById('institutionAddMssg').innerHTML = "Empty Fields Present"
         }
+        setNewInstitution(defaultInstitution);
         setInstitutionsArray(institutions);
         document.getElementById('instName').value ="";
         var radio = document.getElementsByName("type");

@@ -37,7 +37,13 @@ function Login(props){
             var url = "http://localhost:9000/api/login?id="+window.localStorage.getItem('session');
             axios
             .post(url, data, config)
-                .then(res =>{ 
+                .then(res =>{
+                    if(res.data === "User does not exist")
+                    {
+                        document.getElementById("loader").style.visibility = "hidden";
+                        document.getElementById("loaderText").style.visibility ="hidden";
+                        document.getElementById("loginMessage").innerHTML = "User does not exist"; 
+                    } 
                     window.localStorage.setItem('session',res.data);
                     props.parentFunction();
                 })
