@@ -80,7 +80,7 @@ input[type="text"],input[type="password"],input[type="email"]{
      visibility: hidden;
  }       
 /* Mobile View*/
-@media only screen and (max-width: 650px) {
+@media only screen and (max-width: 700px) {
     #Login{
         top:20vh;
     }
@@ -112,5 +112,9 @@ input[type="text"],input[type="password"],input[type="email"]{
         height: 20px;
         width: 20px;
         padding-right: 20px;
+    }
+
+    .rBtn3{
+        margin-right: 50vw;
     }
 }  
