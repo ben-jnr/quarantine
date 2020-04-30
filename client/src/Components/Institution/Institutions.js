@@ -16,7 +16,7 @@ function Institution(props)
     const [taluk , setTaluk] = useState(window.localStorage.getItem('taluk'));
     const [village, setVillage] = useState(window.localStorage.getItem('village'));
     const [newInstitution , setNewInstitution] = useState(defaultInstitution);
-    const [institutionsArray, setInstitutionsAray] =useState([]);
+    const [institutionsArray, setInstitutionsArray] =useState([]);
 
 
     const vacantCount = function(rooms){
@@ -132,7 +132,6 @@ function Institution(props)
                 </div>
                 );    
             setInstitutions(institutions);
-            setInstitutionsAray(institutions);
         })
         .catch(err => console.log(err));
     }
@@ -191,7 +190,7 @@ function Institution(props)
         else{
             document.getElementById('institutionAddMssg').innerHTML = "Empty Fields Present"
         }
-        setInstitutionsAray([]);
+        setInstitutionsArray(institutions);
         document.getElementById('instName').value ="";
         var radio = document.getElementsByName("type");
         for(var i=0;i<radio.length;i++)
@@ -227,8 +226,9 @@ function Institution(props)
 
     useEffect(()=>{
         InstitutionsListGenerate();
+        setTaluk(props.taluk);
         window.localStorage.setItem('currTab',"Institutions");
-    },[props.taluk, props.institutionId, taluk,village]);
+    },[props.taluk, taluk,village, institutionsArray]);
     
 
 
