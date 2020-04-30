@@ -34,7 +34,7 @@ module.exports = function(app)
                             var rooms = exists.rooms;
                             var newRooms = [];
                             for(var i=0;i<rooms.length;i++){
-                                if(parseInt(rooms[i].no) !== parseInt(req.params.no))
+                                if(rooms[i].no !== req.params.no)
                                     newRooms.push(rooms[i]);
                             }
                             institution.updateOne({
@@ -47,7 +47,7 @@ module.exports = function(app)
                                         console.log(err);
                                     else    
                                         res.send({mssg:"Room Successfully Deleted",
-                                                rooms:newRooms});
+                                                rooms:newRooms.reverse()});
                                 }
                             )
                         }

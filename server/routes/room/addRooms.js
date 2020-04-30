@@ -34,62 +34,39 @@ module.exports = function(app)
                         }
                         else
                         {
-                            var rooms = exists.rooms;
                             var flag=0;
-                            index = -1;
-                            if(rooms.length === 0)
+                            var rooms = exists.rooms;
+                            var room = req.body;
+                            console.log(room);
+                            for(var i=0;i<rooms.length;i++)
                             {
-                                index =0;
+                                if(rooms[i]===room.no)
+                                {
+                                    flag=1;
+                                    break;
+                                }    
                             }
-                            else if(parseInt(req.body.no) < parseInt(rooms[0].no))
+                            if(flag===0)
                             {
-                                index = 0;
-                            }
-                            else if(parseInt(req.body.no) > parseInt(rooms[rooms.length-1].no))
-                            {
-                                index = rooms.length;
-                            }
-                            else
-                            {
-                                for(var i=0;i<rooms.length;i++){
-                                    if(rooms[i].no === req.body.no)
-                                    {
-                                        flag=1;
-                                        break;
-                                    }
-                                    else if(parseInt(req.body.no) > parseInt(rooms[i].no) && 
-                                                parseInt(req.body.no)< parseInt(rooms[i+1].no)){
-                                        index=i+1;
-                                        break;
-                                    }   
-                                }
-                            }    
-                            if(flag===0 && index>=0)
-                            {
-                                rooms.splice(index , 0, req.body);
-                                institution
+                                rooms.push(room);
                                 institution.updateOne({
-                                                "_id":ObjectId(req.query.institutionId)
-                                                },
-                                                {$set: {
-                                                    rooms:rooms,
-                                                }},function(err,newRoom){
-                                                    if(err)
-                                                        console.log(err);
-                                                    else{
-                                                        res.send({mssg:"Room Succesfully Added",
-                                                                rooms:rooms});
-                                                    }    
-                                                })
+                                    "_id":ObjectId(req.query.institutionId)
+                                    },
+                                    {$set: {
+                                        rooms:rooms,
+                                    }},function(err,newRoom){
+                                        if(err)
+                                            console.log(err);
+                                        else
+                                            res.send({mssg:"Room Succesfully Added",rooms:rooms.reverse()});    
+                                        }
+                                )
                             }
-                            else if(flag === 1)
-                            {
-                                res.send("Room Already Exists");
-                            }    
                             else
                             {
-                                res.send("Invalid Room No")
-                            }
+                                res.send("Room Exists");
+                            }            
+                                    
                         }
                     })
                 }            

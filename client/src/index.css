@@ -37,7 +37,29 @@ input[type="text"],input[type="password"],input[type="email"]{
     margin-right: 25vw !important;
 }
 
+.homeBadge{
+    height: 30px;
+    width: 30px;
+    line-height: 20px;
+    font-size: 15px;
+    border-radius: 50%;
+}
 
+.homeRow{
+    padding: 10px;
+    background-color: #9b9999;
+    border: 2px solid #fff;
+}
+
+.roomBadge{
+    height:30px;
+    width:30px;
+    border-radius: 20px;
+    line-height: 3px;
+    margin-right: 10px;
+    text-align: center;
+    padding-right: 23px;
+}
 /* Mobile View*/
 @media only screen and (max-width: 650px) {
     #Login{
@@ -65,5 +87,11 @@ input[type="text"],input[type="password"],input[type="email"]{
 
     .ml4{
         margin-right: 10px;
+    }
+
+    .roomBadge{
+        height: 20px;
+        width: 20px;
+        padding-right: 20px;
     }
 }  

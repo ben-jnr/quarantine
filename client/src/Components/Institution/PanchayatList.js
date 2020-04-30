@@ -1,21 +1,30 @@
 export default{
-
-    "":[""],
-    Choose:[""],
+    Choose:[],
+	"":[],
+    Chelakara :['Chelakara' , 'Deshamangalam' , 'Kondazhi' , 'Mullurkara' , 'Panjhal' , 'Pazhayannur' , 'Thiruvillamala' , 'Vallathole Nagar' , 'Varavoor'],
     
-    Chelakkara: ["Chelakkara" ,"Desamangalam" ,"Kondazhy" ,"Mullurkara" ,"Panjal" ,"Pazhayannur" ,"Thiruvilwamala" ,"Vallathole Nagar" ,"Varavoor"],
-    Kunnamkulam: ["Chowannur" ,"Erumapetty" ,"Kadangode" ,"Kadavallur" ,"Kattakampal" ,"Kunnamkulam Mty." ,"Porkulam" ,"Velur"],
-    Guruvayur: ["Chavakkad Municipality" ,"Engandiyoor" ,"Guruvaur Municipality" ,"Kadappuram" ,"Orumanayoor" ,"Pookkodu" ,"Punnayoor" ,"Punnayoorkulam" ,"Vadakkekkad"],
-    Manalur: ["Arimpur" ,"Choondal" ,"Elavally" ,"Kandanasseri" ,"Manalur" ,"Mullassery" ,"Pavaratty" ,"Thaikkad" ,"Vatanapilly" ,"Venkitangu"],
-    Wadakkanchery: ["Adat" ,"Avanur" ,"Kaiparamba" ,"Kolazhy" ,"Mulamkunnathukavu" ,"Mundathicode" ,"Thekkumkara" ,"Tholur" ,"Wadakkanchery"],
-    Ollur: ["Madakkathara" ,"Nadathara" ,"Pananchery" ,"Puthur" ,"Thrissur Corporation"],
-    Thrissur: ["Thrissur Corporation"],
-    Nattika: ["Anthikkad" ,"Avinisseri" ,"Chazhoor" ,"Cherpu" ,"Nattika" ,"Paralam" ,"Thalikkulam" ,"Thanniam" ,"Valappad"],
-    Kaipamangalam: ["Edathiruthy" ,"Edavilangu" ,"Eriyad" ,"Kaipamangalam" ,"Mathilakam" ,"Perinjanam" ,"Sree Narayanapuram"],
-    Irinjalakuda: ["Aloor" ,"Irinjalakuda Municipality" ,"Karalam" ,"Kattoor" ,"Muriyad" ,"Padiyoor" ,"Poomangalam" ,"Porathissery" ,"Velookara"],
-    Pudukkad: ["Alagappanagar" ,"Mattathoor" ,"Nenmanikkara" ,"Parappukkara" ,"Pudukkad" ,"Thrikkur" ,"Vallachira" ,"Varantharappilly"],
-    Chalakkudy: ["Athirappilly" ,"Chalakkudy Municipality" ,"Kadukutty" ,"Kodakara" ,"Kodasseri" ,"Koratty" ,"Meloor" ,"Pariyaram"],
-    Kodungallur: ["Annamanada" ,"Kodungallur Municipality" ,"Kuzhoor" ,"Mala" ,"Methala" ,"Poyya" ,"Puthenchira" ,"Vellangallur"],
+    Kunnamkulam :['Chowannur' , 'Erumapetty' , 'Kadavallur' , 'Kandangode' , 'Kattakambal' , 'Kunnamkulam' , 'Municipality' , 'Porkulam' , 'Velur'],
+
+    Wadakkanchery :['Adat' , 'Avanoor' , 'Kaiparamaba' , 'Kolazhi' , 'Mulamkunnathukavu' , 'Municipality' , 'Thekkumkara' , 'Tholur' , 'Wadkkanchery'],
+
+    Guruvayur :['Chavakkad Municipality' , 'Engandiyoor' , 'Guruvayur Municipality' , 'Kadappuram' , 'Orumanayoor' , 'Punnayoor' , 'Punnayoorkulam' , 'Vadakkekkad'],
+
+    Manalur :['Arimbur' , 'Choondal' , 'Elavally' , 'Guruvayur Municipality' , 'Kandanissery' , 'Manaloor' , 'Mullassery' , 'Pavaraty' , 'Vatanapally' , 'Venkidagu'],
+
+    Ollur  :['Madakkathara' , 'Nadathara' , 'Pananchery' , 'Puthur' , 'Thrissur Corporation'],
+    
+    Thrissur :['Thrissur Corporation'],
+    
+    Nattika :['Anthikkad' , 'Avinissery' , 'Chazhur' , 'Cherpu' , 'Nattika' , 'Paralam' , 'Thalikulam' , 'Thannyam' , 'Valappad'],
+    
+    Irinjalakuda :['Aloor' , 'Irinjalakuda Municipality' , 'Karalam' , 'Kattoor' , 'Muriyad' , 'Padiyoor' , 'Poomangalam' , 'Velukara'],
+    
+    Puthukkad :['Alagappa Nagar' , 'Mattathur' , 'Nenmanikkara' , 'Parappukara' , 'Puthukkad' , 'Thrikkur' , 'Vallchira' , 'Varantharapilly'],
+    
+    Kaippamangalam :['Edathurithy' , 'Edavilangu' , 'Eriyad' , 'Kaippamangalam' , 'Mathilakam' , 'Perinjanam' , 'SN Puram'],
+    
+    Chalakudy :['Athirapilly' , 'Chalakudy Municipality' , 'Kadukutty' , 'Kodakara' , 'Kodassery' , 'Koratty' , 'Meloor' , 'Pariyarma'],
+    
+    Kodungallur :['Annammanada' , 'Kodugallur Municipality' , 'Kuzhoor' , 'Mala' , 'Poyya' , 'Puthenchira' , 'Vellangallur']
     
 }
-
