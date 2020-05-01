@@ -16,7 +16,7 @@ class AccordionData extends Component {
   
 
   componentDidMount=() =>{
-    var patientUrl = 'http://www.ccctsr.in/api/'+this.name+'/'+this.district+'/'+this.no+'/'+this.floor+'/patient/';
+    var patientUrl = 'https://www.ccctsr.in/api/'+this.name+'/'+this.district+'/'+this.no+'/'+this.floor+'/patient/';
     axios.get(patientUrl)
     .then(res => {
         if(res.data.mssg !== "Room Found"){

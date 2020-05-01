@@ -63,7 +63,7 @@ function UserAdd(props)
                             type:credentials.type
                         };
                 }                
-                var url = "http://www.ccctsr.in/api/useradd?id="+ window.localStorage.getItem('session');
+                var url = "https://www.ccctsr.in/api/useradd?id="+ window.localStorage.getItem('session');
                 axios
                 .post(url, data, config)
                 .then(function(res){

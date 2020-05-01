@@ -34,7 +34,7 @@ function Login(props){
             };
             const data ={username:credentials.username , password:credentials.password};
             setDefault();
-            var url = "http://www.ccctsr.in//api/login?id="+window.localStorage.getItem('session');
+            var url = "https://www.ccctsr.in/api/login?id="+window.localStorage.getItem('session');
             axios
             .post(url, data, config)
                 .then(res =>{

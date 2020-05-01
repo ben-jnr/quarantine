@@ -35,7 +35,7 @@ function Room(props){
     
     const removeRoom = (no) =>{
         if(window.confirm("Are you sure?")){
-            var url = "http://www.ccctsr.in/api/rooms/"+no+"/delete?id="+window.localStorage.getItem('session')+
+            var url = "https://www.ccctsr.in/api/rooms/"+no+"/delete?id="+window.localStorage.getItem('session')+
                                                         "&institutionId="+institutionId;
             axios.get(url)
             .then(res =>{
@@ -64,7 +64,7 @@ function Room(props){
         {
             const data ={no:roomInfo.no, status:roomInfo.status, emigrantId:"", beds:roomInfo.beds,
                         ready:roomInfo.ready, bathroom:roomInfo.bathroom, disable:roomInfo.disable};    
-            var url = "http://www.ccctsr.in/api/rooms/add?id="+window.localStorage.getItem('session')+"&institutionId="+institutionId;
+            var url = "https://www.ccctsr.in/api/rooms/add?id="+window.localStorage.getItem('session')+"&institutionId="+institutionId;
             axios
             .post(url, data, config)
             .then(function(res){
@@ -140,7 +140,7 @@ function Room(props){
     {
         console.log(1);
         let no;
-        let url = "http://www.ccctsr.in/api/rooms?id="+window.localStorage.getItem('session')+
+        let url = "https://www.ccctsr.in/api/rooms?id="+window.localStorage.getItem('session')+
                                                     "&institutionId="+institutionId;                                                                       
         axios.get(url)
         .then(res => {
