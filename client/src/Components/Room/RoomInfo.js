@@ -24,7 +24,7 @@ class RoomInfo extends Component {
 
     componentDidMount=() =>{
         flag=1;
-        var patientUrl = 'http://localhost:9000/api/'+this.name+'/'+this.district+'/'+this.no+'/'+this.floor+'/patient/';
+        var patientUrl = 'http://18.223.108.131:9000/api/'+this.name+'/'+this.district+'/'+this.no+'/'+this.floor+'/patient/';
         axios.get(patientUrl)
         .then(res => {
             if(res.data.mssg !== "Room Found")
@@ -45,7 +45,7 @@ class RoomInfo extends Component {
         {
             var room = this.state.room;
             room.status = "no";
-            var url = "http://localhost:9000/api/"+this.name+'/'+this.district+'/'+this.no+'/'+this.floor;
+            var url = "http://18.223.108.131:9000/api/"+this.name+'/'+this.district+'/'+this.no+'/'+this.floor;
             var config = {
                 headers: {'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Credentials': true}

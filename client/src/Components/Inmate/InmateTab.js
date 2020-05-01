@@ -11,7 +11,7 @@ class InmateTab extends Component {
     handleSubmit=()=>{
         if(window.confirm("Are you Sure?"))
         {
-            var url = 'http://localhost:9000'+window.location.pathname;
+            var url = 'http://18.223.108.131:9000'+window.location.pathname;
             const data = {name:"",age:"",phn:"",address:"",curr:"",prev:"",status:'yes'};
             var config = {
                 headers: {'Access-Control-Allow-Origin': '*',
