@@ -11,7 +11,7 @@ function RoutesDecider()
     const [taluk, setTaluk] = useState("");  
 
     const readSession=() =>{
-        axios.get('http://www.ccctsr.in/api/?id='+window.localStorage.getItem('session'))
+        axios.get('https://www.ccctsr.in/api/?id='+window.localStorage.getItem('session'))
         .then(res =>{
             if(res.data.type === 'institution')
                 setInstitutionId(res.data.id);   

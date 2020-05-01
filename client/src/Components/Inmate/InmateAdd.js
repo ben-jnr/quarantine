@@ -33,7 +33,7 @@ class InmateAdd extends Component {
         if(this.state.name !== "" && this.state.age !== "" && this.state.phn !== "" 
             && this.state.address !== "" && this.state.curr !== ""){
                 
-                var url = "http://www.ccctsr.in/api/"+ this.name+'/'+this.district+'/'+this.no+'/'+this.floor+'/';
+                var url = "https://www.ccctsr.in/api/"+ this.name+'/'+this.district+'/'+this.no+'/'+this.floor+'/';
                 var data = {
                             name:this.state.name,
                             age:this.state.age,
