@@ -25,7 +25,7 @@ function RoomsAddForm(props) {
                     </div>
                     <div className="form-group col">
                         <label>No of beds</label>
-                        <input type="number" id="roomBeds" name="beds" className="form-control" placeholder="No of Beds" onChange={props.handleChangeParent}/>
+                       <input type="number" id="roomBeds" name="beds" className="form-control" placeholder="No of beds" onChange={props.handleChangeParent}/>
                     </div>
                 </div>
                 <div className="form-row">
