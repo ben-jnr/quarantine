@@ -61,10 +61,14 @@ module.exports = function(app)
                             })    
                         }                    
                     }
+                    else
+                    {
+                        res.send('Invalid Credentials');
+                    }
                 }
                 else if(!currUser)
                 {
-                    res.send('User does not exist');
+                    res.send('Invalid Credentials');
                 }
             })
         })      

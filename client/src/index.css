@@ -68,8 +68,8 @@ input[type="text"],input[type="password"],input[type="email"]{
 
 .loader
         {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             border: 7px solid #999999;
             border-top: 7px solid navy;
             border-radius: 50%;
@@ -82,8 +82,9 @@ input[type="text"],input[type="password"],input[type="email"]{
             100% { transform: rotate(360deg); }
         } 
  .loaderDiv .loader, .loaderText{
-     visibility: hidden;
- }       
+    visibility: hidden;
+}       
+
 
  #loginMessage{
      position: absolute !important;

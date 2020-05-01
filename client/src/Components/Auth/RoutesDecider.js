@@ -3,6 +3,8 @@ import Login from './Login';
 import Admin from '../Core/Admin';
 import axios from 'axios';
 import { Route } from "react-router-dom";
+import InstitutionEdit from '../Edit/InstitutionEdit';
+import RoomEdit from '../Edit/RoomEdit';
 
 function RoutesDecider()
 {        
@@ -41,7 +43,9 @@ function RoutesDecider()
                     <Route exact path = "/" render={() => <Admin currInstitutionsTab="Institutions" type={type} institutionId={institutionId} taluk={taluk}/>} />
                     <Route exact path = "/admin" render={() => <Admin currInstitutionsTab="Institutions" type={type} institutionId={institutionId} taluk={taluk}/>} />
                     <Route exact path = "/admin/:id" render={() => <Admin currInstitutionsTab="Rooms" type={type} institutionId={institutionId} taluk={taluk}/>} />
-                    <Route exact path = "/admin/:id/:room/" render={() => <Admin currInstitutionsTab="Inmate" type={type} institutionId={institutionId} taluk={taluk}/>} />      
+                    <Route exact path = "/admin/:id/edit" render={() => <InstitutionEdit type={type} institutionId={institutionId} taluk={taluk}/>} />      
+                    <Route exact path = "/admin/:id/:room/view" render={() => <Admin currInstitutionsTab="Inmate" type={type} institutionId={institutionId} taluk={taluk}/>} />      
+                    <Route exact path = "/admin/:id/:room/edit" render={() => <RoomEdit type={type} institutionId={institutionId} taluk={taluk}/>} />       
                 </div>
             );    
         }

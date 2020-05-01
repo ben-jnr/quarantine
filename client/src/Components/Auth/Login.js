@@ -24,6 +24,8 @@ function Login(props){
 
     const handleSubmit = e => {
         e.preventDefault();
+        document.getElementById("loginMessage").innerHTML = ""; 
+        document.getElementById("loginButton").style.display= "none"; 
         document.getElementById("loader").style.visibility = "visible";
         document.getElementById("loaderText").style.visibility ="visible";
         setTimeout(()=>{
@@ -38,11 +40,12 @@ function Login(props){
             axios
             .post(url, data, config)
                 .then(res =>{
-                    if(res.data === "User does not exist")
+                    if(res.data === "Invalid Credentials")
                     {
                         document.getElementById("loader").style.visibility = "hidden";
                         document.getElementById("loaderText").style.visibility ="hidden";
-                        document.getElementById("loginMessage").innerHTML = "User does not exist"; 
+                        document.getElementById("loginMessage").innerHTML = "Invalid Credentials";
+                        document.getElementById("loginButton").style.display= "block"; 
                     } 
                     window.localStorage.setItem('session',res.data);
                     props.parentFunction();

@@ -7,6 +7,7 @@ import ConstituencyAddForm from './ConstituencyAddForm';
 import PanchayatAddForm from './PanchayatAddForm';
 import VillageSearch from './VillageSearch';
 import VillageList from "../Institution/VillageList";
+import InstitutionsGenerate from './InstitutionsGenerate';
 
 
 function Institution(props)
@@ -42,7 +43,7 @@ function Institution(props)
     }
     
 
-    const ReadyCount = function(rooms){
+    const readyCount = function(rooms){
         var count = 0;
         for(var i=0;i<rooms.length;i++){
             if(rooms[i].ready==="yes")
@@ -94,41 +95,8 @@ function Institution(props)
                 alert(res.data);
                 window.location.replace('/');
             }    
-            const institutions = res.data.map( (u,index) =>
-                <div key={u._id} className="accordion InstitutionsContainer mb-3" id={"accordionExample"+index}>
-                    <div class="card">
-                        <div class="card-header" id={"headingOne"+index}>
-                            <h2 class="mb-0">
-                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target={"#collapseOne"+index} aria-expanded="true" aria-controls="collapseOne">
-                                    {u.name}
-                                </button>
-                            </h2>
-                        </div>
-                        <div id={"collapseOne"+index} class="collapse" aria-labelledby={"headingOne"+index} data-parent={"#accordionExample"+index}>
-                            <div class="card-body">
-                                <h5 className="card-title">{u.name}</h5>
-                                <h6 className="card-title">{u.type}</h6>
-                                <h6 className="card-title">Structurally Fit : {u.fit}</h6>
-                                <h6 className="card-subtitle mb-2 text-muted">{u.district}</h6>
-                                <button type="button" class="btn btn-secondary mr-3 mb-2">
-                                    Total Rooms <button class="btn btn-light roomBadge">{u.rooms.length}</button>
-                                </button>
-                                <button type="button" class="btn btn-primary mr-3 mb-2">
-                                    Vacant <button class="btn btn-light roomBadge">{vacantCount(u.rooms)}</button>
-                                </button>
-                                <button type="button" class="btn btn-warning mr-3 mb-2">
-                                    Ready <button class="btn btn-light roomBadge">{ReadyCount(u.rooms)}</button>
-                                </button>
-                                <button type="button" class="btn btn-success mr-3 mb-2">
-                                    Decontaminated <button class="btn btn-light roomBadge">{decontaminatedCount(u.rooms)}</button>
-                                </button><br/>
-                                <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={roomsRedirect.bind(url,"/admin/"+u._id)}>Check Rooms</button>
-                                {removeInstitutionDecider(u._id)}
-                            </div>  
-                        </div>
-                    </div>
-                </div>
-            );
+            const institutions = InstitutionsGenerate(res.data, roomsRedirect, url, vacantCount,
+                    readyCount , decontaminatedCount, removeInstitutionDecider,-1);
             setInstitutions(institutions);
         })
         .catch(err => console.log(err));
@@ -184,42 +152,9 @@ function Institution(props)
                     if(newInstitution.taluk === taluk && newInstitution.village === village)
                     {
                         const reqIndex = document.querySelectorAll('.InstitutionsContainer').length;
-                        const tempInstitution = res.data.data.map(u =>
-                            <div key={u._id} className="accordion InstitutionsContainer mb-3" id={"accordionExample"+reqIndex}>
-                                <div class="card">
-                                    <div class="card-header" id={"headingOne"+reqIndex}>
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target={"#collapseOne"+reqIndex} aria-expanded="true" aria-controls="collapseOne">
-                                                {u.name}
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id={"collapseOne"+reqIndex} class="collapse" aria-labelledby={"headingOne"+reqIndex} data-parent={"#accordionExample"+reqIndex}>
-                                        <div class="card-body">
-                                            <h5 className="card-title">{u.name}</h5>
-                                            <h6 className="card-title">{u.type}</h6>
-                                            <h6 className="card-title">Structurally Fit : {u.fit}</h6>
-                                            <h6 className="card-subtitle mb-2 text-muted">{u.district}</h6>
-                                            <button type="button" class="btn btn-secondary mr-3 mb-2">
-                                                Total Rooms <button class="btn btn-light roomBadge">{u.rooms.length}</button>
-                                            </button>
-                                            <button type="button" class="btn btn-primary mr-3 mb-2">
-                                                    Vacant <button class="btn btn-light roomBadge">{vacantCount(u.rooms)}</button>
-                                            </button>
-                                            <button type="button" class="btn btn-warning mr-3 mb-2">
-                                                    Ready <button class="btn btn-light roomBadge">{ReadyCount(u.rooms)}</button>
-                                            </button>
-                                            <button type="button" class="btn btn-success mr-3 mb-2">
-                                                    Decontaminated <button class="btn btn-light roomBadge">{decontaminatedCount(u.rooms)}</button>
-                                            </button><br/>
-                                            <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={roomsRedirect.bind(url,"/admin/"+u._id)}>Check Rooms</button>
-                                            {removeInstitutionDecider(u._id)}
-                                        </div>  
-                                    </div>
-                                </div>
-                            </div>
-                        );
-                        setInstitutions([...institutions , tempInstitution]);
+                        const tempInstitution = InstitutionsGenerate(res.data.data, roomsRedirect, url, vacantCount,
+                            readyCount , decontaminatedCount, removeInstitutionDecider, reqIndex)
+                        setInstitutions([ tempInstitution, ...institutions]);
                     }                
                 }    
             })
