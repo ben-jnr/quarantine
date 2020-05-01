@@ -38,7 +38,9 @@ module.exports = function(app)
                         }
                         else
                         {
-                            user.findOne({username:req.body.name}, function(err, userExists)
+                            var username = req.body.name.replace(/\s+/g, '');
+                            username = username.toLowerCase();
+                            user.findOne({username:username}, function(err, userExists)
                             {
                                 if(userExists)
                                     res.send('institution already exists');
@@ -60,7 +62,6 @@ module.exports = function(app)
                                         if(err)console.log(err);
                                         else
                                         {
-                                            var username = req.body.name.replace(/\s+/g, '');
                                             var hash = bcrypt.hashSync("tcr_cares", salt);
                                             user.insertOne({username:username, password:hash,
                                             type:'institution' , institutionId:newInstitution.ops[0]._id },function(err, newUser){
