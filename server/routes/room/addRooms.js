@@ -37,10 +37,9 @@ module.exports = function(app)
                             var flag=0;
                             var rooms = exists.rooms;
                             var room = req.body;
-                            console.log(room);
                             for(var i=0;i<rooms.length;i++)
                             {
-                                if(rooms[i]===room.no)
+                                if(rooms[i].no===room.no)
                                 {
                                     flag=1;
                                     break;
@@ -57,8 +56,11 @@ module.exports = function(app)
                                     }},function(err,newRoom){
                                         if(err)
                                             console.log(err);
-                                        else
-                                            res.send({mssg:"Room Succesfully Added",rooms:rooms.reverse()});    
+                                        else{
+                                                let arr = [];
+                                                arr.push(room);
+                                                res.send({mssg:"Room Succesfully Added",room:arr});    
+                                            }
                                         }
                                 )
                             }

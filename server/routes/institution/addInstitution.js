@@ -2,7 +2,10 @@ module.exports = function(app)
 {
     const session = require('express-session'),
         MongoDBStore = require('connect-mongodb-session')(session),
-        ObjectId = require('mongodb').ObjectID;
+        ObjectId = require('mongodb').ObjectID,
+        bcrypt = require('bcryptjs'),
+        salt = bcrypt.genSaltSync(10);
+
     var store = new MongoDBStore({
         uri: 'mongodb://127.0.0.1:27017/connect_mongodb_session_test',
         collection: 'mySessions'
@@ -29,29 +32,46 @@ module.exports = function(app)
                 } 
                 else if(session)
                 {
-                    institution.findOne({username:req.body.name},function(err,exists){
+                    institution.findOne({name:req.body.name},function(err,exists){
                         if(exists){
                             res.send('institution already exists') 
                         }
                         else
                         {
-                            user.findOne({username:req.body.name}, function(err, userExists)
+                            var username = req.body.name.replace(/\s+/g, '');
+                            username = username.toLowerCase();
+                            user.findOne({username:username}, function(err, userExists)
                             {
                                 if(userExists)
                                     res.send('institution already exists');
                                 else
                                 {
-                                    institution.insertOne(req.body, function(err, newInstitution){
+                                    var data = {
+                                        type : req.body.type, 
+                                        taluk:req.body.taluk,
+                                        village:req.body.village,
+                                        constituency:req.body.constituency,
+                                        panchayat:req.body.panchayat,
+                                        priority : 0, 
+                                        fit : req.body.fit, 
+                                        name : req.body.name,
+                                        rooms: [], 
+                                        creator:session.name
+                                    };
+                                    institution.insertOne(data, function(err, newInstitution){
                                         if(err)console.log(err);
                                         else
                                         {
-                                            user.insertOne({username:req.body.name, password:'password',
+                                            var hash = bcrypt.hashSync("tcr_cares", salt);
+                                            user.insertOne({username:username, password:hash,
                                             type:'institution' , institutionId:newInstitution.ops[0]._id },function(err, newUser){
                                                 if(err)console.log(err);
                                                 else
                                                 {
+                                                    var arr = [];
+                                                    arr.push(newInstitution.ops[0])
                                                     res.send({mssg:"institution successfully added",
-                                                        data:newInstitution})
+                                                        data:arr})
                                                 }
                                             })
                                         }

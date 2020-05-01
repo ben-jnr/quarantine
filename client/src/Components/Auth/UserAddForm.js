@@ -6,7 +6,7 @@ function UserAddForm(props) {
             <form className="col-md-7">
                 <h2 className="text-center">Add User</h2><hr/>
                 <div className="form-group">
-                    <input type="email" className="form-control" id="newUsername" onChange={props.handleChangeParent} name="username" placeholder="Enter email" required/>
+                    <input type="text" className="form-control" id="newUsername" onChange={props.handleChangeParent} name="username" placeholder="Enter username" required/>
                 </div>
                 <div className="form-group">
                     <input type="password" onChange={props.handleChangeParent} name="password" className="form-control" id="newPassword" placeholder="Password" required/>

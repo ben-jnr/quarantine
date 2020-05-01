@@ -15,8 +15,7 @@ function PanchayatAddForm(props)
     return(
         <div class="col">
             
-            <label for=
-            "panchayatAdd">Panchayat</label>
+            <label for="panchayatAdd">LSGD</label>
             <select class="custom-select" name="panchayat" id="panchayatAdd" size="1" onChange={props.handleDropdownParent}>
                 <option value="" defaultValue>Choose</option>
             </select>

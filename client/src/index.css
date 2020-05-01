@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+a{
+text-decoration:none !important;}
 
+body{
+    letter-spacing: 0.5px;
+}
 #Login{
     top:10vh;
     color:navy;
@@ -60,8 +65,41 @@ input[type="text"],input[type="password"],input[type="email"]{
     text-align: center;
     padding-right: 23px;
 }
+
+.loader
+        {
+            width: 50px;
+            height: 50px;
+            border: 7px solid #999999;
+            border-top: 7px solid navy;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin
+        {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        } 
+ .loaderDiv .loader, .loaderText{
+     visibility: hidden;
+ }       
+
+ #loginMessage{
+     position: absolute !important;
+     margin-top: -40vh;
+     text-align: center;
+     width: 100%;
+ }
+
+#talukHeader{
+    margin-bottom:20px;
+    text-align: right;
+    width:90%;
+}
+
 /* Mobile View*/
-@media only screen and (max-width: 650px) {
+@media only screen and (max-width: 700px) {
     #Login{
         top:20vh;
     }
@@ -93,5 +131,9 @@ input[type="text"],input[type="password"],input[type="email"]{
         height: 20px;
         width: 20px;
         padding-right: 20px;
+    }
+
+    .rBtn3{
+        margin-right: 50vw;
     }
 }  

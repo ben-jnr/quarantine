@@ -19,7 +19,7 @@ export default{
     
     Irinjalakuda :['Aloor' , 'Irinjalakuda Municipality' , 'Karalam' , 'Kattoor' , 'Muriyad' , 'Padiyoor' , 'Poomangalam' , 'Velukara'],
     
-    Puthukkad :['Alagappa Nagar' , 'Mattathur' , 'Nenmanikkara' , 'Parappukara' , 'Puthukkad' , 'Thrikkur' , 'Vallchira' , 'Varantharapilly'],
+    Pudukkad :['Alagappa Nagar' , 'Mattathur' , 'Nenmanikkara' , 'Parappukara' , 'Puthukkad' , 'Thrikkur' , 'Vallchira' , 'Varantharapilly'],
     
     Kaippamangalam :['Edathurithy' , 'Edavilangu' , 'Eriyad' , 'Kaippamangalam' , 'Mathilakam' , 'Perinjanam' , 'SN Puram'],
     

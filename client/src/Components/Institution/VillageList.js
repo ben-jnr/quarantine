@@ -1,7 +1,7 @@
 export default {
 	Choose:[],
 	"":[],
-	Chalakudy : ['Aloor', 'Annallur', 'Athirapilly', 'E.Chalakudy', 'Kakkulissery', 'Kallettumkara', 'Kallurthekkumury', 'Kallurvadakkumurry', 'Kizhakkumury', 'Kodakara', 'Kodassery', 'Kuruvilassery', 'Kuttichira', 'Mattathur', 'Meloor', 'Mupliyam', 'Nadipulam', 'Pariyaram','Thazhakkad', 'Thirumukkulam', 'Vadama', 'Varantharapilly', 'Vellikulangara', 'W. Chalakudy'],
+	Chalakudy : ['Alathur', 'Aloor', 'Annallur', 'Athirapilly', 'E.Chalakudy', 'Kadukutty', 'Kakkulissery', 'Kallettumkara', 'Kallurthekkumury', 'Kizhakkumury', 'Kodakara', 'Kodassery', 'Kuttichira', 'Mattathur', 'Meloor', 'Mupliyam', 'Nadipulam', 'Pariyaram','Thazhakkad', 'Thirumukkulam', 'Vadama', 'Varantharapilly', 'Vellikulangara', 'W. Chalakudy'],
 	Chavakkad : ['Elavally', 'Engandiyoor', 'Guruvayur', 'Kadappuram', 'Manathala', 'Mullassery', 'Nattika', 'Orumanayoor', 'Pavaraty', 'Pookode', 'Punnayoor', 'Punnayoorkulam', 'Thaikkad Part', 'Thalikulam', 'Vadakkekkad', 'Valappad', 'Vatanapally', 'Venkidagu'],
 	Kodungallur : ['Aazhikode', 'Ala', 'Edathurithy', 'Edavilangu', 'Eriyad', 'Kaippamangalam', 'Koolimuttam', 'Lokamalleswaram', 'Methala', 'P.Vemballur', 'Pappinivattom', 'Perinjanam', 'Poyya', 'Pullut'],
 	Kunnamkulam : ['Aloor', 'Anjur', 'Arthat', 'Chemanthatta', 'Choondal', 'Chowannur', 'Eranellur', 'Eyyal', 'Kadangoe', 'Kadavallur', 'Kandanissery', 'Kanippayur Village Part', 'Kattakambal', 'Kottapuram', 'Kumaranellur', 'Kunnamkulam', 'Nelluvai', 'Porkulam', 'Vellattanjur'],

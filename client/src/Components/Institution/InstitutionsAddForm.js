@@ -12,11 +12,11 @@ function InstitutionsAddForm(props){
                     <select class="custom-select" name="taluk" id="talukAdd" size="1" onChange={props.handleDropdownParent}>
                         <option selected value="Choose">Choose</option>
                         <option value="Chavakkad">Chavakkad</option>
-                        <option value="Chalakudy">Chalakkudy</option>
+                        <option value="Chalakudy">Chalakudy</option>
                         <option value="Kodungallur">Kodungallur</option>
                         <option value="Kunnamkulam">Kunnamkulam</option>
                         <option value="Mukunthapuram">Mukundapuram</option>
-                        <option value="Thalapilly">Thalappally</option>
+                        <option value="Thalapilly">Thalapilly</option>
                         <option value="Thrissur">Thrissur</option>
                     </select>
                 </div>

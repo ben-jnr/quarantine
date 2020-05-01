@@ -13,11 +13,12 @@ function RoutesDecider()
     const readSession=() =>{
         axios.get('http://18.223.108.131:9000/api/?id='+window.localStorage.getItem('session'))
         .then(res =>{
-            setType(res.data.type); 
             if(res.data.type === 'institution')
                 setInstitutionId(res.data.id);   
             if(res.data.type === 'taluk')
-                setTaluk(res.data.taluk);    
+                setTaluk(res.data.taluk);
+            setType(res.data.type); 
+
         })
         .catch(err => console.log(err));
     }
@@ -26,7 +27,7 @@ function RoutesDecider()
         readSession();
     },[]);
 
-    
+    console.log(taluk);
     if(window.localStorage.getItem('session'))
     {    
         if(type === "admin" || type === 'dashboard' || type === 'airport' || type === 'institution' || type === 'superadmin' || type === 'taluk')
@@ -35,12 +36,6 @@ function RoutesDecider()
                 window.localStorage.setItem('currTab',"Home");
             else if(type === 'institution' || type === 'taluk')
                 window.localStorage.setItem('currTab',"Institution");        
-            if(taluk === ""){
-                window.localStorage.setItem('taluk',"Chavakkad");
-            }    
-            else{
-                window.localStorage.setItem('taluk',taluk);
-            }  
             return(    
                 <div>
                     <Route exact path = "/" render={() => <Admin currInstitutionsTab="Institutions" type={type} institutionId={institutionId} taluk={taluk}/>} />
@@ -51,6 +46,10 @@ function RoutesDecider()
             );    
         }
         else if(type==="")
+        {
+            return(<div></div>)
+        }
+        else if(type === undefined && taluk !=="")
         {
             return(<div></div>)
         }

@@ -11,13 +11,15 @@ import VillageList from "../Institution/VillageList";
 
 function Institution(props)
 {
+    if(props.type === 'taluk')
+        var temp = props.taluk;
+    else
+        var temp = 'Chavakkad';       
     const defaultInstitution = {type:"" , taluk:"", village:"", constituency:"", panchayat:"", priority:0, fit:""} 
     const [institutions , setInstitutions] = useState("");
-    const [taluk , setTaluk] = useState(window.localStorage.getItem('taluk'));
-    const [village, setVillage] = useState(window.localStorage.getItem('village'));
+    const [taluk , setTaluk] = useState(temp);
+    const [village, setVillage] = useState(VillageList[props.taluk][0]);
     const [newInstitution , setNewInstitution] = useState(defaultInstitution);
-    const [institutionsArray, setInstitutionsArray] =useState([]);
-
 
     const vacantCount = function(rooms){
         var count = 0;
@@ -38,6 +40,7 @@ function Institution(props)
         }
         return(count);
     }
+    
 
     const ReadyCount = function(rooms){
         var count = 0;
@@ -47,6 +50,7 @@ function Institution(props)
         }
         return(count);
     }
+
 
     const handleChange =(e)=>{    
         setNewInstitution({...newInstitution, [e.target.name]:e.target.value})
@@ -59,12 +63,10 @@ function Institution(props)
     const handleTaluk = e =>{
         setTaluk(e.target.options[e.target.options.selectedIndex].value)
         setVillage(VillageList[e.target.options[e.target.options.selectedIndex].value][0]);
-        window.localStorage.setItem('taluk',e.target.options[e.target.options.selectedIndex].value); 
     }
     
     const handleVillage = e =>{
         setVillage(e.target.options[e.target.options.selectedIndex].value)
-        window.localStorage.setItem('village',e.target.options[e.target.options.selectedIndex].value); 
     }
     
 
@@ -81,7 +83,7 @@ function Institution(props)
     }
 
 
-
+    //function that generates list of all institutions from backend
     const InstitutionsListGenerate = () => {
         var url = "http://18.223.108.131:9000/api/institution?taluk="+taluk+ "&village="+village + 
         "&id=" +window.localStorage.getItem('session') +"&institutionId=" + props.institutionId;
@@ -92,33 +94,41 @@ function Institution(props)
                 alert(res.data);
                 window.location.replace('/');
             }    
-            const institutions = res.data.map( u =>
-                <div  key={u._id} className="InstitutionsContainer">
-                    <div class="card mb-2">
-                        <div class="card-body">
-                        <h5 className="card-title">{u.name}</h5>
-
-                        <h6 className="card-title">{u.type}</h6>
-                        <h6 className="card-title">Structurally Fit : {u.fit}</h6>
-                        <h6 className="card-subtitle mb-2 text-muted">{u.district}</h6>
-                            <button type="button" class="btn btn-primary mr-3 mb-2">
+            const institutions = res.data.map( (u,index) =>
+                <div key={u._id} className="accordion InstitutionsContainer mb-3" id={"accordionExample"+index}>
+                    <div class="card">
+                        <div class="card-header" id={"headingOne"+index}>
+                            <h2 class="mb-0">
+                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target={"#collapseOne"+index} aria-expanded="true" aria-controls="collapseOne">
+                                    {u.name}
+                                </button>
+                            </h2>
+                        </div>
+                        <div id={"collapseOne"+index} class="collapse" aria-labelledby={"headingOne"+index} data-parent={"#accordionExample"+index}>
+                            <div class="card-body">
+                                <h5 className="card-title">{u.name}</h5>
+                                <h6 className="card-title">{u.type}</h6>
+                                <h6 className="card-title">Structurally Fit : {u.fit}</h6>
+                                <h6 className="card-subtitle mb-2 text-muted">{u.district}</h6>
+                                <button type="button" class="btn btn-secondary mr-3 mb-2">
                                     Total Rooms <button class="btn btn-light roomBadge">{u.rooms.length}</button>
-                            </button>
-                            <button type="button" class="btn btn-warning mr-3 mb-2">
+                                </button>
+                                <button type="button" class="btn btn-primary mr-3 mb-2">
                                     Vacant <button class="btn btn-light roomBadge">{vacantCount(u.rooms)}</button>
-                            </button>
-                            <button type="button" class="btn btn-warning mr-3 mb-2">
+                                </button>
+                                <button type="button" class="btn btn-warning mr-3 mb-2">
                                     Ready <button class="btn btn-light roomBadge">{ReadyCount(u.rooms)}</button>
-                            </button>
-                            <button type="button" class="btn btn-success mr-3 mb-2">
+                                </button>
+                                <button type="button" class="btn btn-success mr-3 mb-2">
                                     Decontaminated <button class="btn btn-light roomBadge">{decontaminatedCount(u.rooms)}</button>
-                            </button><br/>
-                            <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={roomsRedirect.bind(url,"/admin/"+u._id)}>Check Rooms</button>
-                        {removeInstitutionDecider(u._id)}
-                    </div>  
+                                </button><br/>
+                                <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={roomsRedirect.bind(url,"/admin/"+u._id)}>Check Rooms</button>
+                                {removeInstitutionDecider(u._id)}
+                            </div>  
+                        </div>
+                    </div>
                 </div>
-                </div>
-                );    
+            );
             setInstitutions(institutions);
         })
         .catch(err => console.log(err));
@@ -171,7 +181,46 @@ function Institution(props)
                 else
                 {
                     document.getElementById('institutionAddMssg').innerHTML = res.data.mssg;
-                    console.log(res.data.data);
+                    if(newInstitution.taluk === taluk && newInstitution.village === village)
+                    {
+                        const reqIndex = document.querySelectorAll('.InstitutionsContainer').length;
+                        const tempInstitution = res.data.data.map(u =>
+                            <div key={u._id} className="accordion InstitutionsContainer mb-3" id={"accordionExample"+reqIndex}>
+                                <div class="card">
+                                    <div class="card-header" id={"headingOne"+reqIndex}>
+                                        <h2 class="mb-0">
+                                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target={"#collapseOne"+reqIndex} aria-expanded="true" aria-controls="collapseOne">
+                                                {u.name}
+                                            </button>
+                                        </h2>
+                                    </div>
+                                    <div id={"collapseOne"+reqIndex} class="collapse" aria-labelledby={"headingOne"+reqIndex} data-parent={"#accordionExample"+reqIndex}>
+                                        <div class="card-body">
+                                            <h5 className="card-title">{u.name}</h5>
+                                            <h6 className="card-title">{u.type}</h6>
+                                            <h6 className="card-title">Structurally Fit : {u.fit}</h6>
+                                            <h6 className="card-subtitle mb-2 text-muted">{u.district}</h6>
+                                            <button type="button" class="btn btn-secondary mr-3 mb-2">
+                                                Total Rooms <button class="btn btn-light roomBadge">{u.rooms.length}</button>
+                                            </button>
+                                            <button type="button" class="btn btn-primary mr-3 mb-2">
+                                                    Vacant <button class="btn btn-light roomBadge">{vacantCount(u.rooms)}</button>
+                                            </button>
+                                            <button type="button" class="btn btn-warning mr-3 mb-2">
+                                                    Ready <button class="btn btn-light roomBadge">{ReadyCount(u.rooms)}</button>
+                                            </button>
+                                            <button type="button" class="btn btn-success mr-3 mb-2">
+                                                    Decontaminated <button class="btn btn-light roomBadge">{decontaminatedCount(u.rooms)}</button>
+                                            </button><br/>
+                                            <button className="btn btn-primary  mt-2 ml-2 float-right" onClick={roomsRedirect.bind(url,"/admin/"+u._id)}>Check Rooms</button>
+                                            {removeInstitutionDecider(u._id)}
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                        setInstitutions([...institutions , tempInstitution]);
+                    }                
                 }    
             })
             .catch(err => console.log(err));
@@ -179,7 +228,10 @@ function Institution(props)
         else{
             document.getElementById('institutionAddMssg').innerHTML = "Empty Fields Present"
         }
-        setInstitutionsArray(institutions);
+        if(props.type === 'taluk')
+            setNewInstitution({...defaultInstitution, taluk:taluk});
+        else
+            setNewInstitution(defaultInstitution);    
         document.getElementById('instName').value ="";
         var radio = document.getElementsByName("type");
         for(var i=0;i<radio.length;i++)
@@ -194,29 +246,21 @@ function Institution(props)
         document.getElementById('panchayatAdd').options.selectedIndex = 0;
     }
 
-    
+
     useEffect(()=>{
+        setTaluk(taluk);
+        setVillage(VillageList[taluk][0]);
         if(props.type === 'taluk')
-        {
-            setTaluk(props.taluk);
-            setVillage(VillageList[props.taluk][0]);
-            setNewInstitution({...newInstitution, taluk:props.taluk});
-            window.localStorage.setItem('village', VillageList[props.taluk][0] );
-        }
-        else if(props.type !== 'taluk')
-        {
-            window.localStorage.setItem('village', 'Engandiyoor');
-        }
-    },[props.taluk])
-
-
+            setNewInstitution({...newInstitution ,taluk:taluk});
+        InstitutionsListGenerate();
+        window.localStorage.setItem('currTab',"Institutions");
+    },[]);
+    
 
     useEffect(()=>{
-        InstitutionsListGenerate();
-        setTaluk(props.taluk);
-        window.localStorage.setItem('currTab',"Institutions");
-    },[props.taluk, taluk,village, institutionsArray]);
-    
+        InstitutionsListGenerate();  
+    },[taluk,village]);
+
 
 
     const searchDecider = () =>{
@@ -227,66 +271,83 @@ function Institution(props)
                 </div>
             );
         else if(props.type !== 'institution')
+        {
             return(
                 <div className="row mt-3 mb-4">
                     <TalukSearch handleTalukParent = {handleTaluk} />
                     <VillageSearch handleVillageParent = {handleVillage} taluk={taluk}/>
                 </div>
             );
+        }    
         else
             return(<div></div>);
     }
     
 
+    const villageFormsDecider = () =>{
+        if(props.type === 'taluk')
+            return(<VillageAddForm taluk= {taluk} handleDropdownParent={handleDropdown}/>)
+        else
+            return(<VillageAddForm taluk= {newInstitution.taluk} handleDropdownParent={handleDropdown}/>)
+    }
+
+
     const formsDecider = () =>{
         if(props.type !== 'institution')
         {
             return(
-                    <div id="institutionForm" className="inst">
-                        <div class="accordion" id="accordionExample">
-                            <div class="card p-0 m-0">
-                                <div class="card-header text-center" id="headingOne">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            <h2>Add Institution</h2>
-                                    </button>
+                <div id="institutionForm" className="inst">
+                    <div class="accordion" id="accordionExample">
+                        <div class="card p-0 m-0">
+                            <div class="card-header text-center p-2" id="headingOne">
+                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <h5>Add Institution</h5>
+                                </button>
                             </div>
-
-                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                    <div class="card-body">
-                                        <div className="inst-details">
-                                            <InstitutionsAddForm type = {props.type} handleDropdownParent={handleDropdown} handleChangeParent = {handleChange}/>
-                                                <div className="lsgd">
-                                                    <VillageAddForm taluk= {newInstitution.taluk} handleDropdownParent={handleDropdown}/>
-                                                    <ConstituencyAddForm handleDropdownParent = {handleDropdown}/>
-                                                    <PanchayatAddForm constituency={newInstitution.constituency}  handleDropdownParent = {handleDropdown}/>
-                                                        <div class="sbmt-btn">
-                                                            <button className='btn' onClick = {handleSubmit}>Submit</button>
-                                                        </div>
-                                                        <div id="institutionAddMssg"></div>
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <div className="inst-details">
+                                        <InstitutionsAddForm type = {props.type} handleDropdownParent={handleDropdown} handleChangeParent = {handleChange}/>
+                                            <div className="lsgd">
+                                                {villageFormsDecider()}
+                                                <ConstituencyAddForm handleDropdownParent = {handleDropdown}/>
+                                                <PanchayatAddForm constituency={newInstitution.constituency}  handleDropdownParent = {handleDropdown}/>
+                                                <div class="sbmt-btn">
+                                                    <button className='btn' onClick = {handleSubmit}>Submit</button>
                                                 </div>
+                                                <div id="institutionAddMssg"></div>
                                             </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
             )
         }
     }
 
+
+    const userHeaderDecider = ()=>{
+        if(props.type === 'taluk')
+            return(<h6 id="talukHeader">{taluk} user </h6>);
+        else
+            return(<h6 id="talukHeader">{props.type} user </h6>)    
+    }
+
+
     return (
-
         <div id="InstitutionTab p-2" className="search">
-
+                {userHeaderDecider()}
                 {formsDecider()}
                 <hr/>
-                <h2 className="text-center mb-4">Search</h2>
+                <h4 className="text-center mb-4">Search</h4>
                 {searchDecider()}
+                <hr />
                 {institutions}                   
         </div>  
     );
        
 }
-
 
 export default Institution;

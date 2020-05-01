@@ -13,8 +13,8 @@ function UserDependantForm(props) {
                     <option value="Chalakudy">Chalakudy</option>
                     <option value="Kodungallur">Kodungallur</option>
                     <option value="Kunnamkulam">Kunnamkulam</option>
-                    <option value="Mukunthapuram">Mukundapuram</option>
-                    <option value="Thalapilly">Thalappally</option>
+                    <option value="Mukunthapuram">Mukunthapuram</option>
+                    <option value="Thalapilly">Thalapilly</option>
                     <option value="Thrissur">Thrissur</option>
                 </select>
             </div>
