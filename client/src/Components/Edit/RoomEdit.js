@@ -100,10 +100,15 @@ function RoomEdit(props) {
 
     return (
         <div className="container p-4">
-            <a href = {'/admin/'+institutionId}><button className = 'btn btn-primary btn-block mb-2'>Go Back</button></a>
+            <div className='row'>
+                <div className = 'col-lg-2'></div>
+                <div className = 'col-lg-8'>
+                    <a href = {'/admin/'+institutionId}><button className = 'btn btn-primary btn-block mb-2'>Go Back</button></a>
+                </div>
+            </div>
             <form className="container p-2 col col-lg-8 card-header">
                 <div className="text-center">
-                    <h3>Room Name : </h3>
+                    <h3 id='roomEditHeading'>Room : </h3>
                 </div>
                 <div className="form-row">
                     <div className="form-group col">
