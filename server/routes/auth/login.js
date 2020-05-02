@@ -63,10 +63,11 @@ module.exports = function(app)
                     }
                     else
                     {
+                        console.log("curr user", currUser);
                         res.send('Invalid Credentials');
                     }
                 }
-                else if(!currUser)
+                else
                 {
                     res.send('Invalid Credentials');
                 }
