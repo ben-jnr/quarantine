@@ -50,6 +50,18 @@ function InstitutionsAddForm(props){
                     <input type="radio" id="type3" name="type" value="educational institution" onChange={props.handleChangeParent} class="custom-control-input"/>
                     <label class="custom-control-label" for="type3">Educational Institution</label>
                 </div>
+		<div class="custom-control custom-radio ml-4">
+                    <input type="radio" id="type4" name="type" value="hospital building" onChange={props.handleChangeParent} class="custom-control-input"/>
+                    <label class="custom-control-label" for="type4">Hospital Building</label>
+                </div>
+		<div class="custom-control custom-radio ml-4">
+                    <input type="radio" id="type5" name="type" value="resort" onChange={props.handleChangeParent} class="custom-control-input"/>
+                    <label class="custom-control-label" for="type5">Resort</label>
+                </div>
+		<div class="custom-control custom-radio ml-4">
+                    <input type="radio" id="type6" name="type" value="other" onChange={props.handleChangeParent} class="custom-control-input"/>
+                    <label class="custom-control-label" for="type6">Other</label>
+                </div>
             </div>
             <h6>Structurally Fit?</h6>
             <div className="inst-sfit">

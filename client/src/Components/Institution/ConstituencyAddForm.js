@@ -17,7 +17,7 @@ function ConstituencyForm(props) {
                     <option value="Manalur">Manalur</option>
                     <option value="Nattika">Nattika</option>
                     <option value="Ollur">Ollur</option>
-                    <option value="Puthukkad">Puthukkad</option>
+                    <option value="Pudukkad">Pudukkad</option>
                     <option value="Thrissur">Thrissur</option>
                     <option value="Wadakkanchery">Wadakkanchery</option>
                 </select>
