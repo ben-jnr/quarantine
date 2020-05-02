@@ -32,7 +32,7 @@ function InstitutionsGenerate(arr, roomsRedirect, url,readyCount , decontaminate
                             </button>
                             <div>
                                 {removeInstitutionDecider(u._id)}
-                                <a href={'/admin/' + u._id + '/edit/'}><button className="btn btn-primary  mt-2 ml-2 float-right editbtn">Edit</button></a>
+                                <a href='#'/*{'/admin/' + u._id + '/edit/'}*/><button className="btn btn-primary  mt-2 ml-2 float-right editbtn">Edit</button></a>
                             </div>
                         </div>  
                     </div>
@@ -69,7 +69,7 @@ function InstitutionsGenerate(arr, roomsRedirect, url,readyCount , decontaminate
                                     Decontaminated <button class="btn btn-light roomBadge">{decontaminatedCount(u.rooms)}</button>
                             </button>
                             <div>
-                                <a className='editbtn' href = {'/admin/'+u._id+'/edit/'}><button className="btn btn-primary  mt-2 ml-2 float-right editbtn">Edit</button></a>
+                                <a className='editbtn' href = '#'/*{'/admin/'+u._id+'/edit/'}*/><button className="btn btn-primary  mt-2 ml-2 float-right ">Edit</button></a>
                                 {removeInstitutionDecider(u._id)}
                             </div>    
                         </div>  

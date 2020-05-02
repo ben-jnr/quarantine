@@ -25,7 +25,7 @@ function RoomEdit(props) {
             {
                 var config = {  headers: {'Access-Control-Allow-Origin': '*',
                             'Access-Control-Allow-Credentials': true}};
-                var url = 'http://localhost:9000/api/rooms/'+roomNo+'/edit'
+                var url = 'https://ccctsr.in/api/rooms/'+roomNo+'/edit'
                         +'?institutionId=' + institutionId +'&id='+window.localStorage.getItem('session');
                 axios.post(url, roomInfo ,config)
                 .then(res => {
@@ -57,7 +57,7 @@ function RoomEdit(props) {
 
 
     useEffect(()=>{
-        const url = 'http://localhost:9000/api/rooms/'+roomNo+'?institutionId=' + institutionId +'&id='+window.localStorage.getItem('session');
+        const url = 'https://ccctsr.in/api/rooms/'+roomNo+'?institutionId=' + institutionId +'&id='+window.localStorage.getItem('session');
         axios.get(url)
         .then(res =>{
             if(typeof(res.data) === 'string')
