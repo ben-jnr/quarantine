@@ -39,7 +39,6 @@ class RoomInfo extends Component {
 
 
 
-
     decontaminate = () =>{
         if(window.confirm("Are you sure?"))
         {

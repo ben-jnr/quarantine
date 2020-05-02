@@ -17,6 +17,8 @@ require('./routes/institution/addInstitution')(app);
 require('./routes/room/addRooms')(app);
 require('./routes/room/allRooms')(app);
 require('./routes/room/delRooms')(app);
+require('./routes/room/viewRooms')(app);
+require('./routes/room/editRooms')(app);
 
 
 var MongoPool = require("./routes/db/db");

@@ -25,7 +25,7 @@ function RoomsAddForm(props) {
                     </div>
                     <div className="form-group col">
                         <label>No of beds</label>
-                        <input type="number" id="roomBeds" name="beds" className="form-control" placeholder="No of Beds" onChange={props.handleChangeParent}/>
+                       <input type="number" id="roomBeds" name="beds" className="form-control" placeholder="No of beds" onChange={props.handleChangeParent}/>
                     </div>
                 </div>
                 <div className="form-row">
@@ -78,6 +78,10 @@ function RoomsAddForm(props) {
                             <label class="custom-control-label" for="ready2">No</label>
                         </div>
                     </div>
+                </div>
+                <div className="form-group col">
+                    <label>Remark</label>
+                    <input type="text" id="remark" name="remark" className="form-control" placeholder="remark" onChange={props.handleChangeParent}/>
                 </div>
                 <button type="submit" className="btn btn-primary" onClick={props.handleSubmitParent}>Add room</button>
             </form>      

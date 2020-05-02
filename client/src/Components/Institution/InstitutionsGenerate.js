@@ -1,6 +1,6 @@
 import React from 'react';
 
-function InstitutionsGenerate(arr, roomsRedirect, url, vacantCount, readyCount , decontaminatedCount, removeInstitutionDecider, reqIndex)
+function InstitutionsGenerate(arr, roomsRedirect, url,readyCount , decontaminatedCount, removeInstitutionDecider, reqIndex)
 {
     if(reqIndex === -1)
     {
@@ -24,9 +24,6 @@ function InstitutionsGenerate(arr, roomsRedirect, url, vacantCount, readyCount ,
                             <button type="button" class="btn btn-secondary mr-3 mb-2">
                                 Total Rooms <button class="btn btn-light roomBadge">{u.rooms.length}</button>
                             </button>
-                            <button type="button" class="btn btn-primary mr-3 mb-2">
-                                Vacant <button class="btn btn-light roomBadge">{vacantCount(u.rooms)}</button>
-                            </button>
                             <button type="button" class="btn btn-warning mr-3 mb-2">
                                 Ready <button class="btn btn-light roomBadge">{readyCount(u.rooms)}</button>
                             </button>
@@ -35,7 +32,7 @@ function InstitutionsGenerate(arr, roomsRedirect, url, vacantCount, readyCount ,
                             </button>
                             <div>
                                 {removeInstitutionDecider(u._id)}
-                                <a href={'/admin/' + u._id + '/edit/'}><button className="btn btn-primary  mt-2 ml-2 float-right">Edit</button></a>
+                                <a href={'/admin/' + u._id + '/edit/'}><button className="btn btn-primary  mt-2 ml-2 float-right editbtn">Edit</button></a>
                             </div>
                         </div>  
                     </div>
@@ -65,9 +62,6 @@ function InstitutionsGenerate(arr, roomsRedirect, url, vacantCount, readyCount ,
                             <button type="button" class="btn btn-secondary mr-3 mb-2">
                                 Total Rooms <button class="btn btn-light roomBadge">{u.rooms.length}</button>
                             </button>
-                            <button type="button" class="btn btn-primary mr-3 mb-2">
-                                    Vacant <button class="btn btn-light roomBadge">{vacantCount(u.rooms)}</button>
-                            </button>
                             <button type="button" class="btn btn-warning mr-3 mb-2">
                                     Ready <button class="btn btn-light roomBadge">{readyCount(u.rooms)}</button>
                             </button>
@@ -75,7 +69,7 @@ function InstitutionsGenerate(arr, roomsRedirect, url, vacantCount, readyCount ,
                                     Decontaminated <button class="btn btn-light roomBadge">{decontaminatedCount(u.rooms)}</button>
                             </button>
                             <div>
-                                <a href = {'/admin/'+u._id+'/edit/'}><button className="btn btn-primary  mt-2 ml-2 float-right">Edit</button></a>
+                                <a className='editbtn' href = {'/admin/'+u._id+'/edit/'}><button className="btn btn-primary  mt-2 ml-2 float-right editbtn">Edit</button></a>
                                 {removeInstitutionDecider(u._id)}
                             </div>    
                         </div>  

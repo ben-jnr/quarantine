@@ -5,7 +5,7 @@ module.exports = function(app)
         bcrypt = require('bcryptjs'),
         salt = bcrypt.genSaltSync(10);
     var store = new MongoDBStore({
-        uri: 'mongodb://127.0.0.1:27017/connect_mongodb_session_test',  // do not change the IP !!!
+	 uri: 'mongodb://127.0.0.1:27017/connect_mongodb_session_test',  // do not change the IP !!!
         collection: 'mySessions'
     });
             

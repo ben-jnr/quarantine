@@ -1,19 +1,111 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
+import axios from 'axios';
 
 function RoomEdit(props) {
+    const institutionId = window.location.pathname.split('/')[2];
+    const roomNo = window.location.pathname.split('/')[3];
+    
+    const [roomInfo , setRoomInfo]= useState({no:"" , beds:0 , status:"" ,ready:"", bathroom:"" , disable:"", emigrantId:"" , remark:""})
 
-    const RoomInfo = useState({no:"" , beds:0 , status:"" ,ready:"", bathroom:"" , disable:""})
+    const handleChange =(e)=>{    
+        setRoomInfo({...roomInfo, [e.target.name]:e.target.value})
+    }  
+
+    const handleDropdown = e =>{
+        setRoomInfo({...roomInfo,[e.target.name]: e.target.options[e.target.options.selectedIndex].value});
+    }
+
+    const handleSubmit = e =>{
+        e.preventDefault();
+        console.log(roomInfo.beds);
+        if(window.confirm("Are you sure?"))
+        {
+            if(roomInfo.no !== "" && roomInfo.beds > -1 && roomInfo.status !="" && roomInfo.ready !== "" 
+                && roomInfo.bathroom !=="" && roomInfo.disable !="" && roomInfo.beds != "")
+            {
+                var config = {  headers: {'Access-Control-Allow-Origin': '*',
+                            'Access-Control-Allow-Credentials': true}};
+                var url = 'http://localhost:9000/api/rooms/'+roomNo+'/edit'
+                        +'?institutionId=' + institutionId +'&id='+window.localStorage.getItem('session');
+                axios.post(url, roomInfo ,config)
+                .then(res => {
+                    if(typeof(res.data)==='string')
+                    {
+                        if(res.data === 'connection closed')
+                        {
+                            alert(res.data);
+                            window.location.replace('/');
+                        }
+                        else
+                        {
+                            if(res.data === "Room Successfully Updated")
+                                window.location.replace('/admin/'+institutionId);
+                            else    
+                                document.getElementById('roomsEditFormMssg').innerHTML = res.data;
+                        }
+                    }
+                })  
+                .catch(err => console.log(err));
+            }
+            else
+            {
+                document.getElementById('roomsEditFormMssg').innerHTML = 'Empty Fields Present'
+            }              
+        }
+        
+    }
+
+
+    useEffect(()=>{
+        const url = 'http://localhost:9000/api/rooms/'+roomNo+'?institutionId=' + institutionId +'&id='+window.localStorage.getItem('session');
+        axios.get(url)
+        .then(res =>{
+            if(typeof(res.data) === 'string')
+            {
+                if(res.data === 'connection closed')
+                {
+                    alert("connection closed");
+                    window.location.replace('/');
+                }
+                else
+                {console.log(res.data)}
+            }  
+            else
+            {
+                document.getElementById('roomBedsEdit').value=res.data.beds;
+                document.getElementById('roomsRemarkEdit').value=res.data.remark;
+                if(res.data.bathroom === 'yes')
+                    document.getElementById('attchBath1Edit').checked=true;
+                else 
+                    document.getElementById('attchBath2Edit').checked=true;
+                if(res.data.disable === 'yes')
+                    document.getElementById('disable1Edit').checked=true;
+                else 
+                    document.getElementById('disable2Edit').checked=true;
+                if(res.data.ready === 'yes')
+                    document.getElementById('ready1Edit').checked=true;
+                else 
+                    document.getElementById('ready2Edit').checked=true; 
+                if(res.data.status === 'yes') 
+                    document.getElementById('roomStatusEdit').options.selectedIndex = 1;
+                else
+                    document.getElementById('roomStatusEdit').options.selectedIndex = 0; 
+                setRoomInfo(res.data); 
+            }                    
+        })
+        .catch(err => console.log(err));
+    },[])
+
+
+
     return (
         <div>
+            <a href = {'/admin/'+institutionId}><button className = 'btn btn-primary'>Back</button></a>
             <form className="p-2 col">
                 <div className="form-row">
                     <div className="form-group col">
-                        <label>Room No/Name</label>
-                        <input type="text" id="roomNo" name="no" className="form-control" placeholder="Room No" /*onChange={props.handleChangeParent}*//>
-                    </div>
-                    <div className="form-group col">
                         <label>No of beds</label>
-                        <input type="number" id="roomBeds" name="beds" className="form-control" placeholder="No of Beds" /*onChange={props.handleChangeParent}*//>
+                        <input type="number" id="roomBedsEdit" name="beds" className="form-control" placeholder="No of Beds" onChange={handleChange}/>
                     </div>
                 </div>
                 <div className="form-row">
@@ -21,12 +113,12 @@ function RoomEdit(props) {
                         <label>Attached Bathroom ?</label>
                         <div className="row mb-3 ml-2">
                             <div class="custom-control custom-radio">
-                                <input type="radio" id="attchBath1" name="bathroom" value="yes" /*onChange={props.handleChangeParent}*/ class="custom-control-input"/>
-                                <label class="custom-control-label" for="attchBath1">Yes</label>
+                                <input type="radio" id="attchBath1Edit" name="bathroom" value="yes" onChange={handleChange} class="custom-control-input"/>
+                                <label class="custom-control-label" for="attchBath1Edit">Yes</label>
                             </div>
                             <div class="custom-control custom-radio ml-2">
-                                <input type="radio" id="attchBath2" name="bathroom" value="no" /*onChange={props.handleChangeParent}*/ class="custom-control-input"/>
-                                <label class="custom-control-label" for="attchBath2">No</label>
+                                <input type="radio" id="attchBath2Edit" name="bathroom" value="no" onChange={handleChange} class="custom-control-input"/>
+                                <label class="custom-control-label" for="attchBath2Edit">No</label>
                             </div>
                         </div>
                 </div>
@@ -34,12 +126,12 @@ function RoomEdit(props) {
                     <label>Disable Friendly?</label>
                     <div className="row mb-3 ml-3">
                         <div class="custom-control custom-radio">
-                            <input type="radio" id="disable1" name="disable" value="yes" /*onChange={props.handleChangeParent}*/ class="custom-control-input"/>
-                            <label class="custom-control-label" for="disable1">Yes</label>
+                            <input type="radio" id="disable1Edit" name="disable" value="yes" onChange={handleChange} class="custom-control-input"/>
+                            <label class="custom-control-label" for="disable1Edit">Yes</label>
                         </div>
                         <div class="custom-control custom-radio ml-2">
-                            <input type="radio" id="disable2" name="disable" value="no" /*onChange={props.handleChangeParent}*/ class="custom-control-input"/>
-                            <label class="custom-control-label" for="disable2">No</label>
+                            <input type="radio" id="disable2Edit" name="disable" value="no" onChange={handleChange} class="custom-control-input"/>
+                            <label class="custom-control-label" for="disable2Edit">No</label>
                         </div>
                     </div>
                 </div>
@@ -48,7 +140,7 @@ function RoomEdit(props) {
                     <div className="input-group-prepend">
                         <label className="input-group-text" htmlFor="inputGroupSelect01">Status</label>
                     </div>
-                    <select className="custom-select" id="roomStatus" name='status' /*onChange={props.handleDropdownParent}*/>
+                    <select className="custom-select" id="roomStatusEdit" name='status' onChange={handleDropdown}>
                         <option defaultValue value="no">Decontaminated</option>
                         <option value="yes">Contaminated</option>
                     </select>
@@ -57,17 +149,22 @@ function RoomEdit(props) {
                     <label>Ready to Occupy</label>
                     <div className="row mb-3 ml-2">
                         <div class="custom-control custom-radio ml-4">
-                            <input type="radio" id="ready1" name="ready" value="yes" /*onChange={props.handleChangeParent}*/ class="custom-control-input"/>
-                            <label class="custom-control-label" for="ready1">Yes</label>
+                            <input type="radio" id="ready1Edit" name="ready" value="yes" onChange={handleChange} class="custom-control-input"/>
+                            <label class="custom-control-label" for="ready1Edit">Yes</label>
                         </div>
                         <div class="custom-control custom-radio ml-4">
-                            <input type="radio" id="ready2" name="ready" value="no" /*onChange={props.handleChangeParent}*/ class="custom-control-input"/>
-                            <label class="custom-control-label" for="ready2">No</label>
+                            <input type="radio" id="ready2Edit" name="ready" value="no" onChange={handleChange} class="custom-control-input"/>
+                            <label class="custom-control-label" for="ready2Edit">No</label>
                         </div>
                     </div>
                 </div>
-                <button type="submit" className="btn btn-primary" /*onClick={props.handleSubmitParent}*/    >Add room</button>
-            </form>      
+                <div className="form-group col">
+                    <label>Remark</label>
+                    <input type="text" id="roomsRemarkEdit" name="remark" className="form-control" placeholder="Remarks" onChange={handleChange}/>
+                </div>
+                <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Edit room</button>
+            </form>
+            <div id="roomsEditFormMssg"></div>      
         </div>
     );
 }

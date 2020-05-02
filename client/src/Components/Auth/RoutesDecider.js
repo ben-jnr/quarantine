@@ -29,7 +29,6 @@ function RoutesDecider()
         readSession();
     },[]);
 
-    console.log(taluk);
     if(window.localStorage.getItem('session'))
     {    
         if(type === "admin" || type === 'dashboard' || type === 'airport' || type === 'institution' || type === 'superadmin' || type === 'taluk')
@@ -45,7 +44,7 @@ function RoutesDecider()
                     <Route exact path = "/admin/:id" render={() => <Admin currInstitutionsTab="Rooms" type={type} institutionId={institutionId} taluk={taluk}/>} />
                     <Route exact path = "/admin/:id/edit" render={() => <InstitutionEdit type={type} institutionId={institutionId} taluk={taluk}/>} />      
                     <Route exact path = "/admin/:id/:room/view" render={() => <Admin currInstitutionsTab="Inmate" type={type} institutionId={institutionId} taluk={taluk}/>} />      
-                    <Route exact path = "/admin/:id/:room/edit" render={() => <RoomEdit type={type} institutionId={institutionId} taluk={taluk}/>} />       
+                    <Route exact path = "/admin/:id/:room/edit" render={() => <RoomEdit type={type} taluk={taluk}/>} />       
                 </div>
             );    
         }

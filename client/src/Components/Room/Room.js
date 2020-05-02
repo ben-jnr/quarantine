@@ -5,18 +5,10 @@ import RoomsAddForm from './RoomsAddForm';
 
 function Room(props){
 
-    const [roomInfo, setRoomInfo] = useState({no:"" , beds:0 , status:"" ,ready:"", bathroom:"" , disable:""});
+    const [roomInfo, setRoomInfo] = useState({no:"" , beds:0 , status:"" ,ready:"", bathroom:"" , disable:"",remark:""});
     const [rooms , setRooms] = useState([]);
     const institutionId = window.location.pathname.split('/')[2];
-
-
-    const vacancyCheck = emigrantId =>{
-        if(emigrantId === "")
-            return("yes");
-        else 
-            return("no");    
-    }
-    
+   
 
     const institutionsRedirect = () =>{
         window.localStorage.setItem('currTab','Institutions');
@@ -59,11 +51,11 @@ function Room(props){
             headers: {'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Credentials': true}
         };
-        if(roomInfo.no !=="" && roomInfo.status !== "" && roomInfo.beds !== 0 &&
+        if(roomInfo.no !=="" && roomInfo.status !== "" && roomInfo.beds >-1 &&
             roomInfo.ready !== "" && roomInfo.bathroom !== "" && roomInfo.disable!=="")
         {
             const data ={no:roomInfo.no, status:roomInfo.status, emigrantId:"", beds:roomInfo.beds,
-                        ready:roomInfo.ready, bathroom:roomInfo.bathroom, disable:roomInfo.disable};    
+                        ready:roomInfo.ready, bathroom:roomInfo.bathroom, disable:roomInfo.disable , remark:roomInfo.remark};    
             var url = "http://localhost:9000/api/rooms/add?id="+window.localStorage.getItem('session')+"&institutionId="+institutionId;
             axios
             .post(url, data, config)
@@ -92,15 +84,15 @@ function Room(props){
 
                                 <div id={"collapse"+reqIndex} class="collapse" aria-labelledby={"heading"+reqIndex} data-parent={"#accordion"+reqIndex}>
                                     <div class="card-body">
-                                        <h6 className="card-subtitle mb-2 text-muted">Vacancy: {vacancyCheck(u.emigrantId)}</h6>
                                         <h6 className="card-subtitle mb-2 text-muted">No of Beds: {u.beds}</h6>
                                         <h6 className="card-subtitle mb-2 text-muted">Attached Bathroom: {u.bathroom}</h6>
                                         <h6 className="card-subtitle mb-2 text-muted">Disable Friendly: {u.disable}</h6>
                                         <h6 className="card-subtitle mb-2 text-muted">Contaminated: {u.status}</h6>
                                         <h6 className="card-subtitle mb-2 text-muted">Ready: {u.ready}</h6>
+                                        <h6 className="card-subtitle mb-2 text-muted">Remark: {u.remark}</h6>                        
                                         <button className="btn btn-primary  mt-2 ml-2 float-left" /*onClick={inmateRedirect.bind(url,"/admin/"+institutionId+"/"+u.no)}*/>Info</button>
                                         <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={removeRoom.bind(no,u.no)}>Delete</button>
-                                        <a href = {window.location.pathname+'/' +u.no+'/edit/'} ><button className="btn btn-primary mt-2 float-right">Edit</button></a>
+                                        <a href = {window.location.pathname+'/' +u.no+'/edit/'} ><button className="btn btn-primary mt-2 float-right editbtn">Edit</button></a>
                                     </div>
                                 </div>
                             </div>
@@ -119,6 +111,7 @@ function Room(props){
         setRoomInfo({no:0 , beds:0 , status:"" ,ready:"", bathroom:"" , disable:""}); 
         document.getElementById("roomNo").value = "";
         document.getElementById("roomBeds").value = "";
+        document.getElementById("remark").value = "";
         document.getElementById("roomStatus").options.selectedIndex = 0;
         var radio = document.getElementsByName("bathroom");
         for(var i=0;i<radio.length;i++)
@@ -139,7 +132,6 @@ function Room(props){
 
    const RoomsListGenerator=()=>
     {
-        console.log(1);
         let no;
         let url = "http://localhost:9000/api/rooms?id="+window.localStorage.getItem('session')+
                                                     "&institutionId="+institutionId;                                                                       
@@ -162,15 +154,15 @@ function Room(props){
 
                     <div id={"collapse"+index} class="collapse" aria-labelledby={"heading"+index} data-parent={"#accordion"+index}>
                         <div class="card-body">
-                            <h6 className="card-subtitle mb-2 text-muted">Vacancy: {vacancyCheck(u.emigrantId)}</h6>
                             <h6 className="card-subtitle mb-2 text-muted">No of Beds: {u.beds}</h6>
                             <h6 className="card-subtitle mb-2 text-muted">Attached Bathroom: {u.bathroom}</h6>
                             <h6 className="card-subtitle mb-2 text-muted">Disable Friendly: {u.disable}</h6>
                             <h6 className="card-subtitle mb-2 text-muted">Contaminated: {u.status}</h6>
                             <h6 className="card-subtitle mb-2 text-muted">Ready: {u.ready}</h6>
+                            <h6 className="card-subtitle mb-2 text-muted">Remark: {u.remark}</h6>
                             <button className="btn btn-primary  mt-2 ml-2 float-left" /*onClick={inmateRedirect.bind(url,"/admin/"+institutionId+"/"+u.no)}*/>Info</button>
                             <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={removeRoom.bind(no,u.no)}>Delete</button>
-                            <a href = {window.location.pathname+'/' +u.no+'/edit/'} ><button className="btn btn-primary mt-2 float-right">Edit</button></a>
+                            <a href = {window.location.pathname+'/' +u.no+'/edit/'} ><button className="btn btn-primary mt-2 float-right edit-btn">Edit</button></a>
                         </div>
                     </div>
                 </div>
@@ -186,7 +178,6 @@ function Room(props){
         window.localStorage.setItem('currTab',"Institutions");
         RoomsListGenerator();    
     },[])
-
     
 
     return(

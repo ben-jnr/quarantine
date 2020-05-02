@@ -22,16 +22,6 @@ function Institution(props)
     const [village, setVillage] = useState(VillageList[props.taluk][0]);
     const [newInstitution , setNewInstitution] = useState(defaultInstitution);
 
-    const vacantCount = function(rooms){
-        var count = 0;
-        for(var i=0;i<rooms.length;i++){
-            console.log(rooms[i]);
-            if(rooms[i].emigrantId === "")
-                count++;
-        }
-        return(count);
-    }
-
 
     const decontaminatedCount = function(rooms){
         var count = 0;
@@ -95,7 +85,7 @@ function Institution(props)
                 alert(res.data);
                 window.location.replace('/');
             }    
-            const institutions = InstitutionsGenerate(res.data, roomsRedirect, url, vacantCount,
+            const institutions = InstitutionsGenerate(res.data, roomsRedirect, url,
                     readyCount , decontaminatedCount, removeInstitutionDecider,-1);
             setInstitutions(institutions);
         })
@@ -152,7 +142,7 @@ function Institution(props)
                     if(newInstitution.taluk === taluk && newInstitution.village === village)
                     {
                         const reqIndex = document.querySelectorAll('.InstitutionsContainer').length;
-                        const tempInstitution = InstitutionsGenerate(res.data.data, roomsRedirect, url, vacantCount,
+                        const tempInstitution = InstitutionsGenerate(res.data.data, roomsRedirect, url,
                             readyCount , decontaminatedCount, removeInstitutionDecider, reqIndex)
                         setInstitutions([ tempInstitution, ...institutions]);
                     }                
