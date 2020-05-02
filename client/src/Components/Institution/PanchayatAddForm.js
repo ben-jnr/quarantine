@@ -13,7 +13,7 @@ function PanchayatAddForm(props)
     
     
     return(
-        <div class="col">
+        <div class="col mb-2 mt-2">
             
             <label for="panchayatAdd">LSGD</label>
             <select class="custom-select" name="panchayat" id="panchayatAdd" size="1" onChange={props.handleDropdownParent}>

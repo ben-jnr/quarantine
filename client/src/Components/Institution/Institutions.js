@@ -68,7 +68,7 @@ function Institution(props)
 
     const removeInstitutionDecider=(id)=>{
         if(props.type !== 'institution')
-            return(<button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={removeInstitution.bind(id,id)}>Delete</button>)
+            return(<button className="btn btn-danger DeleteInstitution mt-2 ml-2 float-right" onClick={removeInstitution.bind(id,id)}>Delete</button>)
         else
             return(<div></div>)
     }
@@ -221,7 +221,7 @@ function Institution(props)
         if(props.type !== 'institution')
         {
             return(
-                <div id="institutionForm" className="inst">
+                <div id="institutionForm" className="inst container mr-4">
                     <div class="accordion" id="accordionExample">
                         <div class="card p-0 m-0">
                             <div class="card-header text-center p-2" id="headingOne">

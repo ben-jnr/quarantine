@@ -99,16 +99,19 @@ function RoomEdit(props) {
 
 
     return (
-        <div>
-            <a href = {'/admin/'+institutionId}><button className = 'btn btn-primary'>Back</button></a>
-            <form className="p-2 col">
+        <div className="container p-4">
+            <a href = {'/admin/'+institutionId}><button className = 'btn btn-primary btn-block mb-2'>Go Back</button></a>
+            <form className="container p-2 col col-lg-8 card-header">
+                <div className="text-center">
+                    <h3>Room Name : </h3>
+                </div>
                 <div className="form-row">
                     <div className="form-group col">
                         <label>No of beds</label>
                         <input type="number" id="roomBedsEdit" name="beds" className="form-control" placeholder="No of Beds" onChange={handleChange}/>
                     </div>
                 </div>
-                <div className="form-row">
+                <div className="form-row col-lg col-sm-6">
                     <div className="form-group col">
                         <label>Attached Bathroom ?</label>
                         <div className="row mb-3 ml-2">
@@ -122,7 +125,7 @@ function RoomEdit(props) {
                             </div>
                         </div>
                 </div>
-                <div className="form-group col">
+                <div className="form-group col-lg col-sm-6">
                     <label>Disable Friendly?</label>
                     <div className="row mb-3 ml-3">
                         <div class="custom-control custom-radio">
@@ -132,6 +135,19 @@ function RoomEdit(props) {
                         <div class="custom-control custom-radio ml-2">
                             <input type="radio" id="disable2Edit" name="disable" value="no" onChange={handleChange} class="custom-control-input"/>
                             <label class="custom-control-label" for="disable2Edit">No</label>
+                        </div>
+                    </div>
+                </div>
+                <div className="form-group pr-4 col-lg col-sm-6">
+                    <label>Ready to Occupy</label>
+                    <div className="row mb-3">
+                        <div class="custom-control custom-radio ml-4">
+                            <input type="radio" id="ready1Edit" name="ready" value="yes" onChange={handleChange} class="custom-control-input"/>
+                            <label class="custom-control-label" for="ready1Edit">Yes</label>
+                        </div>
+                        <div class="custom-control custom-radio ml-4">
+                            <input type="radio" id="ready2Edit" name="ready" value="no" onChange={handleChange} class="custom-control-input"/>
+                            <label class="custom-control-label" for="ready2Edit">No</label>
                         </div>
                     </div>
                 </div>
@@ -145,24 +161,12 @@ function RoomEdit(props) {
                         <option value="yes">Contaminated</option>
                     </select>
                 </div>
-                <div className="form-group">
-                    <label>Ready to Occupy</label>
-                    <div className="row mb-3 ml-2">
-                        <div class="custom-control custom-radio ml-4">
-                            <input type="radio" id="ready1Edit" name="ready" value="yes" onChange={handleChange} class="custom-control-input"/>
-                            <label class="custom-control-label" for="ready1Edit">Yes</label>
-                        </div>
-                        <div class="custom-control custom-radio ml-4">
-                            <input type="radio" id="ready2Edit" name="ready" value="no" onChange={handleChange} class="custom-control-input"/>
-                            <label class="custom-control-label" for="ready2Edit">No</label>
-                        </div>
-                    </div>
-                </div>
+                
                 <div className="form-group col">
                     <label>Remark</label>
                     <input type="text" id="roomsRemarkEdit" name="remark" className="form-control" placeholder="Remarks" onChange={handleChange}/>
                 </div>
-                <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Edit room</button>
+                <button type="submit" className="btn btn-primary float-right" onClick={handleSubmit}>Edit room</button>
             </form>
             <div id="roomsEditFormMssg"></div>      
         </div>

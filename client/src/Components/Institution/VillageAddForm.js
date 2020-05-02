@@ -12,7 +12,7 @@ function VillageAddForm(props)
     
     
     return(
-        <div class="col">
+        <div class="col mb-2">
             <label for="villageAdd">Village</label>
             <select class="custom-select" name="village" id="villageAdd" size="1" onChange={props.handleDropdownParent}>
                 <option value="" defaultValue>Choose</option>

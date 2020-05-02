@@ -8,10 +8,11 @@ function RoomsAddForm(props) {
       <button className="btn btn-primary btn-block mr-2" onClick={props.institutionsRedirectParent}>Prev page <i className="fa fa-arrow-left "></i></button>
     <div class="card-header p-1" id="headingRooms">
       <h2 class="mb-0">
-
-        <button class="btn btn-link text-center" type="button" data-toggle="collapse" data-target="#collapseRooms" aria-expanded="true" aria-controls="collapseRooms">
-          <h6>Add Room info</h6>
-        </button>
+        <div className="text-center">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseRooms" aria-expanded="true" aria-controls="collapseRooms">
+          <h5>Add Room info</h5>
+        </button> 
+        </div>
       </h2>
     </div>
 
