@@ -31,11 +31,11 @@ function InstitutionsGenerate(arr, roomsRedirect, url, vacantCount, readyCount ,
                                 Ready <button class="btn btn-light roomBadge">{readyCount(u.rooms)}</button>
                             </button>
                             <button type="button" class="btn btn-success mr-3 mb-2">
-                            Decontaminated <button class="btn btn-light roomBadge">{decontaminatedCount(u.rooms)}</button>
+                                Decontaminated <button class="btn btn-light roomBadge">{decontaminatedCount(u.rooms)}</button>
                             </button>
                             <div>
                                 {removeInstitutionDecider(u._id)}
-                                <a href={'/admin/'+u._id+'/edit/'}><button className="btn btn-primary  mt-2 ml-2 float-right">Edit</button></a>
+                                <a href={'/admin/' + u._id + '/edit/'}><button className="btn btn-primary  mt-2 ml-2 float-right">Edit</button></a>
                             </div>
                         </div>  
                     </div>

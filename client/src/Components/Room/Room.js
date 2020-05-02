@@ -100,7 +100,7 @@ function Room(props){
                                         <h6 className="card-subtitle mb-2 text-muted">Ready: {u.ready}</h6>
                                         <button className="btn btn-primary  mt-2 ml-2 float-left" /*onClick={inmateRedirect.bind(url,"/admin/"+institutionId+"/"+u.no)}*/>Info</button>
                                         <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={removeRoom.bind(no,u.no)}>Delete</button>
-                                        <a href = {window.location.pathname +u.no+'/edit/'} ><button className="btn btn-primary mt-2 float-right">Edit</button></a>
+                                        <a href = {window.location.pathname+'/' +u.no+'/edit/'} ><button className="btn btn-primary mt-2 float-right">Edit</button></a>
                                     </div>
                                 </div>
                             </div>
@@ -170,7 +170,7 @@ function Room(props){
                             <h6 className="card-subtitle mb-2 text-muted">Ready: {u.ready}</h6>
                             <button className="btn btn-primary  mt-2 ml-2 float-left" /*onClick={inmateRedirect.bind(url,"/admin/"+institutionId+"/"+u.no)}*/>Info</button>
                             <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={removeRoom.bind(no,u.no)}>Delete</button>
-                            <a href = {window.location.pathname +u.no+'/edit/'} ><button className="btn btn-primary mt-2 float-right">Edit</button></a>
+                            <a href = {window.location.pathname+'/' +u.no+'/edit/'} ><button className="btn btn-primary mt-2 float-right">Edit</button></a>
                         </div>
                     </div>
                 </div>

@@ -17,7 +17,7 @@ function RoomsAddForm(props) {
 
     <div id="collapseRooms" class="collapse" aria-labelledby="headingRooms" data-parent="#accordionRooms">
       <div class="card-body">
-      <form className="p-2 col">
+            <form className="p-2 col">
                 <div className="form-row">
                     <div className="form-group col">
                         <label>Room No/Name</label>
@@ -80,7 +80,8 @@ function RoomsAddForm(props) {
                     </div>
                 </div>
                 <button type="submit" className="btn btn-primary" onClick={props.handleSubmitParent}>Add room</button>
-            </form>      </div>
+            </form>      
+        </div>
     </div>
   </div>
 </div>
