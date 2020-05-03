@@ -16,7 +16,8 @@ function Institution(props)
         var temp = props.taluk;
     else
         var temp = 'Chavakkad';       
-    const defaultInstitution = {type:"" , taluk:"", village:"", constituency:"", panchayat:"", priority:0, fit:""} 
+    const defaultInstitution = {type:"" , taluk:"", village:"", constituency:"", panchayat:"", 
+        priority:0, fit:"",payment:"", paymentDetails:"", phone:""} 
     const [institutions , setInstitutions] = useState("");
     const [taluk , setTaluk] = useState(temp);
     const [village, setVillage] = useState(VillageList[props.taluk][0]);
@@ -44,6 +45,7 @@ function Institution(props)
 
 
     const handleChange =(e)=>{    
+        console.log(e.target.name, e.target.value);
         setNewInstitution({...newInstitution, [e.target.name]:e.target.value})
     }
 
@@ -76,7 +78,7 @@ function Institution(props)
 
     //function that generates list of all institutions from backend
     const InstitutionsListGenerate = () => {
-        var url = "https://ccctsr.in/api/institution?taluk="+taluk+ "&village="+village + 
+        var url = "http://localhost:9000/api/institution?taluk="+taluk+ "&village="+village + 
         "&id=" +window.localStorage.getItem('session') +"&institutionId=" + props.institutionId;
         axios.get(url)
         .then(res => {
@@ -97,7 +99,7 @@ function Institution(props)
     const removeInstitution = (id) =>{
         if(window.confirm("Are you sure?"))
         {
-            var url = "https://ccctsr.in/api/institution/delete/"+id+"?id="+window.localStorage.getItem('session')
+            var url = "http://localhost:9000/api/institution/delete/"+id+"?id="+window.localStorage.getItem('session')
             axios.get(url)
                 .catch(err => console.log(err));
         }  
@@ -120,7 +122,8 @@ function Institution(props)
                 ...newInstitution ,
                 rooms:[]
             }
-            var url = "https://ccctsr.in/api/institution/add?id="+ window.localStorage.getItem('session');
+            console.log(data);
+            var url = "http://localhost:9000/api/institution/add?id="+ window.localStorage.getItem('session');
             axios
             .post(url, data, config)
             .then(function(res){
@@ -209,6 +212,32 @@ function Institution(props)
     }
     
 
+    const talukDecider = ()=>{
+        if(props.type !== 'taluk')
+        {
+            return(
+                <div class="col mt-2">
+                    <label for="talukAdd">Taluk</label>
+                    <select class="custom-select" name="taluk" id="talukAdd" size="1" onChange={handleDropdown}>
+                        <option selected value="Choose">Choose</option>
+                        <option value="Chavakkad">Chavakkad</option>
+                        <option value="Chalakudy">Chalakudy</option>
+                        <option value="Kodungallur">Kodungallur</option>
+                        <option value="Kunnamkulam">Kunnamkulam</option>
+                        <option value="Mukunthapuram">Mukundapuram</option>
+                        <option value="Thalapilly">Thalapilly</option>
+                        <option value="Thrissur">Thrissur</option>
+                    </select>
+                </div>
+            )
+        }
+        else
+        {
+            return(<div></div>)
+        }
+    }
+
+
     const villageFormsDecider = () =>{
         if(props.type === 'taluk')
             return(<VillageAddForm taluk= {taluk} handleDropdownParent={handleDropdown}/>)
@@ -234,6 +263,11 @@ function Institution(props)
                                     <div className="inst-details">
                                         <InstitutionsAddForm type = {props.type} handleDropdownParent={handleDropdown} handleChangeParent = {handleChange}/>
                                             <div className="lsgd">
+                                                <div class="form-group col">
+                                                    <label for="phone">Phone</label>
+                                                    <input type="text" name="phone" class="form-control" id="phone" placeholder="Contact no of institution" onChange={handleChange}/>
+                                                </div>
+                                                {talukDecider()}
                                                 {villageFormsDecider()}
                                                 <ConstituencyAddForm handleDropdownParent = {handleDropdown}/>
                                                 <PanchayatAddForm constituency={newInstitution.constituency}  handleDropdownParent = {handleDropdown}/>
