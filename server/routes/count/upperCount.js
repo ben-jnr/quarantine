@@ -23,21 +23,27 @@ module.exports = function(app)
         //route to get Taluk and LAC wise Count
         
         app.get('/api/count', function(req,res){
+            console.log("Count: request received");
             store.get(req.query.id, function(err,session){
+                console.log("Count: session validating");
                 if(err || !session)
                 {
+                    console.log("Count: invalid session or error");
                     res.send('connection closed');
                 } 
                 else if(session)
                 {
+                    console.log("Count: session valid");
                     var count = {}; 
                     institution.find().toArray(function(err,inst){
                         if(err)
                             console.log(err);
                         else
                         {
+                            console.log("Count: institution traversal");
                             if(req.query.choice !='')
                             {    
+                                console.log("Count: choice is not empty");
                                 for(var i=0;i<inst.length;i++)
                                 {
                                     var roomsCount = 0, readyRooms = 0, usableRooms =0, bedsCount = 0, readyBeds=0, usableBeds=0;
@@ -68,10 +74,12 @@ module.exports = function(app)
                                             bedsCount, readyBeds, usableBeds];        
                                 }
                             }    
+                            console.log("Count: returning count ", count);
                             res.send(count);   
                         }    
                     });
-                }          
+                } 
+                console.log("Count: trap door found");
             })    
         })
     })
