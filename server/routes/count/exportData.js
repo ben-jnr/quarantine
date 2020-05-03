@@ -15,7 +15,7 @@ MongoPool.getInstance(function (db){
         // Fields: District, Name, Taluk, Constituency, Panchayat, Village, Capacity
         const exportData = [];
         var slNo = 1;
-        instList.splice(1, instList.length - 1).map( inst=>{
+        instList.map( inst=>{
             let row = {
                 "Sl No": slNo,
                 "Name": inst.name,
