@@ -106,7 +106,7 @@ function RoomEdit(props) {
                     <a href = {'/admin/'+institutionId}><button className = 'btn btn-primary btn-block mb-2'>Go Back</button></a>
                 </div>
             </div>
-            <form className="container p-2 col col-lg-8 card-header">
+            <form className="container p-2 col col-lg-8 roomEdit">
                 <div className="text-center">
                     <h3 id='roomEditHeading'>Room : </h3>
                 </div>

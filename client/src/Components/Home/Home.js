@@ -37,7 +37,7 @@ function Home(props) {
 
     const headingDecider=() =>{
         if(choice === 'constituency')
-            return(' LCA ');
+            return(' LAC ');
         else if(choice === 'taluk')
             return('Taluk');
         else
