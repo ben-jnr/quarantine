@@ -12,7 +12,7 @@ function Home(props) {
 
 
     useEffect(()=>{
-        axios.get('http://localhost:9000/api/count?id='+ window.localStorage.getItem('session') 
+        axios.get('https://ccctsr.in/api/count?id='+ window.localStorage.getItem('session') 
                 + '&choice='+choice)
         .then(res => {
             const keys = Object.keys(res.data);
@@ -37,17 +37,18 @@ function Home(props) {
 
     const headingDecider=() =>{
         if(choice === 'constituency')
-            return('LCA')
+            return(' LAC ');
+        else if(choice === 'taluk')
+            return('Taluk');
         else
-            return('Taluk')    
+            return('');        
     }
 
     return (
         <div>
             <hr/>
             <div>
-                <h6>Institution Type?</h6>
-                <div className="form-row"> 
+                <h6>Count Criteria?</h6>
                 <span class="custom-control custom-radio ml-4">
                     <input type="radio" id="choice1" name="choice" value="taluk" onChange={handleChange} class="custom-control-input"/>
                     <label class="custom-control-label" for="choice1">Taluk</label>
@@ -56,7 +57,6 @@ function Home(props) {
                     <input type="radio" id="choice2" name="choice" value="constituency" onChange={handleChange} class="custom-control-input"/>
                     <label class="custom-control-label" for="choice2">LAC</label>
                 </span> 
-                </div>
             </div>
             <hr/>
             <table class="table table-striped">
