@@ -19,11 +19,12 @@ MongoPool.getInstance(function (db){
             let row = {
                 "Sl No": slNo,
                 "Name": inst.name,
-                "Capacity": inst.rooms.length,
+                "No of Rooms": inst.rooms.length,
+                "No of Beds": getTotalBeds(inst.rooms, 0),
                 "Panchayath": inst.panchayat,
                 "Village": inst.village,
                 "Taluk": inst.taluk,
-                "Constituency": inst.constituency
+                "Constituency": inst.constituency,
             }
             slNo+=1;
             exportData.push(row);
@@ -35,3 +36,12 @@ MongoPool.getInstance(function (db){
         });
     });
 });
+
+function getTotalBeds(roomsList){
+    if(roomsList.length==0)
+        return 0;
+    let count = 0;
+    for(let room of roomsList)
+        count += Number(room.beds);
+    return count;
+}
