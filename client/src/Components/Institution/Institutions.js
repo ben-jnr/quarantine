@@ -23,10 +23,10 @@ function Institution(props)
     const [newInstitution , setNewInstitution] = useState(defaultInstitution);
 
 
-    const decontaminatedCount = function(rooms){
+    const usableCount = function(rooms){
         var count = 0;
         for(var i=0;i<rooms.length;i++){
-            if(rooms[i].status==="no")
+            if(rooms[i].status==="no" && rooms[i].ready === 'yes')
                 count++;
         }
         return(count);
@@ -76,7 +76,7 @@ function Institution(props)
 
     //function that generates list of all institutions from backend
     const InstitutionsListGenerate = () => {
-        var url = "https://ccctsr.in/api/institution?taluk="+taluk+ "&village="+village + 
+        var url = "http://localhost:9000/api/institution?taluk="+taluk+ "&village="+village + 
         "&id=" +window.localStorage.getItem('session') +"&institutionId=" + props.institutionId;
         axios.get(url)
         .then(res => {
@@ -86,7 +86,7 @@ function Institution(props)
                 window.location.replace('/');
             }    
             const institutions = InstitutionsGenerate(res.data, roomsRedirect, url,
-                    readyCount , decontaminatedCount, removeInstitutionDecider,-1);
+                    readyCount , usableCount, removeInstitutionDecider,-1);
             setInstitutions(institutions);
         })
         .catch(err => console.log(err));
@@ -97,7 +97,7 @@ function Institution(props)
     const removeInstitution = (id) =>{
         if(window.confirm("Are you sure?"))
         {
-            var url = "https://ccctsr.in/api/institution/delete/"+id+"?id="+window.localStorage.getItem('session')
+            var url = "http://localhost:9000/api/institution/delete/"+id+"?id="+window.localStorage.getItem('session')
             axios.get(url)
                 .catch(err => console.log(err));
         }  
@@ -120,7 +120,7 @@ function Institution(props)
                 ...newInstitution ,
                 rooms:[]
             }
-            var url = "https://ccctsr.in/api/institution/add?id="+ window.localStorage.getItem('session');
+            var url = "http://localhost:9000/api/institution/add?id="+ window.localStorage.getItem('session');
             axios
             .post(url, data, config)
             .then(function(res){
@@ -143,7 +143,7 @@ function Institution(props)
                     {
                         const reqIndex = document.querySelectorAll('.InstitutionsContainer').length;
                         const tempInstitution = InstitutionsGenerate(res.data.data, roomsRedirect, url,
-                            readyCount , decontaminatedCount, removeInstitutionDecider, reqIndex)
+                            readyCount , usableCount, removeInstitutionDecider, reqIndex)
                         setInstitutions([ tempInstitution, ...institutions]);
                     }                
                 }    

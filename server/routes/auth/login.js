@@ -33,7 +33,12 @@ module.exports = function(app)
         //Route for Login Form
         app.post("/api/login",function(req,res){
             user.findOne({username:req.body.username},function(err,currUser){
-                if(currUser)
+                if(err)
+                {
+                    console.log(err);
+                    res.send('Invalid Credentials');
+                }
+                else if(currUser)
                 {
                     if(bcrypt.compareSync(req.body.password, currUser.password))
                     {
@@ -41,7 +46,10 @@ module.exports = function(app)
                         {
                             store.get(req.query.id, function(err,session){
                                 if(err)
+                                {
                                     console.log(err);
+                                    res.send('Invalid Credentials');
+                                }    
                                 else if(!session) 
                                 {
                                     req.session.type = currUser.type;
@@ -52,10 +60,18 @@ module.exports = function(app)
                                         req.session.taluk = currUser.taluk;    
                                     req.session.save(function(err){
                                     if(err)
+                                    {
                                         console.log(err)
+                                        res.send('Invalid Credentials');
+                                    }
                                     })
                                 }
                                 store.all(function(err,sessions){
+                                    if(err)
+                                    {
+                                        console.log(err);
+                                        res.send('Invalid Credentials');
+                                    }    
                                     res.send(sessions[sessions.length-1]._id);
                                 })
                             })    
@@ -66,7 +82,7 @@ module.exports = function(app)
                         res.send('Invalid Credentials');
                     }
                 }
-                else if(!currUser)
+                else
                 {
                     res.send('Invalid Credentials');
                 }

@@ -19,7 +19,7 @@ require('./routes/room/allRooms')(app);
 require('./routes/room/delRooms')(app);
 require('./routes/room/viewRooms')(app);
 require('./routes/room/editRooms')(app);
-
+require('./routes/count/upperCount')(app);
 
 var MongoPool = require("./routes/db/db");
 MongoPool.getInstance(function (db){

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function InstitutionsGenerate(arr, roomsRedirect, url,readyCount , decontaminatedCount, removeInstitutionDecider, reqIndex)
+function InstitutionsGenerate(arr, roomsRedirect, url,readyCount , usableCount, removeInstitutionDecider, reqIndex)
 {
     if(reqIndex === -1)
     {
@@ -22,14 +22,14 @@ function InstitutionsGenerate(arr, roomsRedirect, url,readyCount , decontaminate
                             <h6 className="card-title">Structurally Fit : {u.fit}</h6>
                             <h6 className="card-subtitle mb-2 text-muted">{u.district}</h6>
                             <button type="button" class="btn btn-secondary mr-3 mb-2">
-                                Total Rooms <button class="btn btn-light roomBadge">{u.rooms.length}</button>
+                                Rooms <button class="btn btn-light roomBadge">{u.rooms.length}</button>
                             </button>
                             <button type="button" class="btn btn-warning mr-3 mb-2">
                                 Ready <button class="btn btn-light roomBadge">{readyCount(u.rooms)}</button>
                             </button>
                             <button type="button" class="btn btn-success mr-3 mb-2">
-                                Decontaminated <button class="btn btn-light roomBadge">{decontaminatedCount(u.rooms)}</button>
-                            </button>
+                                Usable <button class="btn btn-light roomBadge">{usableCount(u.rooms)}</button>
+                            </button>   
                             <div>
                                 {removeInstitutionDecider(u._id)}
                                 <a href='#'/*{'/admin/' + u._id + '/edit/'}*/><button className="btn btn-primary  mt-2 ml-2 float-right editbtn">Edit</button></a>
@@ -66,7 +66,7 @@ function InstitutionsGenerate(arr, roomsRedirect, url,readyCount , decontaminate
                                     Ready <button class="btn btn-light roomBadge">{readyCount(u.rooms)}</button>
                             </button>
                             <button type="button" class="btn btn-success mr-3 mb-2">
-                                    Decontaminated <button class="btn btn-light roomBadge">{decontaminatedCount(u.rooms)}</button>
+                                    Usable <button class="btn btn-light roomBadge">{usableCount(u.rooms)}</button>
                             </button>
                             <div>
                                 <a className='editbtn' href = '#'/*{'/admin/'+u._id+'/edit/'}*/><button className="btn btn-primary  mt-2 ml-2 float-right ">Edit</button></a>
