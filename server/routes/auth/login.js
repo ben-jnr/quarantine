@@ -32,13 +32,10 @@ module.exports = function(app)
         
         //Route for Login Form
         app.post("/api/login",function(req,res){
+            console.log("Request: Login");
             user.findOne({username:req.body.username},function(err,currUser){
-                if(err)
-                {
-                    console.log(err);
-                    res.send('Invalid Credentials');
-                }
-                else if(currUser)
+                console.log("Login: currUser ", currUser, " err ", err);
+                if(currUser)
                 {
                     if(bcrypt.compareSync(req.body.password, currUser.password))
                     {
@@ -75,15 +72,20 @@ module.exports = function(app)
                                     res.send(sessions[sessions.length-1]._id);
                                 })
                             })    
-                        }                    
+                        }
+                        else{
+                            console.log("Login: query.id not found");
+                        }                 
                     }
                     else
                     {
+                        console.log("Login: invalid password, curr user", currUser);
                         res.send('Invalid Credentials');
                     }
                 }
                 else
                 {
+                    console.log("Login: invalid username");
                     res.send('Invalid Credentials');
                 }
             })
