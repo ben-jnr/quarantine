@@ -47,6 +47,7 @@ function Home(props) {
             <hr/>
             <div>
                 <h6>Institution Type?</h6>
+                <div className="form-row"> 
                 <span class="custom-control custom-radio ml-4">
                     <input type="radio" id="choice1" name="choice" value="taluk" onChange={handleChange} class="custom-control-input"/>
                     <label class="custom-control-label" for="choice1">Taluk</label>
@@ -55,6 +56,7 @@ function Home(props) {
                     <input type="radio" id="choice2" name="choice" value="constituency" onChange={handleChange} class="custom-control-input"/>
                     <label class="custom-control-label" for="choice2">LAC</label>
                 </span> 
+                </div>
             </div>
             <hr/>
             <table class="table table-striped">
