@@ -37,16 +37,18 @@ function Home(props) {
 
     const headingDecider=() =>{
         if(choice === 'constituency')
-            return('LCA')
+            return(' LCA ');
+        else if(choice === 'taluk')
+            return('Taluk');
         else
-            return('Taluk')    
+            return('');        
     }
 
     return (
         <div>
             <hr/>
             <div>
-                <h6>Institution Type?</h6>
+                <h6>Count Criteria?</h6>
                 <span class="custom-control custom-radio ml-4">
                     <input type="radio" id="choice1" name="choice" value="taluk" onChange={handleChange} class="custom-control-input"/>
                     <label class="custom-control-label" for="choice1">Taluk</label>
