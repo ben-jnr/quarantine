@@ -17,7 +17,6 @@ function RoomEdit(props) {
 
     const handleSubmit = e =>{
         e.preventDefault();
-        console.log(roomInfo.beds);
         if(window.confirm("Are you sure?"))
         {
             if(roomInfo.no !== "" && roomInfo.beds > -1 && roomInfo.status !="" && roomInfo.ready !== "" 

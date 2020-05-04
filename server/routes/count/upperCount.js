@@ -80,7 +80,6 @@ module.exports = function(app)
                         }    
                     });
                 } 
-                console.log("Count: trap door found");
             })    
         })
     })

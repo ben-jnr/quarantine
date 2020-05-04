@@ -20,6 +20,7 @@ function InstitutionsGenerate(arr, roomsRedirect, url,readyCount , usableCount, 
                             <h5 className="card-title">{u.name}</h5>
                             <h6>Phone : {u.phone}</h6>
                             <h6>Type : {u.type}</h6>
+                            <h6>Priority : {u.priority}</h6>
                             <h6>Paid Room : {u.payment}</h6>
                             <h6>Details : {u.paymentDetails}</h6>
                             <h6 className="card-title">Structurally Fit : {u.fit}</h6>
@@ -34,7 +35,8 @@ function InstitutionsGenerate(arr, roomsRedirect, url,readyCount , usableCount, 
                                 Usable <button class="btn btn-light roomBadge">{usableCount(u.rooms)}</button>
                             </button>   
                                 {removeInstitutionDecider(u._id)}
-                                <a href={'/admin/' + u._id + '/edit/'} className="btn btn-primary  mt-2 ml-2 float-right editbtn"><button>Edit</button></a>
+                                <a href={'/admin/' + u._id + '/edit/'} className="btn btn-primary  mt-2 ml-2 float-right editbtn">Edit</a>
+                                
                         </div>
 
                     </div>  
@@ -60,6 +62,7 @@ function InstitutionsGenerate(arr, roomsRedirect, url,readyCount , usableCount, 
                             <h5 className="card-title">{u.name}</h5>
                             <h6 className="card-title">Phone : {u.phone}</h6>
                             <h6>Type : {u.type}</h6>
+                            <h6>Priority : {u.priority}</h6>
                             <h6>Paid Room : {u.payment}</h6>
                             <h6>Details : {u.paymentDetails}</h6>
                             <h6 className="card-title">Structurally Fit : {u.fit}</h6>

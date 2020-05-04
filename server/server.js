@@ -21,6 +21,7 @@ require('./routes/room/singleRooms')(app);
 require('./routes/room/editRooms')(app);
 require('./routes/count/upperCount')(app);
 require('./routes/institution/singleInstitution')(app);
+require('./routes/institution/editInstitutions')(app);
 
 var MongoPool = require("./routes/db/db");
 MongoPool.getInstance(function (db){

@@ -30,41 +30,32 @@ module.exports = function(app)
                 } 
                 else if(session)
                 {
-                    institution.findOne({'_id':ObjectId(req.query.institutionId)},function(err,exists){  
-                        if(err)
-                        {
-                            console.log('editInstitution :'+err);
-                        }
-                        else
-                        {    
-                            if(!exists)
+                    institution.updateOne({"_id":ObjectId(req.query.institutionId)},
+                        {$set:{ name:req.body.name,
+                                priority: req.body.priority,
+                                type: req.body.type,
+                                taluk:req.body.taluk,
+                                village:req.body.village,
+                                constituency: req.body.constituency,
+                                panchayat:req.body.panchayat,
+                                fit:req.body.fit,
+                                payment: req.body.payment,
+                                paymentDetails: req.body.paymentDetails,
+                                phone:req.body.phone
+                            }},
+                        function(err,newRoom){
+                            if(err)
                             {
-                                console.log("editInstitutions : Institution does not exist");
-                                res.send('Institution does not exist')
+                                console.log('editInstitutions :'+err);
                             }
                             else
                             {
-                                institution.updateOne({
-                                    "_id":ObjectId(req.query.institutionId)},
-                                    {$set: {
-                                        rooms:tempRooms,
-                                    }},function(err,newRoom){
-                                        if(err)
-                                        {
-                                            console.log('editInstitutions :'+err);
-                                        }
-                                        else
-                                        {
-                                            console.log('editInstitutions : Room Successfully Updated');
-                                            res.send("Room Successfully Updated")
-                                        }
-                                        }
-                                )
+                                console.log('editInstitutions : Room Successfully Updated');
+                                res.send("Room Successfully Updated")
                             }
-                        }    
-                    })
+                        })
                 }
-            })
+            })    
         })
     })
 }                    
