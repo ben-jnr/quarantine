@@ -32,7 +32,7 @@ function InstitutionEdit(props) {
                     console.log(res.data)
                 }
             }
-            console.log(res.data);
+            setNewInstitution(res.data);
             document.getElementById('instNameEdit').value = res.data.name;
             document.getElementById('instPhoneEdit').value = res.data.phone;
             document.getElementById('paymentDetailsEdit').value = res.data.paymentDetails;
@@ -59,6 +59,12 @@ function InstitutionEdit(props) {
         })
         .catch(err=>console.log(err));        
     },[]);
+
+
+    const handleSubmit =(e)=>{
+        e.preventDefault();
+        
+    }
 
 
     return (
@@ -134,7 +140,7 @@ function InstitutionEdit(props) {
                     </div>
                 </div>     
             </div> 
-            <button className = 'btn btn-primary'>Edit</button>                
+            <button className = 'btn btn-primary' onClick = {handleSubmit}>Edit</button>                
         </div>
     );
 }
