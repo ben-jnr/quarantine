@@ -26,12 +26,13 @@ module.exports = function(app)
             console.log("Count: request received");
             store.get(req.query.id, function(err,session){
                 console.log("Count: session validating");
+                console.log(session);
                 if(err || !session)
                 {
                     console.log("Count: invalid session or error");
                     res.send('connection closed');
                 } 
-                else if(session)
+                else
                 {
                     console.log("Count: session valid");
                     var count = {}; 

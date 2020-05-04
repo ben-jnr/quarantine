@@ -6,7 +6,7 @@ import axios from 'axios';
 function Admin(props)
 {  
   const logout = () => {
-    axios.get('https://ccctsr.in/api/delsession?id='+window.localStorage.getItem('session'))
+    axios.get('http://localhost:9000/api/delsession?id='+window.localStorage.getItem('session'))
     .catch(err => console.log(err));
     window.localStorage.removeItem("currTab");
     window.localStorage.removeItem("taluk");

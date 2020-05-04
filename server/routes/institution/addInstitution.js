@@ -33,15 +33,19 @@ module.exports = function(app)
                 else if(session)
                 {
                     institution.findOne({name:req.body.name},function(err,exists){
+                        if(err) console.log(err);
                         if(exists){
                             res.send('institution already exists') 
                         }
                         else
                         {
+                            console.log(req.body);
                             var username = req.body.name.replace(/\s+/g, '');
                             username = username.toLowerCase();
                             user.findOne({username:username}, function(err, userExists)
                             {
+                                if(err)
+                                    console.log(err);
                                 if(userExists)
                                     res.send('institution already exists');
                                 else
@@ -55,6 +59,9 @@ module.exports = function(app)
                                         priority : 0, 
                                         fit : req.body.fit, 
                                         name : req.body.name,
+                                        phone:req.body.phone,
+                                        payment : req.body.payment,
+                                        paymentDetails:req.body.paymentDetails,
                                         rooms: [], 
                                         creator:session.name
                                     };

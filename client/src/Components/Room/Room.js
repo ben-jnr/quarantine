@@ -27,7 +27,7 @@ function Room(props){
     
     const removeRoom = (no) =>{
         if(window.confirm("Are you sure?")){
-            var url = "https://ccctsr.in/api/rooms/"+no+"/delete?id="+window.localStorage.getItem('session')+
+            var url = "http://localhost:9000/api/rooms/"+no+"/delete?id="+window.localStorage.getItem('session')+
                                                         "&institutionId="+institutionId;
             axios.get(url)
             .then(res =>{
@@ -56,7 +56,7 @@ function Room(props){
         {
             const data ={no:roomInfo.no, status:roomInfo.status, emigrantId:"", beds:roomInfo.beds,
                         ready:roomInfo.ready, bathroom:roomInfo.bathroom, disable:roomInfo.disable , remark:roomInfo.remark};    
-            var url = "https://ccctsr.in/api/rooms/add?id="+window.localStorage.getItem('session')+"&institutionId="+institutionId;
+            var url = "http://localhost:9000/api/rooms/add?id="+window.localStorage.getItem('session')+"&institutionId="+institutionId;
             axios
             .post(url, data, config)
             .then(function(res){
@@ -79,7 +79,7 @@ function Room(props){
                                     <button class="btn btn-link col" type="button" data-toggle="collapse" data-target={"#collapse"+reqIndex} aria-expanded="true" aria-controls="collapseOne1">
                                         Room No :{u.no}
                                     </button>
-                                    <button className="btn btn-success col-3">Ready</button>
+                                    {usableOrNot(u.ready, u.status)}
                                 </div>
 
                                 <div id={"collapse"+reqIndex} class="collapse" aria-labelledby={"heading"+reqIndex} data-parent={"#accordion"+reqIndex}>
@@ -140,7 +140,7 @@ function Room(props){
    const RoomsListGenerator=()=>
     {
         let no;
-        let url = "https://ccctsr.in/api/rooms?id="+window.localStorage.getItem('session')+
+        let url = "http://localhost:9000/api/rooms?id="+window.localStorage.getItem('session')+
                                                     "&institutionId="+institutionId;                                                                       
         axios.get(url)
         .then(res => {

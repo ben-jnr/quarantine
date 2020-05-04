@@ -18,7 +18,10 @@ function InstitutionsGenerate(arr, roomsRedirect, url,readyCount , usableCount, 
                     <div id={"collapseOne"+index} class="collapse" aria-labelledby={"headingOne"+index} data-parent={"#accordionExample"+index}>
                         <div class="card-body">
                             <h5 className="card-title">{u.name}</h5>
-                            <h6 className="card-title">{u.type}</h6>
+                            <h6>Phone : {u.phone}</h6>
+                            <h6>Type : {u.type}</h6>
+                            <h6>Paid Room : {u.payment}</h6>
+                            <h6>Details : {u.paymentDetails}</h6>
                             <h6 className="card-title">Structurally Fit : {u.fit}</h6>
                             <h6 className="card-subtitle mb-2 text-muted">{u.district}</h6>
                             <button type="button" class="btn btn-secondary mr-3 mb-2">
@@ -30,14 +33,14 @@ function InstitutionsGenerate(arr, roomsRedirect, url,readyCount , usableCount, 
                             <button type="button" class="btn btn-success mr-3 mb-2">
                                 Usable <button class="btn btn-light roomBadge">{usableCount(u.rooms)}</button>
                             </button>   
-                            <div>
                                 {removeInstitutionDecider(u._id)}
-                                <a href='#'/*{'/admin/' + u._id + '/edit/'}*/><button className="btn btn-primary  mt-2 ml-2 float-right editbtn">Edit</button></a>
-                            </div>
-                        </div>  
-                    </div>
+                                <a href={'/admin/' + u._id + '/edit/'} className="btn btn-primary  mt-2 ml-2 float-right editbtn">Edit</a>
+                                
+                        </div>
+
+                    </div>  
                 </div>
-            </div>
+                </div>
         );
     }
     else
@@ -56,7 +59,10 @@ function InstitutionsGenerate(arr, roomsRedirect, url,readyCount , usableCount, 
                     <div id={"collapseOne"+reqIndex} class="collapse" aria-labelledby={"headingOne"+reqIndex} data-parent={"#accordionExample"+reqIndex}>
                         <div class="card-body">
                             <h5 className="card-title">{u.name}</h5>
-                            <h6 className="card-title">{u.type}</h6>
+                            <h6 className="card-title">Phone : {u.phone}</h6>
+                            <h6>Type : {u.type}</h6>
+                            <h6>Paid Room : {u.payment}</h6>
+                            <h6>Details : {u.paymentDetails}</h6>
                             <h6 className="card-title">Structurally Fit : {u.fit}</h6>
                             <h6 className="card-subtitle mb-2 text-muted">{u.district}</h6>
                             <button type="button" class="btn btn-secondary mr-3 mb-2">
@@ -69,7 +75,7 @@ function InstitutionsGenerate(arr, roomsRedirect, url,readyCount , usableCount, 
                                     Usable <button class="btn btn-light roomBadge">{usableCount(u.rooms)}</button>
                             </button>
                             <div>
-                                <a className='editbtn' href = '#'/*{'/admin/'+u._id+'/edit/'}*/><button className="btn btn-primary  mt-2 ml-2 float-right ">Edit</button></a>
+                                <a className='editbtn' href = {'/admin/'+u._id+'/edit/'}><button className="btn btn-primary  mt-2 ml-2 float-right ">Edit</button></a>
                                 {removeInstitutionDecider(u._id)}
                             </div>    
                         </div>  
