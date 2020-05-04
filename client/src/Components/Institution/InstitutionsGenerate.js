@@ -34,7 +34,8 @@ function InstitutionsGenerate(arr, roomsRedirect, url,readyCount , usableCount, 
                                 Usable <button class="btn btn-light roomBadge">{usableCount(u.rooms)}</button>
                             </button>   
                                 {removeInstitutionDecider(u._id)}
-                                <a href={'/admin/' + u._id + '/edit/'} className="btn btn-primary  mt-2 ml-2 float-right editbtn"><button>Edit</button></a>
+                                <a href={'/admin/' + u._id + '/edit/'} className="btn btn-primary  mt-2 ml-2 float-right editbtn">Edit</a>
+                                
                         </div>
 
                     </div>  

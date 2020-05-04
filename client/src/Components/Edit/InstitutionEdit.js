@@ -62,9 +62,9 @@ function InstitutionEdit(props) {
 
 
     return (
-        <div className="inst-only">
-            <a href='/admin'><button className="btn btn-primary">Back</button></a>
-            <div>
+        <div className="inst-only container">
+            <a href='/admin'><button className="btn btn-primary btn-block mt-3 mb-4">Back</button></a>
+            <div className="col-lg-8 col-md-8 container">
                 <div class="form-group col">
                     <label for="instNameEdit">Institution Name</label>
                     <input type="text" name="name" class="form-control" id="instNameEdit" placeholder="Name of institution" onChange={handleChange}/>
@@ -74,35 +74,49 @@ function InstitutionEdit(props) {
                         <label for="instPhoneEdit">Phone</label>
                         <input type="text" name="phone" class="form-control" id="instPhoneEdit" placeholder="Contact no of institution" onChange={handleChange}/>
                     </div>
-                    <h6>Institution Type?</h6>
                     <div className="inst-type mb-2">
-                        <div class="custom-control custom-radio ml-4">
-                            <input type="radio" id="type1Edit" name="type" value="hotel/lodge" onChange={handleChange} class="custom-control-input"/>
-                            <label class="custom-control-label" for="type1Edit">Hotel/Lodge</label>
+                        <h6>Institution Type?</h6>
+                        <div className="row">
+                            <div className="col-lg-3 col-4">
+                                <div className="form-row"> 
+                                    <div class="custom-control custom-radio ml-4">
+                                        <input type="radio" id="type5Edit" name="type" value="resort" onChange={handleChange} class="custom-control-input"/>
+                                        <label class="custom-control-label" for="type5Edit">Resort</label>
+                                    </div>
+                                    <div class="custom-control custom-radio ml-4">
+                                        <input type="radio" id="type2Edit" name="type" value="hostel" onChange={handleChange} class="custom-control-input"/>
+                                        <label class="custom-control-label" for="type2Edit">Hostel</label>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div className="col-lg-4">
+                                <div className="form-row"> 
+                                    <div class="custom-control custom-radio ml-4">
+                                    <input type="radio" id="type1Edit" name="type" value="hotel/lodge" onChange={handleChange} class="custom-control-input"/>
+                                    <label class="custom-control-label" for="type1Edit">Hotel/Lodge</label>
+                                </div>
+                            <div class="custom-control custom-radio ml-4">
+                                <input type="radio" id="type4Edit" name="type" value="hospital building" onChange={handleChange} class="custom-control-input"/>
+                                <label class="custom-control-label" for="type4Edit">Hospital Building</label>
+                            </div>
+                                </div>
+                            </div> 
+                            <div className="col-lg-4">
+                                <div className="form-row"> 
+                                <div class="custom-control custom-radio ml-4">
+                                <input type="radio" id="type3Edit" name="type" value="educational institution" onChange={handleChange} class="custom-control-input"/>
+                                <label class="custom-control-label" for="type3Edit">Educational Institution</label>
+                            </div>
+                            <div class="custom-control custom-radio ml-4">
+                                <input type="radio" id="type6Edit" name="type" value="other" onChange={handleChange} class="custom-control-input"/>
+                                <label class="custom-control-label" for="type6Edit">Other</label>
+                            </div>
                         </div>
-                        <div class="custom-control custom-radio ml-4">
-                            <input type="radio" id="type2Edit" name="type" value="hostel" onChange={handleChange} class="custom-control-input"/>
-                            <label class="custom-control-label" for="type2Edit">Hostel</label>
-                        </div>
-                        <div class="custom-control custom-radio ml-4">
-                            <input type="radio" id="type3Edit" name="type" value="educational institution" onChange={handleChange} class="custom-control-input"/>
-                            <label class="custom-control-label" for="type3Edit">Educational Institution</label>
-                        </div>
-                        <div class="custom-control custom-radio ml-4">
-                            <input type="radio" id="type4Edit" name="type" value="hospital building" onChange={handleChange} class="custom-control-input"/>
-                            <label class="custom-control-label" for="type4Edit">Hospital Building</label>
-                        </div>
-                        <div class="custom-control custom-radio ml-4">
-                            <input type="radio" id="type5Edit" name="type" value="resort" onChange={handleChange} class="custom-control-input"/>
-                            <label class="custom-control-label" for="type5Edit">Resort</label>
-                        </div>
-                        <div class="custom-control custom-radio ml-4">
-                            <input type="radio" id="type6Edit" name="type" value="other" onChange={handleChange} class="custom-control-input"/>
-                            <label class="custom-control-label" for="type6Edit">Other</label>
-                        </div>
-                    </div>
+                    </div>       
+                </div>                        
                 </div>
-                <div className="fitness ml-3 mt-2">
+            </div><hr/>
+            <div className="fitness ml-3 mt-2">
                     <h6>Structurally Fit?</h6>
                     <div className="inst-sfit form-row">
                         <div class="custom-control custom-radio ml-4">
@@ -114,7 +128,7 @@ function InstitutionEdit(props) {
                             <label class="custom-control-label" for="sfit2Edit">No</label>
                         </div>
                     </div>   
-                </div> 
+                </div> <hr/>
                 <div className="fitness ml-3 mt-2">
                     <h6>Payment</h6>
                     <div className="inst-sfit form-row">
@@ -134,7 +148,9 @@ function InstitutionEdit(props) {
                     </div>
                 </div>     
             </div> 
-            <button className = 'btn btn-primary'>Edit</button>                
+            <div className="float-right mr-4 mt-3 mb-4"> 
+            <button className = 'btn btn-primary btn-lg sm-btn-block'>Edit</button>                
+            </div>
         </div>
     );
 }
