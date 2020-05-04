@@ -21,6 +21,7 @@ MongoPool.getInstance(function (db){
                 "Name": inst.name,
                 "No of Rooms": inst.rooms.length,
                 "No of Beds": getTotalBeds(inst.rooms, 0),
+                "Type": inst.type,
                 "Panchayath": inst.panchayat,
                 "Village": inst.village,
                 "Taluk": inst.taluk,
