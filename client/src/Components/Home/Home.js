@@ -12,7 +12,7 @@ function Home(props) {
 
 
     useEffect(()=>{
-        axios.get('https://ccctsr.in/api/count?id='+ window.localStorage.getItem('session') 
+        axios.get('http://localhost:9000/api/count?id='+ window.localStorage.getItem('session') 
                 + '&choice='+choice)
         .then(res => {
             const keys = Object.keys(res.data);

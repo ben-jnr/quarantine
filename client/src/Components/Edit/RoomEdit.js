@@ -25,7 +25,7 @@ function RoomEdit(props) {
             {
                 var config = {  headers: {'Access-Control-Allow-Origin': '*',
                             'Access-Control-Allow-Credentials': true}};
-                var url = 'https://ccctsr.in/api/rooms/'+roomNo+'/edit'
+                var url = 'http://localhost:9000/api/rooms/'+roomNo+'/edit'
                         +'?institutionId=' + institutionId +'&id='+window.localStorage.getItem('session');
                 axios.post(url, roomInfo ,config)
                 .then(res => {
@@ -57,7 +57,7 @@ function RoomEdit(props) {
 
 
     useEffect(()=>{
-        const url = 'https://ccctsr.in/api/rooms/'+roomNo+'?institutionId=' + institutionId +'&id='+window.localStorage.getItem('session');
+        const url = 'http://localhost:9000/api/rooms/'+roomNo+'?institutionId=' + institutionId +'&id='+window.localStorage.getItem('session');
         axios.get(url)
         .then(res =>{
             if(typeof(res.data) === 'string')
@@ -68,10 +68,13 @@ function RoomEdit(props) {
                     window.location.replace('/');
                 }
                 else
-                {console.log(res.data)}
+                {
+                    console.log(res.data)
+                }
             }  
             else
             {
+                document.getElementById('roomEditHeading').innerHTML = 'Room : '+res.data.no;
                 document.getElementById('roomBedsEdit').value=res.data.beds;
                 document.getElementById('roomsRemarkEdit').value=res.data.remark;
                 if(res.data.bathroom === 'yes')
