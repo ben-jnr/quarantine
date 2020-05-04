@@ -13,7 +13,10 @@ import InstitutionsGenerate from './InstitutionsGenerate';
 function Institution(props)
 {
     if(props.type === 'taluk')
+    {
         var temp = props.taluk;
+        window.localStorage.setItem('taluk','props.taluk');
+    }
     else
         var temp = 'Chavakkad';       
     const defaultInstitution = {type:"" , taluk:"", village:"", constituency:"", panchayat:"", 
