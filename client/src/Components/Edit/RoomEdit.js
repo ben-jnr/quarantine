@@ -68,10 +68,13 @@ function RoomEdit(props) {
                     window.location.replace('/');
                 }
                 else
-                {console.log(res.data)}
+                {
+                    console.log(res.data)
+                }
             }  
             else
             {
+                document.getElementById('roomEditHeading').innerHTML = 'Room : '+res.data.no;
                 document.getElementById('roomBedsEdit').value=res.data.beds;
                 document.getElementById('roomsRemarkEdit').value=res.data.remark;
                 if(res.data.bathroom === 'yes')

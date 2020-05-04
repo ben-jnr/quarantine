@@ -79,7 +79,7 @@ function Room(props){
                                     <button class="btn btn-link col" type="button" data-toggle="collapse" data-target={"#collapse"+reqIndex} aria-expanded="true" aria-controls="collapseOne1">
                                         Room No :{u.no}
                                     </button>
-                                    <button className="btn btn-success col-3">Ready</button>
+                                    {usableOrNot(u.ready, u.status)}
                                 </div>
 
                                 <div id={"collapse"+reqIndex} class="collapse" aria-labelledby={"heading"+reqIndex} data-parent={"#accordion"+reqIndex}>

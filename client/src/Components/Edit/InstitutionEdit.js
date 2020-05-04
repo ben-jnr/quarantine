@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 
 function InstitutionEdit(props) {
         
@@ -15,8 +16,49 @@ function InstitutionEdit(props) {
 
 
     useEffect(()=>{
-        
-    })
+        var url = 'http://localhost:9000/api/institution/view?id='+window.localStorage.getItem('session')+
+                '&institutionId='+institutionId;
+        axios.get(url)
+        .then(res=>{
+            if(typeof(res.data) === 'string')
+            {
+                if(res.data === 'connection closed')
+                {
+                    alert("connection closed");
+                    window.location.replace('/');
+                }
+                else
+                {
+                    console.log(res.data)
+                }
+            }
+            console.log(res.data);
+            document.getElementById('instNameEdit').value = res.data.name;
+            document.getElementById('instPhoneEdit').value = res.data.phone;
+            document.getElementById('paymentDetailsEdit').value = res.data.paymentDetails;
+            if(res.data.type === 'hotel/lodge')
+                document.getElementById('type1Edit').checked = true;
+            else if(res.data.type === 'hostel')
+                document.getElementById('type2Edit').checked = true;
+            else if(res.data.type === 'educational institution')
+                document.getElementById('type3Edit').checked = true;
+            else if(res.data.type === 'hospital building')
+                document.getElementById('type4Edit').checked = true;
+            else if(res.data.type === 'resort')
+                document.getElementById('type5Edit').checked = true;
+            else if(res.data.type === 'other')
+                document.getElementById('type6Edit').checked = true;
+            if(res.data.fit === 'yes')
+                document.getElementById('sfit1Edit').checked = true;
+            else if(res.data.fit === 'no')
+                document.getElementById('sfit2Edit').checked = true;
+            if(res.data.payment === 'yes')
+                document.getElementById('payment1Edit').checked = true;
+            else if(res.data.payment === 'no')
+                document.getElementById('payment2Edit').checked = true;                 
+        })
+        .catch(err=>console.log(err));        
+    },[]);
 
 
     return (
@@ -29,8 +71,8 @@ function InstitutionEdit(props) {
                 </div>
                 <div className="instType ml-3 mb-2">
                     <div class="form-group col">
-                        <label for="phoneEdit">Phone</label>
-                        <input type="text" name="phone" class="form-control" id="phoneEdit" placeholder="Contact no of institution" onChange={handleChange}/>
+                        <label for="instPhoneEdit">Phone</label>
+                        <input type="text" name="phone" class="form-control" id="instPhoneEdit" placeholder="Contact no of institution" onChange={handleChange}/>
                     </div>
                     <h6>Institution Type?</h6>
                     <div className="inst-type mb-2">
@@ -88,10 +130,11 @@ function InstitutionEdit(props) {
                 </div>
                 <div className="fitness ml-3 mt-2">
                     <div id='paymentDetailsForm'>
-                        <textarea id='paymentDetails' name='paymentDetails' style={{borderRadius:'5px'}} placeholder= 'Enter Payment details (if any)' class="form-control" onChange={handleChange}></textarea>
+                        <textarea id='paymentDetailsEdit' name='paymentDetails' style={{borderRadius:'5px'}} placeholder= 'Enter Payment details (if any)' class="form-control" onChange={handleChange}></textarea>
                     </div>
                 </div>     
-            </div>                 
+            </div> 
+            <button className = 'btn btn-primary'>Edit</button>                
         </div>
     );
 }

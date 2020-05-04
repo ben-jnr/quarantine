@@ -161,12 +161,18 @@ function Institution(props)
         else
             setNewInstitution(defaultInstitution);    
         document.getElementById('instName').value ="";
+        document.getElementById('instPhone').value ="";
+        document.getElementById('paymentDetails').value ="";
         var radio = document.getElementsByName("type");
         for(var i=0;i<radio.length;i++)
             radio[i].checked = false;
         radio = document.getElementsByName("fit");
             for(var i=0;i<radio.length;i++)
                 radio[i].checked = false;    
+        radio = document.getElementsByName("payment");
+            for(var i=0;i<radio.length;i++)
+                radio[i].checked = false;  
+
         if(document.getElementById('talukAdd')!== null)
             document.getElementById('talukAdd').options.selectedIndex = 0;
         document.getElementById('villageAdd').options.selectedIndex = 0;
@@ -265,7 +271,7 @@ function Institution(props)
                                             <div className="lsgd">
                                                 <div class="form-group col">
                                                     <label for="phone">Phone</label>
-                                                    <input type="text" name="phone" class="form-control" id="phone" placeholder="Contact no of institution" onChange={handleChange}/>
+                                                    <input type="text" name="phone" class="form-control" id="instPhone" placeholder="Contact no of institution" onChange={handleChange}/>
                                                 </div>
                                                 {talukDecider()}
                                                 {villageFormsDecider()}
