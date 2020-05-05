@@ -73,17 +73,17 @@ function Room(props){
                     document.getElementById("RoomAddMssg").innerHTML =res.data.mssg;
                     const reqIndex = document.querySelectorAll('.RoomsContainer').length;
                     const Room = res.data.room.map( (u,index) => 
-                        <div class="accordion RoomsContainer" id={"accordion"+reqIndex}>
-                            <div class="card">
-                                <div class="card-header row" id={"heading"+reqIndex}>
-                                    <button class="btn btn-link col" type="button" data-toggle="collapse" data-target={"#collapse"+reqIndex} aria-expanded="true" aria-controls="collapseOne1">
+                        <div className="accordion RoomsContainer container" id={"accordion"+reqIndex}>
+                            <div className="card">
+                                <div className="card-header row" id={"heading"+reqIndex}>
+                                    <button className="btn btn-link col" type="button" data-toggle="collapse" data-target={"#collapse"+reqIndex} aria-expanded="true" aria-controls="collapseOne1">
                                         Room No :{u.no}
                                     </button>
                                     {usableOrNot(u.ready, u.status)}
                                 </div>
 
-                                <div id={"collapse"+reqIndex} class="collapse" aria-labelledby={"heading"+reqIndex} data-parent={"#accordion"+reqIndex}>
-                                    <div class="card-body">
+                                <div id={"collapse"+reqIndex} className="collapse" aria-labelledby={"heading"+reqIndex} data-parent={"#accordion"+reqIndex}>
+                                    <div className="card-body">
                                         <h6 className="card-subtitle mb-2 text-muted">No of Beds: {u.beds}</h6>
                                         <h6 className="card-subtitle mb-2 text-muted">Attached Bathroom: {u.bathroom}</h6>
                                         <h6 className="card-subtitle mb-2 text-muted">Disable Friendly: {u.disable}</h6>
@@ -132,9 +132,9 @@ function Room(props){
 
    const usableOrNot= (ready, status) =>{
     if(ready === 'yes' && status === 'no')
-        return(<button className="btn btn-success col-3">Usable</button>)
+        return(<button className="btn btn-success col-lg-3 col-sm-5">Usable</button>)
     else
-        return(<button className="btn btn-danger col-3">Not-Usable</button>)
+        return(<button className="btn btn-danger col-lg-3 col-sm-5 ">Not-Usable</button>)
    }
 
    const RoomsListGenerator=()=>
@@ -150,17 +150,19 @@ function Room(props){
             }
             document.getElementById('roomHeading').innerHTML = res.data.name;
             const Rooms = res.data.rooms.map( (u,index) => 
-            <div class="accordion RoomsContainer" id={"accordion"+index}>
-                <div class="card">
-                    <div class="card-header row" id={"heading"+index}>
-                        <button class="btn btn-link col" type="button" data-toggle="collapse" data-target={"#collapse"+index} aria-expanded="true" aria-controls="collapseOne1">
+            <div className="accordion RoomsContainer mt-1" id={"accordion"+index}>
+                <div className="card">
+                    <div className="card-header row-6" id={"heading"+index}>
+                        <div className="row"> 
+                        <button className="btn btn-link col" type="button" data-toggle="collapse" data-target={"#collapse"+index} aria-expanded="true" aria-controls="collapseOne1">
                             Room No :{u.no}
                         </button>
-                        {usableOrNot(u.ready, u.status)}
+                        {usableOrNot(u.ready, u.status)} 
+                        </div>
                     </div>
 
-                    <div id={"collapse"+index} class="collapse" aria-labelledby={"heading"+index} data-parent={"#accordion"+index}>
-                        <div class="card-body">
+                    <div id={"collapse"+index} className="collapse p-2" aria-labelledby={"heading"+index} data-parent={"#accordion"+index}>
+                        <div className="card-body">
                             <h6 className="card-subtitle mb-2 text-muted">No of Beds: {u.beds}</h6>
                             <h6 className="card-subtitle mb-2 text-muted">Attached Bathroom: {u.bathroom}</h6>
                             <h6 className="card-subtitle mb-2 text-muted">Disable Friendly: {u.disable}</h6>
@@ -188,17 +190,23 @@ function Room(props){
     
 
     return(
-        <div>
+        <div className="mr-3">
             <div className="text-center">
                 <h3 id="roomHeading"></h3>
             </div>
         <div className="row mt-4">
             <div className="col-lg-6">
+            <div className="text-center">
+                    <h4>Add new rooms :</h4>
+                </div>
                 <RoomsAddForm institutionsRedirectParent={institutionsRedirect} handleChangeParent={handleChange}
                             handleDropdownParent = {handleDropdown} handleSubmitParent={handleSubmit}/>
                 <div id="RoomAddMssg"></div>
             </div>
             <div className="col-lg-6">
+                <div className="text-center">
+                    <h4>Added Rooms :</h4>
+                </div>
                 {rooms}
             </div>
         </div>

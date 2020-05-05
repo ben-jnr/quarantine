@@ -20,17 +20,17 @@ function RoomsAddForm(props) {
       <div class="card-body">
             <form className="p-2 col">
                 <div className="form-row">
-                    <div className="form-group col">
+                    <div className="form-group col-lg-6">
                         <label>Room No/Name</label>
                         <input type="text" id="roomNo" name="no" className="form-control" placeholder="Room No" onChange={props.handleChangeParent}/>
                     </div>
-                    <div className="form-group col">
+                    <div className="form-group col-lg-6">
                         <label>No of beds</label>
                        <input type="number" id="roomBeds" name="beds" className="form-control" placeholder="No of beds" onChange={props.handleChangeParent}/>
                     </div>
                 </div>
                 <div className="form-row">
-                    <div className="form-group col">
+                    <div className="form-group col-lg-6">
                         <label>Attached Bathroom ?</label>
                         <div className="row mb-3 ml-2">
                             <div class="custom-control custom-radio">
@@ -43,7 +43,7 @@ function RoomsAddForm(props) {
                             </div>
                         </div>
                 </div>
-                <div className="form-group col">
+                <div className="form-group col-lg-6">
                     <label>Disable Friendly?</label>
                     <div className="row mb-3 ml-3">
                         <div class="custom-control custom-radio">
