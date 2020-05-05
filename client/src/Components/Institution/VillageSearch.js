@@ -6,8 +6,13 @@ function VillageSearch(props)
     useEffect(()=>{
         const villageSearch = document.getElementById('villageSearch');
         villageSearch.options.length =0;
+        document.getElementById('villageSearch').options.selectedIndex = -1;    
         for(var i=0;i<VillageList[props.taluk].length; i++)
-            villageSearch.options[i] = new Option(VillageList[(props.taluk)][i],VillageList[props.taluk][i] );
+        {
+            villageSearch.options[i] = new Option(VillageList[props.taluk][i]);
+            if(VillageList[props.taluk][i] === window.localStorage.getItem('village'))
+                document.getElementById('villageSearch').options.selectedIndex = i;    
+        }       
     },[props.taluk])
     
     

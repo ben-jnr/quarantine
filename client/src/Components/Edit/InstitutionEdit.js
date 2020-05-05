@@ -42,8 +42,14 @@ function InstitutionEdit(props) {
             }
             setNewInstitution(res.data);
             document.getElementById('instNameEdit').value = res.data.name;
-            document.getElementById('instPhoneEdit').value = res.data.phone;
-            document.getElementById('paymentDetailsEdit').value = res.data.paymentDetails;
+            if(res.data.phone === undefined)
+                document.getElementById('instPhoneEdit').value = "";
+            else
+                document.getElementById('instPhoneEdit').value = res.data.phone; 
+            if(res.data.paymentDetails ===undefined)
+                document.getElementById('paymentDetailsEdit').value = "";
+            else
+                document.getElementById('paymentDetailsEdit').value = res.data.paymentDetails;    
             document.getElementById('priorityEdit').value = res.data.priority;
             if(res.data.type === 'hotel/lodge')
                 document.getElementById('type1Edit').checked = true;
@@ -76,8 +82,7 @@ function InstitutionEdit(props) {
         document.getElementById('instEditMssg').innerHTML = '';
         if(window.confirm("Are you sure?"))
         {
-            if(newInstitution.name !== "" && newInstitution.phone!='' 
-                && newInstitution.type !="" && newInstitution.taluk !== "" 
+            if(newInstitution.name !== "" && newInstitution.type !="" && newInstitution.taluk !== "" 
                 && newInstitution.village !=="" && newInstitution.constituency !="" 
                 && newInstitution.panchayat != "" && newInstitution.fit!=='')
             {

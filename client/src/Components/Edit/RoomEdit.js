@@ -75,7 +75,10 @@ function RoomEdit(props) {
             {
                 document.getElementById('roomEditHeading').innerHTML = 'Room : '+res.data.no;
                 document.getElementById('roomBedsEdit').value=res.data.beds;
-                document.getElementById('roomsRemarkEdit').value=res.data.remark;
+                if(res.data.remark === undefined)
+                    document.getElementById('roomsRemarkEdit').value="";
+                else
+                    document.getElementById('roomsRemarkEdit').value=res.data.remark;
                 if(res.data.bathroom === 'yes')
                     document.getElementById('attchBath1Edit').checked=true;
                 else 

@@ -12,18 +12,30 @@ import InstitutionsGenerate from './InstitutionsGenerate';
 
 function Institution(props)
 {
-    if(props.type === 'taluk')
+    if(window.localStorage.getItem('taluk') === null)
     {
-        var temp = props.taluk;
-        window.localStorage.setItem('taluk','props.taluk');
+        if(props.type === 'taluk')
+        {
+            window.localStorage.setItem('taluk',props.taluk);
+            window.localStorage.setItem('village',VillageList[props.taluk][0]);
+        }
+        else
+        {
+        window.localStorage.setItem('taluk','Chavakkad');
+        window.localStorage.setItem('village', VillageList['Chavakkad'][0] );
+        }
     }
-    else
-        var temp = 'Chavakkad';       
+    else if(window.localStorage.getItem('village')===null)
+    { 
+     console.log(1);
+        window.localStorage.setItem('village',VillageList[window.localStorage.getItem('taluk')][0]); 
+    }
+
     const defaultInstitution = {type:"" , taluk:"", village:"", constituency:"", panchayat:"", 
         priority:0, fit:"",payment:"", paymentDetails:"", phone:""} 
     const [institutions , setInstitutions] = useState("");
-    const [taluk , setTaluk] = useState(temp);
-    const [village, setVillage] = useState(VillageList[props.taluk][0]);
+    const [taluk , setTaluk] = useState(window.localStorage.getItem('taluk'));
+    const [village, setVillage] = useState(VillageList[window.localStorage.getItem('taluk')][0]);
     const [newInstitution , setNewInstitution] = useState(defaultInstitution);
 
 
@@ -57,12 +69,15 @@ function Institution(props)
     }
 
     const handleTaluk = e =>{
-        setTaluk(e.target.options[e.target.options.selectedIndex].value)
+        setTaluk(e.target.options[e.target.options.selectedIndex].value);
         setVillage(VillageList[e.target.options[e.target.options.selectedIndex].value][0]);
+        window.localStorage.setItem('taluk',e.target.options[e.target.options.selectedIndex].value);
+        window.localStorage.setItem('village',VillageList[e.target.options[e.target.options.selectedIndex].value][0]);
     }
     
     const handleVillage = e =>{
-        setVillage(e.target.options[e.target.options.selectedIndex].value)
+        setVillage(e.target.options[e.target.options.selectedIndex].value);
+        window.localStorage.setItem('village',e.target.options[e.target.options.selectedIndex].value);
     }
     
 
@@ -83,6 +98,7 @@ function Institution(props)
     const InstitutionsListGenerate = () => {
         var url = "http://localhost:9000/api/institution?taluk="+taluk+ "&village="+village + 
         "&id=" +window.localStorage.getItem('session') +"&institutionId=" + props.institutionId;
+        document.getElementById('loaderInstitutionsSearch').style.display = 'block';
         axios.get(url)
         .then(res => {
             if(res.data === "connection closed")
@@ -90,6 +106,7 @@ function Institution(props)
                 alert(res.data);
                 window.location.replace('/');
             }    
+            document.getElementById('loaderInstitutionsSearch').style.display = 'none';
             const institutions = InstitutionsGenerate(res.data, roomsRedirect, url,
                     readyCount , usableCount, removeInstitutionDecider,-1);
             setInstitutions(institutions);
@@ -115,6 +132,8 @@ function Institution(props)
     const handleSubmit = (e) =>{
         e.preventDefault();
         document.getElementById('institutionAddMssg').innerHTML = "";
+        if(newInstitution.taluk === taluk && newInstitution.village === village)
+            document.getElementById('loaderInstitutionsSearch').style.display = 'block';
         if(newInstitution.name !== "" && newInstitution.type !== "" && newInstitution.taluk !== "" &&
             newInstitution.village!=="" && newInstitution.constituency!=="" && newInstitution.panchayat!=="" &&
             newInstitution.fit !=="")
@@ -148,6 +167,7 @@ function Institution(props)
                     if(newInstitution.taluk === taluk && newInstitution.village === village)
                     {
                         const reqIndex = document.querySelectorAll('.InstitutionsContainer').length;
+                        document.getElementById('loaderInstitutionsSearch').style.display = 'none';
                         const tempInstitution = InstitutionsGenerate(res.data.data, roomsRedirect, url,
                             readyCount , usableCount, removeInstitutionDecider, reqIndex)
                         setInstitutions([ tempInstitution, ...institutions]);
@@ -185,8 +205,10 @@ function Institution(props)
 
 
     useEffect(()=>{
-        setTaluk(taluk);
-        setVillage(VillageList[taluk][0]);
+        setInstitutions("");
+        document.getElementById('loaderInstitutionsSearch').style.display = 'none';
+        setVillage(window.localStorage.getItem('village'));     
+        setTaluk(window.localStorage.getItem('taluk'));
         if(props.type === 'taluk')
             setNewInstitution({...newInstitution ,taluk:taluk});
         InstitutionsListGenerate();
@@ -195,6 +217,7 @@ function Institution(props)
     
 
     useEffect(()=>{
+        setInstitutions("");
         InstitutionsListGenerate();  
     },[taluk,village]);
 
@@ -204,7 +227,7 @@ function Institution(props)
         if(props.type === 'taluk')
             return(
                 <div>
-                    <VillageSearch handleVillageParent = {handleVillage} taluk={taluk}/>
+                    <VillageSearch handleVillageParent = {handleVillage} taluk={window.localStorage.getItem('taluk')}/>
                 </div>
             );
         else if(props.type !== 'institution')
@@ -212,7 +235,7 @@ function Institution(props)
             return(
                 <div className="row mt-3 mb-4">
                     <TalukSearch handleTalukParent = {handleTaluk} />
-                    <VillageSearch handleVillageParent = {handleVillage} taluk={taluk}/>
+                    <VillageSearch handleVillageParent = {handleVillage} taluk={window.localStorage.getItem('taluk')}/>
                 </div>
             );
         }    
@@ -312,6 +335,7 @@ function Institution(props)
                 <h4 className="text-center mb-4">Search</h4>
                 {searchDecider()}
                 <hr />
+                <div className="loader" id="loaderInstitutionsSearch" style={{margin:'auto'}}></div>
                 {institutions}                   
         </div>  
     );
