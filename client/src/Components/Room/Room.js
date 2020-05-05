@@ -71,35 +71,35 @@ function Room(props){
                 else{
                     let no;
                     document.getElementById("RoomAddMssg").innerHTML =res.data.mssg;
-                    const reqIndex = document.querySelectorAll('.RoomsContainer').length;
-                    const Room = res.data.room.map( (u,index) => 
-                        <div className="accordion RoomsContainer container" id={"accordion"+reqIndex}>
-                            <div className="card">
-                                <div className="card-header row" id={"heading"+reqIndex}>
-                                    <button className="btn btn-link col" type="button" data-toggle="collapse" data-target={"#collapse"+reqIndex} aria-expanded="true" aria-controls="collapseOne1">
-                                        Room No :{u.no}
-                                    </button>
-                                    {usableOrNot(u.ready, u.status)}
+                    const index = document.querySelectorAll('.RoomsContainer').length;
+                    const Room = res.data.room.map( u => 
+                    <div className="accordion RoomsContainer mt-1" id={"accordion"+index}>
+                        <div className="card">
+                            <div className="card-header row-6" id={"heading"+index}>
+                                <div className="row"> 
+                                <button className="btn btn-link col" type="button" data-toggle="collapse" data-target={"#collapse"+index} aria-expanded="true" aria-controls="collapseOne1">
+                                    Room No :{u.no}
+                                </button>
+                                {usableOrNot(u.ready, u.status)} 
                                 </div>
+                            </div>
 
-                                <div id={"collapse"+reqIndex} className="collapse" aria-labelledby={"heading"+reqIndex} data-parent={"#accordion"+reqIndex}>
-                                    <div className="card-body">
-                                        <h6 className="card-subtitle mb-2 text-muted">No of Beds: {u.beds}</h6>
-                                        <h6 className="card-subtitle mb-2 text-muted">Attached Bathroom: {u.bathroom}</h6>
-                                        <h6 className="card-subtitle mb-2 text-muted">Disable Friendly: {u.disable}</h6>
-                                        <h6 className="card-subtitle mb-2 text-muted">Contaminated: {u.status}</h6>
-                                        <h6 className="card-subtitle mb-2 text-muted">Ready: {u.ready}</h6>
-                                        <h6 className="card-subtitle mb-2 text-muted">Remark: {u.remark}</h6>                        
-                                        <button className="btn btn-primary  mt-2 ml-2 float-left" /*onClick={inmateRedirect.bind(url,"/admin/"+institutionId+"/"+u.no)}*/>Info</button>
-                                        <button className="btn btn-danger DeleteInstitution mt-2 float-right" onClick={removeRoom.bind(no,u.no)}>Delete</button>
-                                        <a href = {window.location.pathname+'/' +u.no+'/edit/'} ><button className="btn btn-primary mt-2 float-right editbtn">Edit</button></a>
-                                    </div>
+                            <div id={"collapse"+index} className="collapse p-2" aria-labelledby={"heading"+index} data-parent={"#accordion"+index}>
+                                <div className="card-body">
+                                    <h6 className="card-subtitle mb-2 text-muted">No of Beds: {u.beds}</h6>
+                                    <h6 className="card-subtitle mb-2 text-muted">Attached Bathroom: {u.bathroom}</h6>
+                                    <h6 className="card-subtitle mb-2 text-muted">Disable Friendly: {u.disable}</h6>
+                                    <h6 className="card-subtitle mb-2 text-muted">Contaminated: {u.status}</h6>
+                                    <h6 className="card-subtitle mb-2 text-muted">Ready: {u.ready}</h6>
+                                    <h6 className="card-subtitle mb-2 text-muted">Remark: {u.remark}</h6>
+                                    <button className="btn btn-primary  mt-2 float-left" /*onClick={inmateRedirect.bind(url,"/admin/"+institutionId+"/"+u.no)}*/>Info</button>
+                                    <button className="btn btn-danger DeleteInstitution mt-2 ml-2 float-right" onClick={removeRoom.bind(no,u.no)}>Delete</button>
+                                    <a href = {window.location.pathname+'/' +u.no+'/edit/'} ><button className="btn btn-primary mt-2 float-right edit-btn">Edit</button></a>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     );
-                    console.log(Room);
-                    console.log(rooms);
                     setRooms([Room, ...rooms]);
                 }
             })
