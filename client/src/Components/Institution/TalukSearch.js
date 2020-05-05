@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 function TalukSearch(props) {
     useEffect(()=>{
+        document.getElementById('institutionsList').style.display = 'none';
         if(window.localStorage.getItem('taluk')!== null)
         {
             if(window.localStorage.getItem('taluk')==='Chavakkad')
