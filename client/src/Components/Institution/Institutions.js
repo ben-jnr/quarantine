@@ -336,7 +336,7 @@ function Institution(props)
                 {searchDecider()}
                 <hr />
                 <div className="loader" id="loaderInstitutionsSearch" style={{margin:'auto'}}></div>
-                {institutions}                   
+                <div id="institutionsList">{institutions}</div>                   
         </div>  
     );
        

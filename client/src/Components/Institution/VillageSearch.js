@@ -4,6 +4,7 @@ import VillageList from './VillageList';
 function VillageSearch(props)
 {
     useEffect(()=>{
+        document.getElementById('institutionsList').style.display = 'none';
         const villageSearch = document.getElementById('villageSearch');
         villageSearch.options.length =0;
         document.getElementById('villageSearch').options.selectedIndex = -1;    
@@ -12,7 +13,8 @@ function VillageSearch(props)
             villageSearch.options[i] = new Option(VillageList[props.taluk][i]);
             if(VillageList[props.taluk][i] === window.localStorage.getItem('village'))
                 document.getElementById('villageSearch').options.selectedIndex = i;    
-        }       
+        }
+        document.getElementById('institutionsList').style.display = 'block';
     },[props.taluk])
     
     
